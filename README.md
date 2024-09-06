@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-**EpicPlay** é uma plataforma de e-commerce para a compra e gerenciamento de jogos digitais, desenvolvida como parte do curso de Tecnólogo em Análise de Sistemas do Claretiano Centro Universitário de Rio Claro. O projeto visa criar uma plataforma acessível e intuitiva que oferece uma experiência de compra agradável e eficiente, servindo como uma alternativa à Steam.
+**EpicPlay** é uma plataforma de e-commerce para a compra e gerenciamento de jogos digitais, desenvolvida como parte do curso de Tecnólogo em Análise de Sistemas do Claretiano Centro Universitário de Rio Claro. O projeto visa criar uma plataforma acessível e intuitiva que oferece uma experiência de compra agradável e eficiente.
 
 ### Objetivos do Negócio
 - *Missão:* Oferecer uma plataforma acessível e intuitiva para a compra e gerenciamento de jogos digitais.
@@ -25,41 +25,11 @@ O projeto é dividido em duas partes principais:
 1. *Frontend:* Interface do usuário construída com React.js.
 2. *Backend:* API e lógica de negócios gerenciadas com Node.js e Express, interagindo com um banco de dados MySQL.
 
-### Rotas da API
-
-#### Empresas
-- `GET /empresas` - Listar todas as empresas.
-- `POST /empresas` - Criar uma nova empresa.
-- `PUT /empresas/:id` - Atualizar uma empresa existente.
-- `DELETE /empresas/:id` - Deletar uma empresa.
-
-#### Jogos
-- `GET /jogos` - Listar todos os jogos.
-- `POST /jogos` - Criar um novo jogo.
-- `PUT /jogos/:id` - Atualizar um jogo existente.
-- `DELETE /jogos/:id` - Deletar um jogo.
-
-#### Usuários
-- `GET /usuarios` - Listar todos os usuários.
-- `POST /usuarios` - Criar um novo usuário.
-- `PUT /usuarios/:id` - Atualizar um usuário existente.
-- `DELETE /usuarios/:id` - Deletar um usuário.
-
-#### Compras
-- `GET /compras` - Listar todas as compras.
-- `POST /compras` - Criar uma nova compra.
-- `PUT /compras/:id` - Atualizar uma compra existente.
-- `DELETE /compras/:id` - Deletar uma compra.
-
-### Funcionalidades do Backend
-- **Chave de Ativação:** Gerada automaticamente usando UUID para cada compra.
-- **Data da Compra:** Definida automaticamente como a data atual.
-
 ### Como Executar o Projeto
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/epicplay.git
+   git clone https://github.com/seu-usuario/epicplay1.3.git
    cd epicplay
    ```
 
