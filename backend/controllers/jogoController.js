@@ -1,6 +1,5 @@
 const { Jogo, Empresa } = require('../models');
 
-
 const getAllJogos = async (req, res) => {
   try {
     const jogos = await Jogo.findAll();
