@@ -1,67 +1,40 @@
-const { Jogo, Empresa } = require('../models');
+const jogoService = require('../services/jogoService');
 
 const getAllJogos = async (req, res) => {
   try {
-    const jogos = await Jogo.findAll();
+    const jogos = await jogoService.getAllJogos();
     res.json(jogos);
   } catch (err) {
-    res.status(500).json({ error: 'Erro ao buscar jogos.' });
+    res.status(500).json({ error: err.message });
   }
 };
 
 const createJogo = async (req, res) => {
   try {
-    const { empresa_id } = req.body;
-
-    const empresa = await Empresa.findByPk(empresa_id);
-    if (!empresa) {
-      return res.status(400).json({ error: 'A empresa associada não existe.' });
-    }
-
-    const jogo = await Jogo.create(req.body);
+    const jogo = await jogoService.createJogo(req.body);
     res.status(201).json(jogo);
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao criar jogo.' });
+    res.status(400).json({ error: err.message });
   }
 };
 
 const updateJogo = async (req, res) => {
   try {
     const { id } = req.params;
-    const jogo = await Jogo.findByPk(id);
-
-    if (!jogo) {
-      return res.status(404).json({ error: 'Jogo não encontrado.' });
-    }
-
-    const { empresa_id } = req.body;
-    if (empresa_id) {
-      const empresa = await Empresa.findByPk(empresa_id);
-      if (!empresa) {
-        return res.status(400).json({ error: 'A empresa associada não existe.' });
-      }
-    }
-
-    await jogo.update(req.body);
+    const jogo = await jogoService.updateJogo(id, req.body);
     res.json(jogo);
   } catch (err) {
-    res.status(400).json({ error: 'Erro ao atualizar jogo.' });
+    res.status(400).json({ error: err.message });
   }
 };
 
 const deleteJogo = async (req, res) => {
   try {
     const { id } = req.params;
-    const jogo = await Jogo.findByPk(id);
-
-    if (!jogo) {
-      return res.status(404).json({ error: 'Jogo não encontrado.' });
-    }
-
-    await jogo.destroy();
-    res.json({ message: 'Jogo deletado com sucesso.' });
+    const message = await jogoService.deleteJogo(id);
+    res.json(message);
   } catch (err) {
-    res.status(500).json({ error: 'Erro ao deletar jogo.' });
+    res.status(500).json({ error: err.message });
   }
 };
 

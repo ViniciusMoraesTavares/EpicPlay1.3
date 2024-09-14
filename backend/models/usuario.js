@@ -27,25 +27,11 @@ module.exports = (sequelize) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'user'  
+      defaultValue: 'user'
     }
   }, {
     tableName: 'usuario',
-    timestamps: false,
-    hooks: {
-      beforeCreate: async (usuario) => {
-        if (usuario.senha) {
-          const salt = await bcrypt.genSalt(10);
-          usuario.senha = await bcrypt.hash(usuario.senha, salt);
-        }
-      },
-      beforeUpdate: async (usuario) => {
-        if (usuario.senha) {
-          const salt = await bcrypt.genSalt(10);
-          usuario.senha = await bcrypt.hash(usuario.senha, salt);
-        }
-      }
-    }
+    timestamps: false
   });
   
   return Usuario;

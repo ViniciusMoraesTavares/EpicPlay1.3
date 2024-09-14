@@ -1,197 +1,74 @@
-const { Usuario } = require('../models');
-const { Op } = require('sequelize');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const usuarioService = require('../services/usuarioService');
+const authService = require('../services/authService');
 
+//buscar todos os usuários
 const getAllUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll({
-      attributes: ['id', 'nome', 'email', 'role']
-    });
+    const usuarios = await usuarioService.buscarTodosUsuarios();
     res.json(usuarios);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar usuários.' });
   }
 };
 
+//criar um novo usuário
 const criarUsuario = async (req, res) => {
   try {
     const { nome, email, senha, nickname } = req.body;
 
-    const usuarioExistente = await Usuario.findOne({
-      where: { email }
-    });
-    if (usuarioExistente) {
+    const emailExistente = await usuarioService.verificarEmailExistente(email);
+    if (emailExistente) {
       return res.status(400).json({ error: 'E-mail já em uso.' });
     }
 
-    const nicknameExistente = await Usuario.findOne({
-      where: { nickname }
-    });
+    const nicknameExistente = await usuarioService.verificarNicknameExistente(nickname);
     if (nicknameExistente) {
       return res.status(400).json({ error: 'Nickname já em uso.' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
-
-    const novoUsuario = await Usuario.create({
-      nome,
-      email,
-      senha: senhaHash,
-      nickname
-    });
-
+    const novoUsuario = await usuarioService.criarUsuario({ nome, email, senha, nickname });
     res.status(201).json({ message: 'Usuário criado com sucesso!', usuario: novoUsuario });
   } catch (error) {
     res.status(500).json({ message: 'Erro ao criar o usuário', error: error.message });
   }
 };
 
-const createUsuario = async (req, res) => {
-  try {
-    const { email, nickname, senha } = req.body;
-
-    const usuarioExistente = await Usuario.findOne({
-      where: {
-        [Op.or]: [
-          { email },
-          { nickname }
-        ]
-      }
-    });
-
-    if (usuarioExistente) {
-      if (usuarioExistente.email === email) {
-        return res.status(400).json({ error: 'Já existe um usuário com esse email.' });
-      }
-      if (usuarioExistente.nickname === nickname) {
-        return res.status(400).json({ erro: 'Já existe um usuário com esse nick' });
-      }
-    }
-
-    const hashedPassword = await bcrypt.hash(senha, 10);
-
-    const usuario = await Usuario.create({
-      ...req.body,
-      senha: hashedPassword,
-      role: 'user'
-    });
-
-    res.status(201).json(usuario);
-  } catch (err) {
-    res.status(400).json({ error: 'Erro ao criar usuário.' });
-  }
-};
-
+//criar um novo administrador
 const createAdmin = async (req, res) => {
   try {
     const { nome, email, senha, nickname } = req.body;
 
-    const adminExistente = await Usuario.findOne({
-      where: {
-        [Op.or]: [
-          { email },
-          { nickname }
-        ]
-      }
-    });
+    const emailExistente = await usuarioService.verificarEmailExistente(email);
+    const nicknameExistente = await usuarioService.verificarNicknameExistente(nickname);
 
-    if (adminExistente) {
-      if (adminExistente.email === email) {
-        return res.status(400).json({ error: 'Já existe um administrador com esse email.' });
-      }
-      if (adminExistente.nickname === nickname) {
-        return res.status(400).json({ error: 'Já existe um administrador com esse nick.' });
-      }
+    if (emailExistente || nicknameExistente) {
+      const error = emailExistente ? 'E-mail já em uso.' : 'Nickname já em uso.';
+      return res.status(400).json({ error });
     }
-
-    const hashedPassword = await bcrypt.hash(senha, 10);
-
-    const admin = await Usuario.create({
-      nome,
-      email,
-      senha: hashedPassword,
-      nickname,
-      role: 'admin'
-    });
-
+    
+    const admin = await usuarioService.criarAdmin({ nome, email, senha, nickname });
     res.status(201).json(admin);
-  } catch (err) {
-    res.status(400).json({ erro: 'Erro ao criar administrador' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao criar administrador', error: error.message });
   }
 };
 
-const updateUsuario = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const usuario = await Usuario.findByPk(id);
-
-    if (!usuario) {
-      return res.status(404).json({ error: 'Usuário não encontrado.' });
-    }
-
-    await usuario.update(req.body);
-    res.json(usuario);
-  } catch (err) {
-    res.status(400).json({ error: 'Erro ao atualizar usuário.' });
-  }
-};
-
-const deleteUsuario = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const usuario = await Usuario.findByPk(id);
-
-    if (!usuario) {
-      return res.status(404).json({ error: 'Usuário não encontrado.' });
-    }
-
-    await usuario.destroy();
-    res.json({ message: 'Usuário deletado com sucesso.' });
-  } catch (err) {
-    res.status(500).json({ error: 'Erro ao deletar usuário.' });
-  }
-};
-
-const pesquisarUsuarios = async (req, res) => {
-  try {
-    const { nome, email, nickname } = req.query;
-
-    const whereConditions = {};
-    if (nome) whereConditions.nome = { [Op.iLike]: `%${nome}%` };
-    if (email) whereConditions.email = { [Op.iLike]: `%${email}%` };
-    if (nickname) whereConditions.nickname = { [Op.iLike]: `%${nickname}%` };
-
-    const usuarios = await Usuario.findAll({
-      where: whereConditions,
-      attributes: ['id', 'nome', 'email', 'nickname', 'role']
-    });
-
-    res.json(usuarios);
-  } catch (err) {
-    res.status(500).json({ error: 'Erro ao pesquisar usuários.' });
-  }
-};
-
+//fazer login de um usuário
 const loginUsuario = async (req, res) => {
   try {
     const { email, senha } = req.body;
 
-    const usuario = await Usuario.findOne({ where: { email } });
+    const usuario = await usuarioService.buscarUsuarioPorEmail(email);
     if (!usuario) {
       return res.status(401).json({ error: 'Usuário não encontrado.' });
     }
 
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+    const senhaValida = await usuarioService.verificarSenha(senha, usuario.senha);
     if (!senhaValida) {
       return res.status(401).json({ error: 'Senha inválida.' });
     }
 
-    const token = jwt.sign(
-      { id: usuario.id, role: usuario.role },
-      'seu-segredo-aqui', // Substituir dps
-      { expiresIn: '1h' }
-    );
+    const token = authService.gerarToken(usuario);
 
     res.json({ token });
   } catch (error) {
@@ -199,41 +76,84 @@ const loginUsuario = async (req, res) => {
   }
 };
 
+//atualizar um usuário existente
+const updateUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuarioAtualizado = await usuarioService.atualizarUsuario(id, req.body);
+
+    if (!usuarioAtualizado) {
+      return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    res.json(usuarioAtualizado);
+  } catch (error) {
+    res.status(400).json({ message: 'Erro ao atualizar o usuário', error: error.message });
+  }
+};
+
+//deletar um usuário existente
+const deleteUsuario = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuarioDeletado = await usuarioService.deletarUsuario(id);
+
+    if (!usuarioDeletado) {
+      return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    res.json({ message: 'Usuário deletado com sucesso.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao deletar o usuário', error: error.message });
+  }
+};
+
+//pesquisar usuários com base em critérios
+const pesquisarUsuarios = async (req, res) => {
+  try {
+    const { nome, email, nickname } = req.query;
+
+    const usuarios = await usuarioService.pesquisarUsuarios({ nome, email, nickname });
+    res.json(usuarios);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao pesquisar usuários', error: error.message });
+  }
+};
+
+//atualizar o perfil do usuário logado
 const updateMeuPerfil = async (req, res) => {
   try {
-    const usuario = await Usuario.findByPk(req.user.id);
+    const usuario = await usuarioService.atualizarUsuario(req.user.id, req.body);
     if (!usuario) {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
-    await usuario.update(req.body);
     res.json(usuario);
-  } catch (err) {
-    res.status(400).json({ error: 'Erro ao atualizar perfil.' });
+  } catch (error) {
+    res.status(400).json({ message: 'Erro ao atualizar o perfil', error: error.message });
   }
 };
 
+//obter o perfil do usuário logado
 const getMeuPerfil = async (req, res) => {
   try {
-    const usuario = await Usuario.findByPk(req.user.id);
+    const usuario = await usuarioService.buscarUsuarioPorId(req.user.id);
     if (!usuario) {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
     res.json(usuario);
-  } catch (err) {
-    res.status(500).json({ error: 'Erro ao buscar perfil.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar perfil', error: error.message });
   }
 };
-
 
 module.exports = {
   getAllUsuarios,
   criarUsuario,
-  createUsuario,
-  createAdmin,
   loginUsuario,
+  createAdmin,
   updateUsuario,
-  pesquisarUsuarios,
   deleteUsuario,
   updateMeuPerfil,
   getMeuPerfil,
+  pesquisarUsuarios,
 };
