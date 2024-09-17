@@ -1,10 +1,12 @@
 const { Jogo, Empresa } = require('../models');
+const DatabaseError = require('../errors/DatabaseError');
+const NotFoundError = require('../errors/NotFoundError');
 
 const getAllJogos = async () => {
   try {
     return await Jogo.findAll();
   } catch (err) {
-    throw new Error('Erro ao buscar jogos.');
+    throw new DatabaseError('Erro ao buscar jogos.');
   }
 };
 
@@ -14,12 +16,12 @@ const createJogo = async (jogoData) => {
     const empresa = await Empresa.findByPk(empresa_id);
 
     if (!empresa) {
-      throw new Error('A empresa associada não existe.');
+      throw new NotFoundError('A empresa associada não existe.');
     }
 
     return await Jogo.create(jogoData);
   } catch (err) {
-    throw new Error('Erro ao criar jogo.');
+    throw new DatabaseError('Erro ao criar jogo: ' + err.message);
   }
 };
 
@@ -28,21 +30,21 @@ const updateJogo = async (id, jogoData) => {
     const jogo = await Jogo.findByPk(id);
 
     if (!jogo) {
-      throw new Error('Jogo não encontrado.');
+      throw new NotFoundError('Jogo não encontrado.');
     }
 
     const { empresa_id } = jogoData;
     if (empresa_id) {
       const empresa = await Empresa.findByPk(empresa_id);
       if (!empresa) {
-        throw new Error('A empresa associada não existe.');
+        throw new NotFoundError('A empresa associada não existe.');
       }
     }
 
     await jogo.update(jogoData);
     return jogo;
   } catch (err) {
-    throw new Error('Erro ao atualizar jogo.');
+    throw new DatabaseError('Erro ao atualizar jogo: ' + err.message);
   }
 };
 
@@ -51,13 +53,13 @@ const deleteJogo = async (id) => {
     const jogo = await Jogo.findByPk(id);
 
     if (!jogo) {
-      throw new Error('Jogo não encontrado.');
+      throw new NotFoundError('Jogo não encontrado.');
     }
 
     await jogo.destroy();
     return { message: 'Jogo deletado com sucesso.' };
   } catch (err) {
-    throw new Error('Erro ao deletar jogo.');
+    throw new DatabaseError('Erro ao deletar jogo: ' + err.message);
   }
 };
 
