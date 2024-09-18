@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const Empresa = sequelize.define('Empresa', {
     id: {
       type: DataTypes.INTEGER,
@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'empresa',
     timestamps: false
   });
+
+  Empresa.associate = models => {
+    // Associações com Jogo
+    Empresa.hasMany(models.Jogo, { foreignKey: 'empresa_id' });
+  };
 
   return Empresa;
 };

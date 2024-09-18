@@ -127,24 +127,22 @@ const updateUsuario = async (req, res) => {
 };
 
 // Deletar um usuário existente
-const deleteUsuario = async (req, res) => {
+const deleteUsuario = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const usuarioDeletado = await usuarioService.deletarUsuario(id);
+    const usuarioAutenticado = req.usuario; // Supondo que você tenha o usuário autenticado disponível via middleware
 
-    if (!usuarioDeletado) {
-      throw new NotFoundError('Usuário não encontrado.');
+    if (!id) {
+      throw new ValidationError('ID do usuário é obrigatório.');
     }
 
-    res.json({ message: 'Usuário deletado com sucesso.' });
+    const usuarioRemovido = await usuarioService.deletarUsuario(id, usuarioAutenticado);
+
+    return res.status(200).json({
+      message: `Usuário ${usuarioRemovido.nome} foi deletado com sucesso.`,
+    });
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      res.status(404).json({ error: error.message });
-    } else if (error instanceof DatabaseError) {
-      res.status(500).json({ error: 'Erro ao deletar o usuário no banco de dados.' });
-    } else {
-      res.status(500).json({ error: 'Erro inesperado.' });
-    }
+    next(error);
   }
 };
 
@@ -165,20 +163,26 @@ const deleteMeuPerfil = async (req, res) => {
 };
 
 // Pesquisar usuários com base em critérios
-const pesquisarUsuarios = async (req, res) => {
+const pesquisarUsuarioPorId = async (req, res, next) => {
   try {
-    const { nome, nickname } = req.query;
+    const { id } = req.params;
 
-    const usuarios = await usuarioService.pesquisarUsuarios({ nome, nickname });
-    res.json(usuarios);
-  } catch (error) {
-    if (error instanceof DatabaseError) {
-      res.status(500).json({ error: 'Erro ao pesquisar usuários no banco de dados.' });
-    } else {
-      res.status(500).json({ error: 'Erro inesperado.' });
+    if (!id) {
+      throw new ValidationError('ID do usuário é obrigatório.');
     }
+
+    const usuario = await usuarioService.pesquisarUsuarioPorId(id);
+
+    if (!usuario) {
+      throw new NotFoundError('Usuário não encontrado.');
+    }
+
+    return res.status(200).json(usuario);
+  } catch (error) {
+    next(error);
   }
 };
+
 
 // Atualizar o perfil do usuário logado
 const updateMeuPerfil = async (req, res) => {
@@ -249,7 +253,7 @@ module.exports = {
   updateUsuario,
   deleteUsuario,
   deleteMeuPerfil,
-  pesquisarUsuarios,
+  pesquisarUsuarioPorId,
   updateMeuPerfil,
   getMeuPerfil,
   promoverUsuario,

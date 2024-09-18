@@ -44,5 +44,15 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  Jogo.associate = models => {
+    // Associações com Empresa
+    Jogo.belongsTo(models.Empresa, { foreignKey: 'empresa_id' });
+    models.Empresa.hasMany(Jogo, { foreignKey: 'empresa_id' });
+
+    // Associações com Compra
+    Jogo.belongsToMany(models.Usuario, { through: models.Compra, as: 'usuarios', foreignKey: 'jogo_id' });
+    models.Usuario.belongsToMany(Jogo, { through: models.Compra, as: 'jogos', foreignKey: 'usuario_id' });
+  };
+
   return Jogo;
 };

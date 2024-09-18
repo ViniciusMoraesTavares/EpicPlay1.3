@@ -1,4 +1,4 @@
-const { Usuario, Compra, Jogo} = require('../models');const bcrypt = require('bcryptjs');
+const { Usuario, Compra, Jogo, Amizade} = require('../models');const bcrypt = require('bcryptjs');
 const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
@@ -96,6 +96,16 @@ const deletarUsuario = async (id, usuarioAutenticado) => {
       throw new AuthorizationError('Não é permitido excluir outro administrador.');
     }
 
+    // Excluir as amizades associadas ao usuário
+    await Amizade.destroy({
+      where: {
+        [Op.or]: [
+          { usuario_id_1: id },
+          { usuario_id_2: id }
+        ]
+      }
+    });
+
     await Compra.destroy({ where: { usuario_id: id } });
     await usuarioAlvo.destroy();
     return usuarioAlvo;
@@ -147,18 +157,59 @@ const buscarUsuarioPorId = async (id) => {
   }
 };
 
-const pesquisarUsuarios = async() => {
+const pesquisarUsuarioPorId = async (id) => {
   try {
-    const usuarios = await Usuario.findAll({
-      attributes: ['nome', 'nickname']
+    const usuario = await Usuario.findByPk(id, {
+      attributes: ['nome', 'nickname'],
+      include: [
+        {
+          model: Compra,
+          attributes: ['jogo_id', 'data_compra'],
+          include: [
+            {
+              model: Jogo, // Não é necessário um alias aqui, a menos que você tenha definido um
+              attributes: ['nome']
+            }
+          ],
+          order: [['data_compra', 'DESC']],
+          limit: 1 // Para pegar apenas o último jogo comprado
+        },
+        {
+          model: Usuario, // Associação com amigos
+          as: 'amigos',
+          through: {
+            model: Amizade,
+            as: 'amizade',
+            attributes: [] // Esconde os dados da tabela intermediária
+          },
+          attributes: ['nome', 'nickname']
+        }
+      ]
     });
 
-    return usuarios;
+    if (!usuario) {
+      throw new NotFoundError('Usuário não encontrado.');
+    }
+
+    // Adiciona um campo para o último jogo comprado, se existir
+    const ultimoJogo = usuario.Compras.length > 0 ? usuario.Compras[0].Jogo : null;
+
+    // Remove o campo `Compras` do resultado final
+    const resultado = {
+      nome: usuario.nome,
+      nickname: usuario.nickname,
+      jogos: usuario.Compras.map(compra => compra.Jogo.nome), // Lista de nomes dos jogos
+      ultimoJogo: ultimoJogo ? ultimoJogo.nome : null, // Nome do último jogo
+      amigos: usuario.amigos // Lista de amigos
+    };
+
+    return resultado;
 
   } catch (error) {
-    throw new Error('Erro ao buscar usuários.');
+    throw new DatabaseError('Erro ao buscar o usuário por ID: ' + error.message);
   }
-}
+};
+
 
 
 
@@ -174,5 +225,5 @@ module.exports = {
   promoverUsuario,
   buscarTodosUsuarios,
   buscarUsuarioPorId,
-  pesquisarUsuarios,
+  pesquisarUsuarioPorId,
 };

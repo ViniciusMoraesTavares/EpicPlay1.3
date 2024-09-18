@@ -13,7 +13,7 @@ router.put('/promover/:id', authenticate, isAdmin, usuarioController.promoverUsu
 router.delete('/:id', authenticate, isAdmin, usuarioController.deleteUsuario); // Deletar um usuário específico
 
 //Rotas Protegidas (User)
-router.get('/pesquisar', authenticate, usuarioController.pesquisarUsuarios); // Pesquisar por usuários
+router.get('/pesquisar/:id', authenticate, usuarioController.pesquisarUsuarioPorId); // Pesquisar por usuários
 router.get('/me', authenticate, usuarioController.getMeuPerfil); // Acessar o proprio perfil
 router.put('/me', authenticate, usuarioController.updateMeuPerfil); // Atualizar o proprio perfil 
 router.delete('/me', authenticate, usuarioController.deleteMeuPerfil); // Deletar o proprio perfil

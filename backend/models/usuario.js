@@ -22,17 +22,21 @@ module.exports = (sequelize) => {
     },
     nickname: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: true
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'user'
+    },
+    foto: {
+      type: DataTypes.STRING, 
+      allowNull: true
     }
   }, {
     tableName: 'usuario',
     timestamps: false
   });
-  
+
   return Usuario;
 };
