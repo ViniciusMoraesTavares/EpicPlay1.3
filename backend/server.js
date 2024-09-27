@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const session = require('express-session'); 
+const passport = require('passport');
+require('./config/passportConfig'); 
 const { sequelize } = require('./models');
 const AuthenticationError = require('./errors/AuthenticationError');
 const AuthorizationError = require('./errors/AuthorizationError');
@@ -17,12 +20,23 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(session({
+  secret: process.env.SESSION_SECRET, 
+  resave: false, 
+  saveUninitialized: true
+}));
+
+// Inicializar o Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Chamando as Rotas
 const empresaRoutes = require('./routes/empresaRoutes');
 const jogoRoutes = require('./routes/jogoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const compraRoutes = require('./routes/compraRoutes');
 const amizadeRoutes = require('./routes/amizadeRoutes');
+const authRoutes = require('./routes/authRoutes'); // Rotas de autenticação com o Google
 
 // Usando as Rotas
 app.use('/empresas', empresaRoutes);
@@ -30,6 +44,7 @@ app.use('/jogos', jogoRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
 app.use('/amizades', amizadeRoutes); 
+app.use('/auth', authRoutes); // Usar as rotas de autenticação do Google
 
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
