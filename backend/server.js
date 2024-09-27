@@ -22,12 +22,14 @@ const empresaRoutes = require('./routes/empresaRoutes');
 const jogoRoutes = require('./routes/jogoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const compraRoutes = require('./routes/compraRoutes');
+const amizadeRoutes = require('./routes/amizadeRoutes');
 
 // Usando as Rotas
 app.use('/empresas', empresaRoutes);
 app.use('/jogos', jogoRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
+app.use('/amizades', amizadeRoutes); 
 
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {

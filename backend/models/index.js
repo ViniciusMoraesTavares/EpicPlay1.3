@@ -15,9 +15,6 @@ Compra.belongsTo(Jogo, { foreignKey: 'jogo_id' });
 Usuario.hasMany(Compra, { foreignKey: 'usuario_id' });
 Jogo.hasMany(Compra, { foreignKey: 'jogo_id' });
 
-// Associações para Jogos comprados
-Usuario.belongsToMany(Jogo, { through: Compra, as: 'jogosComprados', foreignKey: 'usuario_id' });
-
 // Associações para Amizades
 Usuario.belongsToMany(Usuario, { 
   through: Amizade, 
