@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 const session = require('express-session'); 
 const passport = require('passport');
-require('./config/passportConfig'); 
 const { sequelize } = require('./models');
 const AuthenticationError = require('./errors/AuthenticationError');
 const AuthorizationError = require('./errors/AuthorizationError');
@@ -12,6 +12,7 @@ const NotFoundError = require('./errors/NotFoundError');
 const DatabaseError = require('./errors/DatabaseError');
 const LoginError = require('./errors/LoginError');
 require('dotenv').config();
+require('./config/passportConfig'); 
 
 const app = express();
 const port = process.env.PORT;
@@ -36,7 +37,7 @@ const jogoRoutes = require('./routes/jogoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const compraRoutes = require('./routes/compraRoutes');
 const amizadeRoutes = require('./routes/amizadeRoutes');
-const authRoutes = require('./routes/authRoutes'); // Rotas de autenticação com o Google
+const authRoutes = require('./routes/authRoutes');
 
 // Usando as Rotas
 app.use('/empresas', empresaRoutes);
@@ -44,7 +45,8 @@ app.use('/jogos', jogoRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
 app.use('/amizades', amizadeRoutes); 
-app.use('/auth', authRoutes); // Usar as rotas de autenticação do Google
+app.use('/auth', authRoutes); 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
@@ -67,7 +69,6 @@ app.use((err, req, res, next) => {
   if (err instanceof LoginError) {
     return res.status(err.statusCode || 401).json({ error: err.message });
   }
-  // Erro desconhecido
   res.status(err.statusCode || 500).json({ error: 'Erro interno do servidor.' });
 });
 

@@ -7,6 +7,7 @@ const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const ValidationError = require('../errors/ValidationError');
 
+
 // Buscar todos os usuários
 const getAllUsuarios = async (req, res) => {
   try {
@@ -25,6 +26,7 @@ const getAllUsuarios = async (req, res) => {
 const criarUsuario = async (req, res) => {
   try {
     const { nome, email, senha, nickname } = req.body;
+    const foto = req.file ? req.file.path : null; 
 
     const emailExistente = await usuarioService.verificarEmailExistente(email);
     if (emailExistente) {
@@ -36,7 +38,7 @@ const criarUsuario = async (req, res) => {
       throw new ValidationError('Nickname já em uso.');
     }
 
-    const novoUsuario = await usuarioService.criarUsuario({ nome, email, senha, nickname });
+    const novoUsuario = await usuarioService.criarUsuario({ nome, email, senha, nickname, foto });
     res.status(201).json({ message: 'Usuário criado com sucesso!', usuario: novoUsuario });
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -53,6 +55,7 @@ const criarUsuario = async (req, res) => {
 const createAdmin = async (req, res) => {
   try {
     const { nome, email, senha, nickname } = req.body;
+    const foto = req.file ? req.file.path : null; // Caminho da foto
 
     const emailExistente = await usuarioService.verificarEmailExistente(email);
     const nicknameExistente = await usuarioService.verificarNicknameExistente(nickname);
@@ -62,7 +65,7 @@ const createAdmin = async (req, res) => {
       throw new ValidationError(error);
     }
 
-    const admin = await usuarioService.criarAdmin({ nome, email, senha, nickname });
+    const admin = await usuarioService.criarAdmin({ nome, email, senha, nickname, foto });
     res.status(201).json(admin);
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -107,8 +110,11 @@ const loginUsuario = async (req, res) => {
 const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-    const usuarioAutenticado = req.user; // Usuário autenticado
-    const usuarioAtualizado = await usuarioService.atualizarUsuario(id, req.body, usuarioAutenticado);
+    const usuarioAutenticado = req.user; 
+    const foto = req.file ? req.file.path : null; 
+    const dadosAtualizados = { ...req.body, foto };
+
+    const usuarioAtualizado = await usuarioService.atualizarUsuario(id, dadosAtualizados, usuarioAutenticado);
 
     if (!usuarioAtualizado) {
       throw new NotFoundError('Usuário não encontrado.');
@@ -130,7 +136,7 @@ const updateUsuario = async (req, res) => {
 const deleteUsuario = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const usuarioAutenticado = req.usuario; // Supondo que você tenha o usuário autenticado disponível via middleware
+    const usuarioAutenticado = req.usuario;
 
     if (!id) {
       throw new ValidationError('ID do usuário é obrigatório.');
@@ -226,7 +232,7 @@ const getMeuPerfil = async (req, res) => {
 const promoverUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-    const usuarioAutenticado = req.user; // Usuário autenticado
+    const usuarioAutenticado = req.user; 
     
     const usuarioPromovido = await usuarioService.promoverUsuario(id, usuarioAutenticado);
 

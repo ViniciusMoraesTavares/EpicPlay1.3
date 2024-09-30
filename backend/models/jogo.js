@@ -36,9 +36,21 @@ module.exports = (sequelize, DataTypes) => {
     genero: {
       type: DataTypes.STRING
     },
-    fotos: {
-      type: DataTypes.STRING
-    }
+    capa: {
+      type: DataTypes.STRING,
+    },
+    img_1: {
+      type: DataTypes.STRING,
+    },
+    img_2: {
+      type: DataTypes.STRING,
+    },
+    img_3: {
+      type: DataTypes.STRING,
+    },
+    trailer: {
+      type: DataTypes.STRING,
+    },
   }, {
     tableName: 'jogo', 
     timestamps: false

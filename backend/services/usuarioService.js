@@ -3,23 +3,31 @@ const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
 
-const criarUsuario = async ({ nome, email, senha, nickname }) => {
+const criarUsuario = async ({ nome, email, senha, nickname, foto }) => {
   try {
     const hashedSenha = await bcrypt.hash(senha, 10);
-    return await Usuario.create({ nome, email, senha: hashedSenha, nickname, role: 'user' });
+    return await Usuario.create({ nome, email, senha: hashedSenha, nickname, role: 'user', foto });
   } catch (err) {
     throw new DatabaseError('Erro ao criar usuário: ' + err.message);
   }
 };
 
-const criarAdmin = async ({ nome, email, senha, nickname }) => {
+const criarAdmin = async ({ nome, email, senha, nickname, foto }) => {
   try {
     const hashedSenha = await bcrypt.hash(senha, 10);
-    return await Usuario.create({ nome, email, senha: hashedSenha, nickname, role: 'admin' });
+    return await Usuario.create({ 
+      nome, 
+      email, 
+      senha: hashedSenha, 
+      nickname, 
+      role: 'admin', 
+      foto 
+    });
   } catch (err) {
     throw new DatabaseError('Erro ao criar administrador: ' + err.message);
   }
 };
+
 
 const verificarSenha = async (senha, senhaHash) => {
   try {
@@ -76,6 +84,11 @@ const atualizarUsuario = async (idUsuario, dadosAtualizados, usuarioAutenticado)
 
     if (dadosAtualizados.senha) {
       dadosAtualizados.senha = await bcrypt.hash(dadosAtualizados.senha, 10);
+    }
+
+    // Atualiza a foto se fornecida
+    if (dadosAtualizados.foto) {
+      dadosAtualizados.foto = dadosAtualizados.foto; // Aqui você pode aplicar qualquer lógica para tratar a foto
     }
 
     await usuario.update(dadosAtualizados);
@@ -167,7 +180,7 @@ const pesquisarUsuarioPorId = async (id) => {
           attributes: ['jogo_id', 'data_compra'],
           include: [
             {
-              model: Jogo, // Não é necessário um alias aqui, a menos que você tenha definido um
+              model: Jogo, 
               attributes: ['nome']
             }
           ],
@@ -175,7 +188,7 @@ const pesquisarUsuarioPorId = async (id) => {
           limit: 1 // Para pegar apenas o último jogo comprado
         },
         {
-          model: Usuario, // Associação com amigos
+          model: Usuario, 
           as: 'amigos',
           through: {
             model: Amizade,
@@ -209,8 +222,6 @@ const pesquisarUsuarioPorId = async (id) => {
     throw new DatabaseError('Erro ao buscar o usuário por ID: ' + error.message);
   }
 };
-
-
 
 
 module.exports = {

@@ -3,6 +3,8 @@ const router = express.Router();
 const isAdmin = require('../middlewares/isAdmin');
 const { authenticate } = require('../middlewares/authMiddleware');
 const usuarioController = require('../controllers/usuarioController');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); 
 
 // Rotas protegidas (Admin)
 router.get('/', authenticate, isAdmin, usuarioController.getAllUsuarios); // Obter todos os usuários
@@ -21,5 +23,10 @@ router.delete('/me', authenticate, usuarioController.deleteMeuPerfil); // Deleta
 // Rotas públicas 
 router.post('/cadastro', usuarioController.criarUsuario); // Criar um usuário 
 router.post('/login', usuarioController.loginUsuario); // Login de usuário
+
+// Rotas para fotos
+router.post('/', upload.single('foto'), usuarioController.criarUsuario);
+router.post('/admin', upload.single('foto'), usuarioController.createAdmin);
+router.put('/:id', upload.single('foto'), usuarioController.updateUsuario);
 
 module.exports = router;
