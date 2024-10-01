@@ -5,6 +5,7 @@ const { authenticate } = require('../middlewares/authMiddleware');
 const usuarioController = require('../controllers/usuarioController');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); 
+const passport = require('passport');
 
 // Rotas protegidas (Admin)
 router.get('/', authenticate, isAdmin, usuarioController.getAllUsuarios); // Obter todos os usuários
@@ -23,6 +24,19 @@ router.delete('/me', authenticate, usuarioController.deleteMeuPerfil); // Deleta
 // Rotas públicas 
 router.post('/cadastro', usuarioController.criarUsuario); // Criar um usuário 
 router.post('/login', usuarioController.loginUsuario); // Login de usuário
+
+// Rota para iniciar o login com o Google
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// Rota de callback após o Google autenticar o usuário
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login', session: false }), // Desabilita a sessão para usar JWT
+  (req, res) => {
+    // Retorna o token JWT para o front-end 
+    const { token } = req.user;
+    res.redirect(`/dashboard?token=${token}`); // Ou retornar um JSON
+  }
+);
 
 // Rotas para fotos
 router.post('/', upload.single('foto'), usuarioController.criarUsuario);

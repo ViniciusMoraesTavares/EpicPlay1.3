@@ -156,7 +156,11 @@ const deleteUsuario = async (req, res, next) => {
 const deleteMeuPerfil = async (req, res) => {
   try {
     const usuarioId = req.user.id;
-    const usuarioDeletado = await usuarioService.deletarUsuario(usuarioId);
+    if (!usuarioId) {
+      throw new AuthorizationError('Usuário não autenticado.');
+    }
+
+    await usuarioService.deletarUsuario(usuarioId);
 
     res.json({ message: 'Perfil deletado com sucesso.' });
   } catch (error) {
@@ -167,6 +171,7 @@ const deleteMeuPerfil = async (req, res) => {
     }
   }
 };
+
 
 // Pesquisar usuários com base em critérios
 const pesquisarUsuarioPorId = async (req, res, next) => {

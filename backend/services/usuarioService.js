@@ -15,14 +15,7 @@ const criarUsuario = async ({ nome, email, senha, nickname, foto }) => {
 const criarAdmin = async ({ nome, email, senha, nickname, foto }) => {
   try {
     const hashedSenha = await bcrypt.hash(senha, 10);
-    return await Usuario.create({ 
-      nome, 
-      email, 
-      senha: hashedSenha, 
-      nickname, 
-      role: 'admin', 
-      foto 
-    });
+    return await Usuario.create({ nome, email, senha: hashedSenha, nickname, role: 'admin', foto });
   } catch (err) {
     throw new DatabaseError('Erro ao criar administrador: ' + err.message);
   }

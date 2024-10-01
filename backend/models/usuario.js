@@ -18,7 +18,22 @@ module.exports = (sequelize) => {
     },
     senha: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true, 
+      validate: {
+        notEmpty(value) {
+          if (this.googleId === null && (!value || value === '')) {
+            throw new Error('A senha não pode estar vazia.');
+          }
+        },
+        len: {
+          args: [8, 100], 
+          msg: 'A senha deve ter pelo menos 8 caracteres.'
+        }
+      }
+    },
+    googleId: {
+      type: DataTypes.STRING,
+      allowNull: true  
     },
     nickname: {
       type: DataTypes.STRING,
