@@ -52,15 +52,24 @@ const createJogo = async (req, res) => {
 };
 
 // Atualizar um jogo existente
+// Atualizar um jogo existente
 const updateJogo = async (req, res) => {
+  const { id } = req.params;
+  const jogoData = req.body;
+
+  // Adiciona a lógica de upload de imagens
+  const imagePaths = {
+    capa: req.files['capa'] ? req.files['capa'][0].path : undefined,
+    img_1: req.files['img_1'] ? req.files['img_1'][0].path : undefined,
+    img_2: req.files['img_2'] ? req.files['img_2'][0].path : undefined,
+    img_3: req.files['img_3'] ? req.files['img_3'][0].path : undefined,
+  };
+
   try {
-    const { id } = req.params;
-    const jogo = await jogoService.updateJogo(id, req.body);
-    if (!jogo) {
-      throw new NotFoundError('Jogo não encontrado.');
-    }
-    res.json(jogo);
+    const result = await jogoService.updateJogo(id, { ...jogoData, ...imagePaths });
+    res.json(result);
   } catch (err) {
+    console.error(err); // Log para verificar o erro
     if (err instanceof ValidationError) {
       res.status(400).json({ error: err.message });
     } else if (err instanceof NotFoundError) {
@@ -72,6 +81,7 @@ const updateJogo = async (req, res) => {
     }
   }
 };
+
 
 // Deletar um jogo
 const deleteJogo = async (req, res) => {

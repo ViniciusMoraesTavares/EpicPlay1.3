@@ -15,17 +15,14 @@ router.get('/:id', authenticate, jogoController.getJogoById);
 router.post('/', authenticate, isAdmin, jogoController.createJogo);
 
 // Rota para atualizar um jogo existente (apenas admin)
-router.put('/:id', authenticate, isAdmin, jogoController.updateJogo);
-
-// Rota para deletar um jogo (apenas admin)
-router.delete('/:id', authenticate, isAdmin, jogoController.deleteJogo);
-
-// Rota para upload de imagens e trailer do jogo (apenas admin)
-router.post('/upload/:id', authenticate, isAdmin, upload.fields([
+router.put('/:id', authenticate, isAdmin, upload.fields([
     { name: 'capa', maxCount: 1 },
     { name: 'img_1', maxCount: 1 },
     { name: 'img_2', maxCount: 1 },
     { name: 'img_3', maxCount: 1 }
-]), jogoController.uploadImagensJogo);
+]), jogoController.updateJogo);
+
+// Rota para deletar um jogo (apenas admin)
+router.delete('/:id', authenticate, isAdmin, jogoController.deleteJogo);
 
 module.exports = router;

@@ -24,23 +24,34 @@ const criarAdmin = async ({ nome, email, senha, nickname, foto }) => {
 
 const verificarSenha = async (senha, senhaHash) => {
   try {
-    return await bcrypt.compare(senha, senhaHash);
+    console.log('Verificando a senha...');  
+    const isMatch = await bcrypt.compare(senha, senhaHash);
+    console.log('Senha válida:', isMatch);  
+    return isMatch;
   } catch (error) {
+    console.error('Erro ao verificar a senha:', error);  
     throw new DatabaseError('Erro ao verificar a senha: ' + error.message);
   }
 };
 
 const buscarUsuarioPorEmail = async (email) => {
   try {
+    console.log('Buscando usuário com email:', email); 
     const usuario = await Usuario.findOne({ where: { email } });
+    
     if (!usuario) {
+      console.log('Usuário não encontrado'); 
       throw new NotFoundError('Usuário não encontrado.');
     }
+
+    console.log('Usuário encontrado:', usuario);  
     return usuario;
   } catch (error) {
+    console.error('Erro ao buscar usuário:', error);  
     throw new DatabaseError('Erro ao buscar o usuário: ' + error.message);
   }
 };
+
 
 const verificarEmailExistente = async (email) => {
   try {

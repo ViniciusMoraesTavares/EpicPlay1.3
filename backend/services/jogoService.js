@@ -48,25 +48,16 @@ const updateJogo = async (id, jogoData) => {
       throw new NotFoundError('Jogo não encontrado.');
     }
 
-    const { empresa_id } = jogoData;
-    if (empresa_id) {
-      const empresa = await Empresa.findByPk(empresa_id);
-      if (!empresa) {
-        throw new NotFoundError('A empresa associada não existe.');
-      }
-    }
-
-    // Validações adicionais
-    if (jogoData.nome === undefined || jogoData.preco === undefined) {
-      throw new ValidationError('Nome e preço são obrigatórios.');
-    }
-
+    // Atualiza o jogo com os dados recebidos
     await jogo.update(jogoData);
+
     return { message: 'Jogo atualizado com sucesso!', jogo };
   } catch (err) {
     throw new DatabaseError('Erro ao atualizar jogo: ' + err.message);
   }
 };
+
+
 
 // Deletar um jogo
 const deleteJogo = async (id) => {

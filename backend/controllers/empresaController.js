@@ -20,7 +20,15 @@ const getAllEmpresas = async (req, res) => {
 // Criar uma nova empresa
 const createEmpresa = async (req, res) => {
   try {
-    const empresa = await empresaService.createEmpresa(req.body);
+    // Pega a foto do arquivo enviado
+    const foto = req.file ? req.file.filename : null; // Se houver foto, obtém o nome do arquivo
+
+    const empresaData = {
+      ...req.body,
+      foto // Adiciona a foto ao objeto de dados da empresa
+    };
+
+    const empresa = await empresaService.createEmpresa(empresaData);
     res.status(201).json(empresa);
   } catch (err) {
     if (err instanceof ValidationError) {
@@ -37,7 +45,14 @@ const createEmpresa = async (req, res) => {
 const updateEmpresa = async (req, res) => {
   try {
     const { id } = req.params;
-    const empresa = await empresaService.updateEmpresa(id, req.body);
+    const foto = req.file ? req.file.filename : null; // Pega a nova foto, se houver
+
+    const empresaData = {
+      ...req.body,
+      ...(foto && { foto }) // Atualiza a foto se houver uma nova
+    };
+
+    const empresa = await empresaService.updateEmpresa(id, empresaData);
     if (!empresa) {
       throw new NotFoundError('Empresa não encontrada.');
     }
