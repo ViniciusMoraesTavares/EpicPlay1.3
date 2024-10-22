@@ -44,6 +44,7 @@ const usuarioRoutes = require('./routes/usuarioRoutes');
 const compraRoutes = require('./routes/compraRoutes');
 const amizadeRoutes = require('./routes/amizadeRoutes');
 const authRoutes = require('./routes/authRoutes');
+const carrinhoRoutes = require('./routes/carrinhoRoutes');
 
 // Usando as rotas nas respectivas URLs
 app.use('/empresas', empresaRoutes);
@@ -52,6 +53,7 @@ app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
 app.use('/amizades', amizadeRoutes); 
 app.use('/auth', authRoutes); 
+app.use('/carrinho', carrinhoRoutes);''
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve arquivos estáticos
 
 // Middleware de tratamento de erros

@@ -47,12 +47,15 @@ const listarAmigos = async (usuario_id) => {
   try {
     return await Amizade.findAll({
       where: { usuario_id_1: usuario_id },
-      include: [{ model: Usuario, as: 'amigos', attributes: ['id', 'nome'] }]
+      include: [
+        { model: Usuario, as: 'receptor', attributes: ['id', 'nome'] } 
+      ]
     });
   } catch (err) {
     throw new DatabaseError('Erro ao listar amigos: ' + err.message);
   }
 };
+
 
 module.exports = {
   adicionarAmizade,

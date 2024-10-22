@@ -52,7 +52,6 @@ const createJogo = async (req, res) => {
 };
 
 // Atualizar um jogo existente
-// Atualizar um jogo existente
 const updateJogo = async (req, res) => {
   const { id } = req.params;
   const jogoData = req.body;
