@@ -10,7 +10,7 @@ const Home = () => {
   const fetchJogos = async () => {
     try {
       const response = await axios.get('http://localhost:3000/jogos', {
-        withCredentials: true, // Inclui cookies, caso necessário para autenticação
+        withCredentials: true, 
       });
       setJogos(response.data);
     } catch (error) {
@@ -19,7 +19,6 @@ const Home = () => {
     }
   };
 
-  // UseEffect para carregar os jogos na montagem do componente
   useEffect(() => {
     fetchJogos();
   }, []);

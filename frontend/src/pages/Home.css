@@ -4,7 +4,7 @@
     flex-direction: column;
     background-color: #ffffff;
     min-height: 100vh;
-    overflow-x: hidden; /* Evita rolagem horizontal */
+    overflow-x: hidden; 
 }
 
 /* Cabeçalho */
@@ -13,7 +13,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px 30px; /* Aumentando o padding para dar mais espaço */
+    padding: 15px 30px; 
     background-color: #f4a8c0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -30,23 +30,23 @@
     border: none;
     border-radius: 25px;
     outline: none;
-    background-color: #ffffff; /* Campo de pesquisa em branco */
+    background-color: #ffffff; 
 }
 
 .settings-button {
     background: none;
     border: none;
-    font-size: 28px; /* Tamanho do ícone */
+    font-size: 28px; 
     cursor: pointer;
-    color: #ffffff; /* Cor do ícone */
-    margin-left: 15px; /* Margem à esquerda */
-    margin-right: 20px; /* Aumente esta margem para mover o botão para a esquerda */
-    height: auto; /* Altura automática */
-    width: auto; /* Largura automática */
-    display: flex; /* Flexbox para alinhamento */
-    align-items: center; /* Centralizar verticalmente */
-    justify-content: center; /* Centralizar horizontalmente */
-    padding: 5px; /* Padding para facilitar o clique */
+    color: #ffffff; 
+    margin-left: 15px; 
+    margin-right: 20px; 
+    height: auto; 
+    width: auto; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 5px; 
 }
 
 
@@ -76,21 +76,21 @@
     left: 0;
     width: 200px;
     padding: 20px;
-    background-color: #f4a8c0; /* Sidebar em rosa */
+    background-color: #f4a8c0; 
     height: calc(100vh - 80px);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h3 {
-    color: #ffffff; /* Título em branco */
+    color: #ffffff; 
     margin-bottom: 10px;
 }
 
 .filter-box {
-    background-color: #ffffff; /* Caixa branca */
+    background-color: #ffffff; 
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para a caixa branca */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .sidebar ul {
@@ -101,33 +101,33 @@
 .sidebar li {
     margin-bottom: 8px;
     font-weight: bold;
-    color: #ff78cb; /* Filtros de gênero em rosa */
+    color: #ff78cb;
 }
 
 /* Campo de pesquisa de amigos */
 .friend-search-container {
-    display: flex; /* Usando flexbox para alinhar a barra e o botão */
+    display: flex;
     width: 100%;
     margin-top: 20px;
 }
 
 /* Barra de pesquisa de amigos */
 .friend-search {
-    flex: 1; /* Ocupa todo o espaço disponível */
+    flex: 1; 
     padding: 8px;
     border: none;
-    border-radius: 20px 0 0 20px; /* Bordas arredondadas */
-    background-color: #ffffff; /* Caixa branca */
+    border-radius: 20px 0 0 20px;
+    background-color: #ffffff; 
 }
 
 /* Botão de pesquisa */
 .search-button {
-    background-color: #ff78cb; /* Cor rosa mais escura */
+    background-color: #ff78cb; 
     border: none;
     padding: 8px 12px;
-    border-radius: 0 20px 20px 0; /* Bordas arredondadas */
+    border-radius: 0 20px 20px 0; 
     cursor: pointer;
-    color: white; /* Texto branco */
+    color: white; 
     font-size: 16px;
 }
 
