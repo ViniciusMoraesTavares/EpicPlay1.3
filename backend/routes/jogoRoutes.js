@@ -6,7 +6,7 @@ const isAdmin = require('../middlewares/isAdmin');
 const jogoController = require('../controllers/jogoController');
 
 // Rota para obter todos os jogos
-router.get('/', authenticate, jogoController.getAllJogos);
+router.get('/',  jogoController.getAllJogos);
 
 // Rota para obter jogo especifico
 router.get('/:id', authenticate, jogoController.getJogoById);

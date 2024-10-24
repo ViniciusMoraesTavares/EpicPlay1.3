@@ -23,7 +23,10 @@ const app = express();
 const port = process.env.PORT; 
 
 // Middlewares
-app.use(cors()); 
+app.use(cors({
+  origin: 'http://localhost:3001', // a origem do seu frontend
+  credentials: true // permite o uso de cookies
+})); 
 app.use(bodyParser.json()); 
 
 // Configuração da sessão
