@@ -47,8 +47,17 @@ const Home = () => {
             <ul>
               <li>Gratuitos para Jogar</li>
               <li>Ação</li>
+              <li>Anime</li>
+              <li>Arcade</li>
+              <li>Casuais</li>
+              <li>Competitivo</li>
+              <li>Estratégia</li>
+              <li>Luta</li>
+              <li>Mundo Aberto</li>
+              <li>Romance</li>
               <li>RPG</li>
               <li>Simulação</li>
+              <li>Terror</li>
             </ul>
           </div>
           <div className="friend-search-container">
