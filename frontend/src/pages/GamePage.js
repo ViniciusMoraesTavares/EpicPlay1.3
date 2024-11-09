@@ -7,40 +7,30 @@ function GamePage() {
   const { id } = useParams();
   const [gameData, setGameData] = useState(null);
   const [mainImage, setMainImage] = useState('');
-  const [loading, setLoading] = useState(true); // Estado de carregamento
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGameData = async () => {
+      console.log("ID do jogo:", id); // Verifica se o ID está correto
       try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('Token de autenticação não encontrado');
-          return;
-        }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-
-        const response = await axios.get(`http://localhost:5000/jogos/${id}`, config);
+        const response = await axios.get(`http://localhost:3000/jogos/${id}`);
         
         if (response.status === 200) {
           setGameData(response.data);
           setMainImage(response.data.img_1);
-          setLoading(false); // Conclui o carregamento
         } else {
           console.error('Erro na resposta da API:', response);
-          setLoading(false); // Conclui o carregamento mesmo com erro
         }
       } catch (error) {
         console.error('Erro ao buscar dados do jogo:', error);
-        setLoading(false); // Conclui o carregamento em caso de erro
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchGameData();
+    if (id) {
+      fetchGameData();
+    }
   }, [id]);
 
   const handleAddToCart = () => {
@@ -51,8 +41,8 @@ function GamePage() {
     setMainImage(image);
   };
 
-  if (loading) return <p>Carregando...</p>; // Exibe "Carregando..." enquanto está buscando os dados
-  if (!gameData) return <p>Erro ao carregar dados do jogo.</p>; // Exibe mensagem de erro caso falhe
+  if (loading) return <p>Carregando...</p>;
+  if (!gameData) return <p>Erro ao carregar dados do jogo.</p>;
 
   return (
     <div className="game-container">

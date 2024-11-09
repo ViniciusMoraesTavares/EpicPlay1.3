@@ -6,7 +6,7 @@ const usuarioController = require('../controllers/usuarioController');
 // Constantes para URLs
 const BASE_URL = 'http://localhost:3000';
 const LOGIN_URL = `${BASE_URL}/usuarios/login`;
-const REDIRECT_URL = `${BASE_URL}/#`;
+const REDIRECT_URL = `${BASE_URL}/`;
 
 // Rota para iniciar o login com o Google
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

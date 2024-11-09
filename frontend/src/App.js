@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} /> {/* Home será a página principal do seu frontend */}
         <Route path="/cadastro" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Jogos" element={<GamePage />} />
@@ -19,3 +19,4 @@ function App() {
 }
 
 export default App;
+
