@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import './Home.css';
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
   // Função para buscar os jogos do backend
   const fetchJogos = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/jogos', {
+      const response = await api.get('/jogos', {
         withCredentials: true, 
       });
       setJogos(response.data);
@@ -54,10 +54,6 @@ const Home = () => {
               <li>Estratégia</li>
               <li>Luta</li>
               <li>Mundo Aberto</li>
-              <li>Romance</li>
-              <li>RPG</li>
-              <li>Simulação</li>
-              <li>Terror</li>
             </ul>
           </div>
           <div className="friend-search-container">

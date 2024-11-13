@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import './RegisterForm.css';
 
 function Login() {
@@ -30,14 +30,14 @@ function Login() {
         return;
       }
 
-      const response = await axios.post('http://localhost:3000/usuarios/login', formData);
+      const response = await api.post('/usuarios/login', formData);
 
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem('token', token); // Salva o token no localStorage
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Configura o header de autorização
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Configura o header de autorização
         alert('Login realizado com sucesso!');
-        window.location.href = 'http://localhost:3001/';  // Redireciona para a página home do backend
+        window.location.href = 'http://localhost:3000/';  // Redireciona para a página home do backend
       } else {
         setError('Login falhou, verifique suas credenciais.');
       }

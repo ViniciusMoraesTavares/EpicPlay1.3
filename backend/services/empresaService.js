@@ -18,6 +18,18 @@ const createEmpresa = async (dados) => {
   }
 };
 
+const getEmpresaById = async (id) => {
+  try {
+    const empresa = await Empresa.findByPk(id);
+    if (!empresa) {
+      throw new NotFoundError('Empresa não encontrada.');
+    }
+    return empresa;
+  } catch (err) {
+    throw new DatabaseError('Erro ao buscar empresa.');
+  }
+};
+
 const updateEmpresa = async (id, dados) => {
   try {
     const empresa = await Empresa.findByPk(id);
@@ -50,7 +62,8 @@ const deleteEmpresa = async (id) => {
 
 module.exports = {
   getAllEmpresas,
+  getEmpresaById,
   createEmpresa,
   updateEmpresa,
-  deleteEmpresa
+  deleteEmpresa,
 };

@@ -162,18 +162,6 @@ const buscarTodosUsuarios = async () => {
   }
 };
 
-const buscarUsuarioPorId = async (id) => {
-  try {
-    const usuario = await Usuario.findByPk(id);
-    if (!usuario) {
-      throw new NotFoundError('Usuário não encontrado.');
-    }
-    return usuario;
-  } catch (error) {
-    throw new DatabaseError('Erro ao buscar usuário por ID: ' + error.message);
-  }
-};
-
 const pesquisarUsuarioPorId = async (id) => {
   try {
     const usuario = await Usuario.findByPk(id, {
@@ -193,11 +181,19 @@ const pesquisarUsuarioPorId = async (id) => {
         },
         {
           model: Usuario, 
-          as: 'amigos',
+          as: 'amizades_iniciadas', // Amigos que este usuário iniciou a amizade
           through: {
             model: Amizade,
-            as: 'amizade',
-            attributes: [] // Esconde os dados da tabela intermediária
+            attributes: [] // Oculta dados da tabela intermediária
+          },
+          attributes: ['nome', 'nickname']
+        },
+        {
+          model: Usuario, 
+          as: 'amizades_recebidas', // Amigos que receberam a amizade deste usuário
+          through: {
+            model: Amizade,
+            attributes: []
           },
           attributes: ['nome', 'nickname']
         }
@@ -208,8 +204,14 @@ const pesquisarUsuarioPorId = async (id) => {
       throw new NotFoundError('Usuário não encontrado.');
     }
 
-    // Adiciona um campo para o último jogo comprado, se existir
+    // Adiciona o último jogo comprado, se existir
     const ultimoJogo = usuario.Compras.length > 0 ? usuario.Compras[0].Jogo : null;
+
+    // Combina ambas as listas de amizade em uma única lista de amigos
+    const amigos = [
+      ...usuario.amizades_iniciadas,
+      ...usuario.amizades_recebidas
+    ];
 
     // Remove o campo `Compras` do resultado final
     const resultado = {
@@ -217,7 +219,7 @@ const pesquisarUsuarioPorId = async (id) => {
       nickname: usuario.nickname,
       jogos: usuario.Compras.map(compra => compra.Jogo.nome), // Lista de nomes dos jogos
       ultimoJogo: ultimoJogo ? ultimoJogo.nome : null, // Nome do último jogo
-      amigos: usuario.amigos // Lista de amigos
+      amigos // Lista combinada de amigos
     };
 
     return resultado;
@@ -226,6 +228,7 @@ const pesquisarUsuarioPorId = async (id) => {
     throw new DatabaseError('Erro ao buscar o usuário por ID: ' + error.message);
   }
 };
+
 
 
 module.exports = {
@@ -239,6 +242,5 @@ module.exports = {
   deletarUsuario,
   promoverUsuario,
   buscarTodosUsuarios,
-  buscarUsuarioPorId,
   pesquisarUsuarioPorId,
 };

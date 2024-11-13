@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import api from '../services/api'; // Importe a instância da API
 import './empresa.css';
 
 function CompanyPage() {
@@ -13,10 +13,7 @@ function CompanyPage() {
     const fetchCompanyData = async () => {
       console.log("ID da empresa:", id);
       try {
-        // Caso tenha configurado o proxy no package.json
-        const response = await axios.get(`/empresas/${id}`, {
-          withCredentials: true, // Isso garante que cookies e credenciais sejam enviados
-        });
+        const response = await api.get(`/empresas/${id}`); // Usando a instância 'api'
         
         if (response.status === 200 && response.data) {
           console.log("Dados recebidos da API:", response.data);

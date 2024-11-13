@@ -4,21 +4,22 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import GamePage from './pages/GamePage';
-import CompanyPage from './pages/empresa'; // Importe o novo componente
+import CompanyPage from './pages/empresa'; 
+import UserProfilePage from './pages/userProfilePage'; 
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Home será a página principal do seu frontend */}
+        <Route path="/" element={<Home />} /> 
         <Route path="/cadastro" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/jogos/:id" element={<GamePage />} /> {/* Rota dinâmica para GamePage */}
-        <Route path="/empresas/:id" element={<CompanyPage />} /> {/* Nova Rota para CompanyPage */}
+        <Route path="/jogos/:id" element={<GamePage />} /> 
+        <Route path="/empresas/:id" element={<CompanyPage />} /> 
+        <Route path="/usuarios/:id" element={<UserProfilePage />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
-

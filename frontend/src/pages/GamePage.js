@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import api from '../services/api';
 import './GamePage.css';
 
 function GamePage() {
   const { id } = useParams();
   const [gameData, setGameData] = useState(null);
   const [mainImage, setMainImage] = useState('');
-  const [companyData, setCompanyData] = useState(null); // Novo estado para armazenar dados da empresa
+  const [companyData, setCompanyData] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,26 +15,23 @@ function GamePage() {
     const fetchGameData = async () => {
       console.log("ID do jogo:", id);
       try {
-        const response = await axios.get(`/jogos/${id}`, {
-          withCredentials: true, // Isso garante que cookies e credenciais sejam enviados
-        });
-
-        if (response.status === 200 && response.data) {
-          console.log("Dados recebidos da API:", response.data);
-          setGameData(response.data);
-          setMainImage(response.data.img_1);
-
-          // Agora buscar dados da empresa
-          const companyResponse = await axios.get(`/empresas/${response.data.empresa_id}`);
+        const gameResponse = await api.get(`/jogos/${id}`);
+        if (gameResponse.status === 200 && gameResponse.data) {
+          setGameData(gameResponse.data);
+      
+          const companyId = gameResponse.data.empresa_id;
+      
+          // Faz a requisição direta para a empresa específica pelo ID
+          const companyResponse = await api.get(`/empresas/${companyId}`);
           if (companyResponse.status === 200 && companyResponse.data) {
             setCompanyData(companyResponse.data);
           } else {
-            console.error('Erro ao buscar dados da empresa:', companyResponse);
+            console.error('Empresa não encontrada para o ID:', companyId);
             setError('Erro ao carregar dados da empresa.');
           }
-
+      
         } else {
-          console.error('Resposta inesperada da API:', response);
+          console.error('Resposta inesperada da API:', gameResponse);
           setError('Erro ao carregar os dados do jogo.');
         }
       } catch (error) {
@@ -43,6 +40,7 @@ function GamePage() {
       } finally {
         setLoading(false);
       }
+      
     };
 
     if (id) {
@@ -75,7 +73,6 @@ function GamePage() {
           <p className="game-price">R$ {gameData.preco}</p>
           <button onClick={handleAddToCart} className="btn-add-to-cart">Adicionar ao Carrinho</button>
 
-          {/* Exibição da Empresa */}
           {companyData && (
             <div className="company-info">
               <h3>Desenvolvido por:</h3>
@@ -92,24 +89,15 @@ function GamePage() {
         <div className="main-image">
           <img src={mainImage} alt="Imagem Principal" />
         </div>
-        <div className="thumbnails">
-          <img src={gameData.img_1} alt="Miniatura 1" onClick={() => handleChangeImage(gameData.img_1)} />
-          <img src={gameData.img_2} alt="Miniatura 2" onClick={() => handleChangeImage(gameData.img_2)} />
-          <img src={gameData.img_3} alt="Miniatura 3" onClick={() => handleChangeImage(gameData.img_3)} />
+        <div className="thumbnail-container">
+          {gameData.img_1 && <img src={gameData.img_1} alt="Miniatura 1" onClick={() => handleChangeImage(gameData.img_1)} />}
+          {gameData.img_2 && <img src={gameData.img_2} alt="Miniatura 2" onClick={() => handleChangeImage(gameData.img_2)} />}
+          {gameData.img_3 && <img src={gameData.img_3} alt="Miniatura 3" onClick={() => handleChangeImage(gameData.img_3)} />}
+          {gameData.img_4 && <img src={gameData.img_4} alt="Miniatura 4" onClick={() => handleChangeImage(gameData.img_4)} />}
         </div>
-      </section>
-
-      <section className="trailer">
-        <h2>Trailer</h2>
-        <video controls width="600">
-          <source src={gameData.trailer} type="video/mp4" />
-          Seu navegador não suporta o elemento de vídeo.
-        </video>
       </section>
     </div>
   );
 }
 
 export default GamePage;
-
-

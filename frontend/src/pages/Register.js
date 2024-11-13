@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirecionamento
+import api from '../services/api';
+import { useNavigate } from 'react-router-dom'; 
 import './RegisterForm.css';
 
 function Register() {
@@ -28,7 +28,7 @@ function Register() {
 
     try {
       // Enviar os dados para a rota de cadastro do backend
-      const response = await axios.post('http://localhost:3000/usuarios/cadastro', formData);
+      const response = await api.post('/usuarios/cadastro', formData);
 
       if (response.status === 201) {
         alert('Cadastro realizado com sucesso!');

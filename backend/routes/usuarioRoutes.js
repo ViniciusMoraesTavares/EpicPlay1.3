@@ -12,7 +12,7 @@ router.get('/', authenticate, isAdmin, usuarioController.getAllUsuarios); // Obt
 
 // Rotas para criação de usuários com e sem fotos
 router.post('/', authenticate, isAdmin, upload.single('foto'), usuarioController.criarUsuario); // Criar um usuário normal
-router.post('/admin', upload.single('foto'), usuarioController.createAdmin); // Criar um administrador
+router.post('/admin', authenticate, isAdmin, upload.single('foto'), usuarioController.createAdmin); // Criar um administrador
 
 // Rotas para atualização de usuários com fotos
 router.put('/:id', authenticate, isAdmin, upload.single('foto'), usuarioController.updateUsuario); // Atualizar um usuário específico
@@ -22,8 +22,7 @@ router.put('/promover/:id', authenticate, isAdmin, usuarioController.promoverUsu
 router.delete('/:id', authenticate, isAdmin, usuarioController.deleteUsuario); // Deletar um usuário específico
 
 // Rotas protegidas (User)
-router.get('/pesquisar/:id', authenticate, usuarioController.pesquisarUsuarioPorId); // Pesquisar por usuários
-router.get('/me', authenticate, usuarioController.getMeuPerfil); // Acessar o próprio perfil
+router.get('/pesquisar/:id', usuarioController.pesquisarUsuarioPorId); // Pesquisar por usuários
 router.put('/me', authenticate, usuarioController.updateMeuPerfil); // Atualizar o próprio perfil
 router.delete('/me', authenticate, usuarioController.deleteMeuPerfil); // Deletar o próprio perfil
 
@@ -39,7 +38,7 @@ router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login', session: false }),
   (req, res) => {
     const { token } = req.user;
-    res.redirect(`/dashboard?token=${token}`); // Ou retornar um JSON
+    res.redirect(`/dashboard?token=${token}`); 
   }
 );
 

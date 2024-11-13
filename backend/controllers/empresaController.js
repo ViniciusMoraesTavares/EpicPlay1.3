@@ -17,6 +17,23 @@ const getAllEmpresas = async (req, res) => {
   }
 };
 
+// Obter uma empresa pelo ID
+const getEmpresaById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const empresa = await empresaService.getEmpresaById(id);
+    res.json(empresa);
+  } catch (err) {
+    if (err instanceof NotFoundError) {
+      res.status(404).json({ error: err.message });
+    } else if (err instanceof DatabaseError) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+  }
+};
+
 // Criar uma nova empresa
 const createEmpresa = async (req, res) => {
   try {
@@ -92,7 +109,8 @@ const deleteEmpresa = async (req, res) => {
 
 module.exports = {
   getAllEmpresas,
+  getEmpresaById,
   createEmpresa,
   updateEmpresa,
-  deleteEmpresa
+  deleteEmpresa,
 };

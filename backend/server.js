@@ -24,7 +24,7 @@ const port = process.env.PORT;
 
 // Middlewares
 app.use(cors({
-  origin: 'http://localhost:3000', //porta front
+  origin: 'http://localhost:3000', //porta do frontend
   credentials: true 
 })); 
 app.use(bodyParser.json()); 
