@@ -1,28 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './GamePage.css';
 
 function GamePage() {
   const { id } = useParams();
   const [gameData, setGameData] = useState(null);
   const [mainImage, setMainImage] = useState('');
+  const [companyData, setCompanyData] = useState(null); // Novo estado para armazenar dados da empresa
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchGameData = async () => {
-      console.log("ID do jogo:", id); // Verifica se o ID está correto
+      console.log("ID do jogo:", id);
       try {
-        const response = await axios.get(`http://localhost:3000/jogos/${id}`);
-        
-        if (response.status === 200) {
+        const response = await axios.get(`/jogos/${id}`, {
+          withCredentials: true, // Isso garante que cookies e credenciais sejam enviados
+        });
+
+        if (response.status === 200 && response.data) {
+          console.log("Dados recebidos da API:", response.data);
           setGameData(response.data);
           setMainImage(response.data.img_1);
+
+          // Agora buscar dados da empresa
+          const companyResponse = await axios.get(`/empresas/${response.data.empresa_id}`);
+          if (companyResponse.status === 200 && companyResponse.data) {
+            setCompanyData(companyResponse.data);
+          } else {
+            console.error('Erro ao buscar dados da empresa:', companyResponse);
+            setError('Erro ao carregar dados da empresa.');
+          }
+
         } else {
-          console.error('Erro na resposta da API:', response);
+          console.error('Resposta inesperada da API:', response);
+          setError('Erro ao carregar os dados do jogo.');
         }
       } catch (error) {
         console.error('Erro ao buscar dados do jogo:', error);
+        setError('Erro ao conectar com a API. Verifique a conexão.');
       } finally {
         setLoading(false);
       }
@@ -30,6 +47,9 @@ function GamePage() {
 
     if (id) {
       fetchGameData();
+    } else {
+      setLoading(false);
+      setError('ID do jogo não encontrado.');
     }
   }, [id]);
 
@@ -42,6 +62,7 @@ function GamePage() {
   };
 
   if (loading) return <p>Carregando...</p>;
+  if (error) return <p>{error}</p>;
   if (!gameData) return <p>Erro ao carregar dados do jogo.</p>;
 
   return (
@@ -53,6 +74,16 @@ function GamePage() {
           <p className="game-description">{gameData.descricao}</p>
           <p className="game-price">R$ {gameData.preco}</p>
           <button onClick={handleAddToCart} className="btn-add-to-cart">Adicionar ao Carrinho</button>
+
+          {/* Exibição da Empresa */}
+          {companyData && (
+            <div className="company-info">
+              <h3>Desenvolvido por:</h3>
+              <Link to={`/empresas/${companyData.id}`} className="company-link">
+                {companyData.nome}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
@@ -75,19 +106,10 @@ function GamePage() {
           Seu navegador não suporta o elemento de vídeo.
         </video>
       </section>
-
-      <section className="system-requirements">
-        <h2>Requisitos do Sistema</h2>
-        <ul>
-          <li>SO: {gameData.so}</li>
-          <li>Processador: {gameData.processador}</li>
-          <li>Memória: {gameData.memoria} GB de RAM</li>
-          <li>Gráficos: {gameData.graficos}</li>
-          <li>Armazenamento: {gameData.armazenamento} GB de espaço disponível</li>
-        </ul>
-      </section>
     </div>
   );
 }
 
 export default GamePage;
+
+

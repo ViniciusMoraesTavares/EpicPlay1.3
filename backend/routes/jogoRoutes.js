@@ -9,7 +9,8 @@ const jogoController = require('../controllers/jogoController');
 router.get('/',  jogoController.getAllJogos);
 
 // Rota para obter jogo especifico
-router.get('/:id', authenticate, jogoController.getJogoById);
+router.get('/:id', jogoController.getJogoById);
+
 
 // Rota para criar um novo jogo (apenas admin)
 router.post('/', authenticate, isAdmin, jogoController.createJogo);

@@ -1,0 +1,51 @@
+.company-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  .company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+  }
+  
+  .company-info {
+    flex: 1;
+  }
+  
+  .company-info h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .company-description {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .social-links a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .social-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .company-image {
+    margin-top: 30px;
+  }
+  
+  .company-image img {
+    width: 100%;
+    height: auto;
+  }
+  
