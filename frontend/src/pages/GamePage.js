@@ -52,7 +52,7 @@ function GamePage() {
   }, [id]);
 
   const handleAddToCart = () => {
-    alert('Jogo adicionado ao carrinho!');
+    navigate(`/compra/${id}`);
   };
 
   const handleChangeImage = (image) => {
