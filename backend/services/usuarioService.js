@@ -21,6 +21,17 @@ const criarAdmin = async ({ nome, email, senha, nickname, foto }) => {
   }
 };
 
+const buscarUsuarioPorId = async (id) => {
+  try {
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) {
+      throw new NotFoundError('Usuário não encontrado.');
+    }
+    return usuario;
+  } catch (error) {
+    throw new DatabaseError('Erro ao buscar usuário por ID: ' + error.message);
+  }
+};
 
 const verificarSenha = async (senha, senhaHash) => {
   try {
@@ -92,7 +103,7 @@ const atualizarUsuario = async (idUsuario, dadosAtualizados, usuarioAutenticado)
 
     // Atualiza a foto se fornecida
     if (dadosAtualizados.foto) {
-      dadosAtualizados.foto = dadosAtualizados.foto; // Aqui você pode aplicar qualquer lógica para tratar a foto
+      dadosAtualizados.foto = dadosAtualizados.foto;
     }
 
     await usuario.update(dadosAtualizados);
@@ -230,7 +241,6 @@ const pesquisarUsuarioPorId = async (id) => {
 };
 
 
-
 module.exports = {
   criarUsuario,
   criarAdmin,
@@ -243,4 +253,5 @@ module.exports = {
   promoverUsuario,
   buscarTodosUsuarios,
   pesquisarUsuarioPorId,
+  buscarUsuarioPorId,
 };

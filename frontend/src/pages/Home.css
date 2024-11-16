@@ -33,6 +33,15 @@
     background-color: #ffffff; 
 }
 
+.nav-link {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+
 .settings-button {
     background: none;
     border: none;
@@ -48,7 +57,6 @@
     justify-content: center;
     padding: 5px; 
 }
-
 
 /* Navegação */
 .navigation {
@@ -182,4 +190,32 @@
 
 .buy-button:hover {
     background-color: #f4a8c0;
+}
+
+/* Ajustes nos botões e nome de usuário */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre os itens */
+}
+
+.auth-buttons p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.auth-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.auth-button:hover {
+    background-color: #3f4f9f;
 }

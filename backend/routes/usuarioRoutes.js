@@ -23,6 +23,7 @@ router.delete('/:id', authenticate, isAdmin, usuarioController.deleteUsuario); /
 
 // Rotas protegidas (User)
 router.get('/pesquisar/:id', usuarioController.pesquisarUsuarioPorId); // Pesquisar por usuários
+router.get('/me', authenticate, usuarioController.getMeuPerfil); // Acessar o próprio perfil
 router.put('/me', authenticate, usuarioController.updateMeuPerfil); // Atualizar o próprio perfil
 router.delete('/me', authenticate, usuarioController.deleteMeuPerfil); // Deletar o próprio perfil
 

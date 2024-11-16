@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom'; // Adiciona o useNavigate
 import api from '../services/api';
 import './GamePage.css';
 
@@ -10,6 +10,8 @@ function GamePage() {
   const [companyData, setCompanyData] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // Define o navigate
 
   useEffect(() => {
     const fetchGameData = async () => {
@@ -52,7 +54,7 @@ function GamePage() {
   }, [id]);
 
   const handleAddToCart = () => {
-    navigate(`/compra/${id}`);
+    navigate(`/compra/${id}`); // Redireciona para a página de compra do jogo
   };
 
   const handleChangeImage = (image) => {

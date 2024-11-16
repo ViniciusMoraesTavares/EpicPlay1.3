@@ -117,6 +117,25 @@ const loginUsuario = async (req, res) => {
   }
 };
 
+// Obter o perfil do usuário logado
+const getMeuPerfil = async (req, res) => {
+  try {
+    const usuario = await usuarioService.buscarUsuarioPorId(req.user.id);
+    if (!usuario) {
+      throw new NotFoundError('Usuário não encontrado.');
+    }
+    res.json(usuario);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof NotFoundError) {
+      res.status(404).json({ error: error.message });
+    } else if (error instanceof DatabaseError) {
+      res.status(500).json({ error: 'Erro ao buscar perfil no banco de dados.' });
+    } else {
+      res.status(500).json({ error: 'Erro inesperado.' });
+    }
+  }
+};
 
 // Atualizar um usuário existente
 const updateUsuario = async (req, res) => {
@@ -272,6 +291,7 @@ module.exports = {
   criarUsuario,
   createAdmin,
   loginUsuario,
+  getMeuPerfil,
   updateUsuario,
   deleteUsuario,
   deleteMeuPerfil,

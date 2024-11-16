@@ -1,24 +1,35 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import GamePage from './pages/GamePage';
-import CompanyPage from './pages/empresa'; 
-import UserProfilePage from './pages/userProfilePage'; 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './context/AuthContext'; // Contexto de autenticação
+
+import Home from './pages/Home'; // Página inicial
+import Register from './pages/Register'; // Página de registro
+import Login from './pages/Login'; // Página de login
+import GamePage from './pages/GamePage'; // Página do jogo específico
+import CompanyPage from './pages/empresa'; // Página da empresa
+import UserProfilePage from './pages/userProfilePage'; // Página do perfil do usuário
+import Carrinho from './pages/Carrinho'; // Página do carrinho
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/cadastro" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/jogos/:id" element={<GamePage />} /> 
-        <Route path="/empresas/:id" element={<CompanyPage />} /> 
-        <Route path="/usuarios/:id" element={<UserProfilePage />} />
-      </Routes>
-    </Router>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <Router>
+        {/* O AuthProvider agora fica dentro do Router */}
+        <AuthProvider> 
+          <Routes>
+            {/* Definindo as rotas para cada página da aplicação */}
+            <Route path="/" element={<Home />} /> {/* Página inicial */}
+            <Route path="/cadastro" element={<Register />} /> {/* Página de registro */}
+            <Route path="/login" element={<Login />} /> {/* Página de login */}
+            <Route path="/jogos/:id" element={<GamePage />} /> {/* Página do jogo específico */}
+            <Route path="/empresas/:id" element={<CompanyPage />} /> {/* Página da empresa */}
+            <Route path="/usuarios/:id" element={<UserProfilePage />} /> {/* Página do perfil do usuário */}
+            <Route path="/carrinho" element={<Carrinho />} /> {/* Página do carrinho */}
+          </Routes>
+        </AuthProvider>
+      </Router>
+    </GoogleOAuthProvider>
   );
 }
 
