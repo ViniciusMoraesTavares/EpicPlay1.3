@@ -31,10 +31,7 @@ module.exports = (sequelize) => {
         }
       }
     },
-    googleId: {
-      type: DataTypes.STRING,
-      allowNull: true  
-    },
+    
     nickname: {
       type: DataTypes.STRING,
       unique: true

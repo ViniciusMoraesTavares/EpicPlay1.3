@@ -47,11 +47,9 @@ const verificarSenha = async (senha, senhaHash) => {
 
 const buscarUsuarioPorEmail = async (email) => {
   try {
-    console.log('Buscando usuário com email:', email); 
     const usuario = await Usuario.findOne({ where: { email } });
     
     if (!usuario) {
-      console.log('Usuário não encontrado'); 
       throw new NotFoundError('Usuário não encontrado.');
     }
 
@@ -113,35 +111,6 @@ const atualizarUsuario = async (idUsuario, dadosAtualizados, usuarioAutenticado)
   }
 };
 
-const deletarUsuario = async (id, usuarioAutenticado) => {
-  try {
-    const usuarioAlvo = await Usuario.findByPk(id);
-    if (!usuarioAlvo) {
-      throw new NotFoundError('Usuário não encontrado.');
-    }
-
-    if (usuarioAlvo.role === 'admin' && usuarioAutenticado.id !== usuarioAlvo.id) {
-      throw new AuthorizationError('Não é permitido excluir outro administrador.');
-    }
-
-    // Excluir as amizades associadas ao usuário
-    await Amizade.destroy({
-      where: {
-        [Op.or]: [
-          { usuario_id_1: id },
-          { usuario_id_2: id }
-        ]
-      }
-    });
-
-    await Compra.destroy({ where: { usuario_id: id } });
-    await usuarioAlvo.destroy();
-    return usuarioAlvo;
-  } catch (error) {
-    throw new DatabaseError('Erro ao deletar o usuário: ' + error.message);
-  }
-};
-
 const promoverUsuario = async (id, usuarioAutenticado) => {
   try {
     const usuario = await Usuario.findByPk(id);
@@ -176,7 +145,7 @@ const buscarTodosUsuarios = async () => {
 const pesquisarUsuarioPorId = async (id) => {
   try {
     const usuario = await Usuario.findByPk(id, {
-      attributes: ['nome', 'nickname'],
+      attributes: ['nome', 'nickname', 'role', 'email'],
       include: [
         {
           model: Compra,
@@ -190,24 +159,6 @@ const pesquisarUsuarioPorId = async (id) => {
           order: [['data_compra', 'DESC']],
           limit: 1 // Para pegar apenas o último jogo comprado
         },
-        {
-          model: Usuario, 
-          as: 'amizades_iniciadas', // Amigos que este usuário iniciou a amizade
-          through: {
-            model: Amizade,
-            attributes: [] // Oculta dados da tabela intermediária
-          },
-          attributes: ['nome', 'nickname']
-        },
-        {
-          model: Usuario, 
-          as: 'amizades_recebidas', // Amigos que receberam a amizade deste usuário
-          through: {
-            model: Amizade,
-            attributes: []
-          },
-          attributes: ['nome', 'nickname']
-        }
       ]
     });
 
@@ -218,19 +169,13 @@ const pesquisarUsuarioPorId = async (id) => {
     // Adiciona o último jogo comprado, se existir
     const ultimoJogo = usuario.Compras.length > 0 ? usuario.Compras[0].Jogo : null;
 
-    // Combina ambas as listas de amizade em uma única lista de amigos
-    const amigos = [
-      ...usuario.amizades_iniciadas,
-      ...usuario.amizades_recebidas
-    ];
-
-    // Remove o campo `Compras` do resultado final
     const resultado = {
       nome: usuario.nome,
       nickname: usuario.nickname,
+      role: usuario.role,
+      email: usuario.email,
       jogos: usuario.Compras.map(compra => compra.Jogo.nome), // Lista de nomes dos jogos
       ultimoJogo: ultimoJogo ? ultimoJogo.nome : null, // Nome do último jogo
-      amigos // Lista combinada de amigos
     };
 
     return resultado;
@@ -249,7 +194,6 @@ module.exports = {
   verificarEmailExistente,
   verificarNicknameExistente,
   atualizarUsuario,
-  deletarUsuario,
   promoverUsuario,
   buscarTodosUsuarios,
   pesquisarUsuarioPorId,

@@ -53,8 +53,8 @@ function GamePage() {
     }
   }, [id]);
 
-  const handleAddToCart = () => {
-    navigate(`/compra/${id}`); // Redireciona para a página de compra do jogo
+  const handleCompra = () => {
+    navigate(`/compra/${id}`);
   };
 
   const handleChangeImage = (image) => {
@@ -73,7 +73,7 @@ function GamePage() {
           <h1>{gameData.nome}</h1>
           <p className="game-description">{gameData.descricao}</p>
           <p className="game-price">R$ {gameData.preco}</p>
-          <button onClick={handleAddToCart} className="btn-add-to-cart">Adicionar ao Carrinho</button>
+          <button onClick={handleCompra} className="btn-add-to-cart">Comprar</button>
 
           {companyData && (
             <div className="company-info">
@@ -87,7 +87,7 @@ function GamePage() {
       </div>
 
       <section className="gallery">
-        <h2>Capturas de Tela</h2>
+        <h2>Fotos do jogo</h2>
         <div className="main-image">
           <img src={mainImage} alt="Imagem Principal" />
         </div>

@@ -27,7 +27,11 @@ module.exports = (sequelize) => {
 
   Empresa.associate = models => {
     // Associações com Jogo
-    Empresa.hasMany(models.Jogo, { foreignKey: 'empresa_id' });
+    Empresa.hasMany(models.Jogo, { 
+      foreignKey: 'empresa_id', 
+      onDelete: 'CASCADE', 
+      onUpdate: 'CASCADE' 
+    });
   };
 
   return Empresa;

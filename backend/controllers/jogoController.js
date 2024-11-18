@@ -38,18 +38,29 @@ const getJogoById = async (req, res) => {
 // Criar um novo jogo
 const createJogo = async (req, res) => {
   try {
+    // Exibe os dados recebidos na requisição antes de chamar o serviço
+    console.log("Requisição recebida no controller", req.body);
+    console.log("Arquivos recebidos:", req.files);
+
+
+    // Chama o serviço para criar o jogo
     const jogo = await jogoService.createJogo(req.body);
+
+    // Retorna o jogo criado
     res.status(201).json(jogo);
   } catch (err) {
+    // Trata erros de validação e de banco de dados
     if (err instanceof ValidationError) {
       res.status(400).json({ error: err.message });
     } else if (err instanceof DatabaseError) {
       res.status(500).json({ error: err.message });
     } else {
+      // Erro genérico do servidor
       res.status(500).json({ error: 'Erro interno do servidor.' });
     }
   }
 };
+
 
 // Atualizar um jogo existente
 const updateJogo = async (req, res) => {

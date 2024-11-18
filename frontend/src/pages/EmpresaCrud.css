@@ -1,0 +1,62 @@
+.empresa-crud {
+    padding: 20px;
+  }
+  
+  .empresa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-button {
+    background-color: #28a745;
+    color: white;
+    font-size: 24px;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    background-color: #218838;
+  }
+  
+  .empresa-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .empresa-table th, .empresa-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .edit-button:hover {
+    color: #007bff;
+  }
+  
+  .delete-button:hover {
+    color: #dc3545;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

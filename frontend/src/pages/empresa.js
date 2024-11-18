@@ -50,14 +50,10 @@ function CompanyPage() {
           <h1>{companyData.nome}</h1>
           <p className="company-description">{companyData.descricao}</p>
           <div className="social-links">
-            <a href={companyData.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href={companyData.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href={companyData.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href={companyData.website} target="_blank" rel="noopener noreferrer">Website</a>
+            <a href={companyData.redes_sociais} target="_blank" rel="noopener noreferrer">Rede Social</a>
           </div>
         </div>
       </div>
-
       <section className="company-image">
         <h2>Sobre a Empresa</h2>
         <img src={companyData.imagem} alt="Imagem da Empresa" />

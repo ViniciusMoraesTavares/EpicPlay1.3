@@ -1,0 +1,46 @@
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.game-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  text-align: center;
+}
+
+.game-cover {
+  width: 100%;
+  border-radius: 10px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.price {
+  color: #ff6f61;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+.buy-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #218838;
+}

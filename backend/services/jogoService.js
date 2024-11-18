@@ -1,3 +1,4 @@
+// services/jogoService.js
 const { Jogo, Empresa } = require('../models');
 const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
@@ -23,7 +24,6 @@ const createJogo = async (jogoData) => {
   try {
     const { empresa_id, nome, preco } = jogoData;
 
-    // Validações básicas
     if (!nome || !preco) {
       throw new ValidationError('Nome e preço são obrigatórios.');
     }
@@ -48,16 +48,12 @@ const updateJogo = async (id, jogoData) => {
       throw new NotFoundError('Jogo não encontrado.');
     }
 
-    // Atualiza o jogo com os dados recebidos
     await jogo.update(jogoData);
-
     return { message: 'Jogo atualizado com sucesso!', jogo };
   } catch (err) {
     throw new DatabaseError('Erro ao atualizar jogo: ' + err.message);
   }
 };
-
-
 
 // Deletar um jogo
 const deleteJogo = async (id) => {
@@ -95,6 +91,21 @@ const uploadImagensJogo = async (jogoId, imagePaths, trailerUrl) => {
   }
 };
 
+// Buscar gêneros
+const getGeneros = async () => {
+  try {
+    const generos = await Jogo.findAll({
+      attributes: [
+        [Sequelize.fn('DISTINCT', Sequelize.col('genero')), 'genero']
+      ],
+      raw: true
+    });
+    return generos;
+  } catch (err) {
+    throw new DatabaseError('Erro ao buscar gêneros.');
+  }
+};
+
 module.exports = {
   getAllJogos,
   getJogoById,
@@ -102,4 +113,5 @@ module.exports = {
   updateJogo,
   deleteJogo,
   uploadImagensJogo,
+  getGeneros
 };

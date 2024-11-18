@@ -24,14 +24,24 @@
     color: #fff;
 }
 
-.search-bar {
-    width: 50%;
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .search-bar {
+    width: 300px;
     padding: 10px;
-    border: none;
-    border-radius: 25px;
+    border: 2px solid #ff0099;
+    border-radius: 5px;
     outline: none;
-    background-color: #ffffff; 
-}
+  }
+  
+  .search-bar:focus {
+    border-color: #ff66cc;
+  }
+  
 
 .nav-link {
     background: none;
@@ -41,6 +51,23 @@
     cursor: pointer;
   }
   
+  .navigation .nav-link {
+    text-decoration: none;
+    font-weight: bold; 
+    font-size: 16px; 
+    color: #ff78cb;
+    transition: color 0.3s;
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    padding: 0; 
+    display: inline-block; 
+}
+
+.navigation .nav-link:hover {
+    color: #f4a8c0;
+}
+
 
 .settings-button {
     background: none;

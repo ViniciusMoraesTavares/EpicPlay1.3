@@ -1,8 +1,6 @@
 const compraService = require('../services/compraService');
 const ValidationError = require('../errors/ValidationError');
-const NotFoundError = require('../errors/NotFoundError');
 const DatabaseError = require('../errors/DatabaseError');
-
 
 // Obter todas as compras
 const getAllCompras = async (req, res) => {
@@ -35,52 +33,23 @@ const createCompra = async (req, res) => {
   }
 };
 
-// Atualizar uma compra existente
-const updateCompra = async (req, res) => {
+// Obter compra por ID
+const getCompraById = async (req, res) => {
+  const compraId = req.params.id;
   try {
-    const { id } = req.params;
-    const { usuario_id, jogo_id } = req.body;
-    const compra = await compraService.updateCompra(id, usuario_id, jogo_id);
-    if (!compra) {
-      throw new NotFoundError('Compra não encontrada.');
-    }
-    res.json(compra);
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      res.status(400).json({ error: err.message });
-    } else if (err instanceof NotFoundError) {
-      res.status(404).json({ error: err.message });
-    } else if (err instanceof DatabaseError) {
-      res.status(500).json({ error: err.message });
+    const compra = await compraService.getCompraById(compraId);
+    if (compra) {
+      res.status(200).json(compra);
     } else {
-      res.status(500).json({ error: 'Erro interno do servidor.' });
+      res.status(404).json({ error: 'Compra não encontrada' });
     }
-  }
-};
-
-// Deletar uma compra
-const deleteCompra = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const response = await compraService.deleteCompra(id);
-    if (!response) {
-      throw new NotFoundError('Compra não encontrada.');
-    }
-    res.json(response);
   } catch (err) {
-    if (err instanceof NotFoundError) {
-      res.status(404).json({ error: err.message });
-    } else if (err instanceof DatabaseError) {
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Erro interno do servidor.' });
-    }
+    res.status(500).json({ error: 'Erro interno do servidor.' });
   }
 };
 
 module.exports = {
   getAllCompras,
   createCompra,
-  updateCompra,
-  deleteCompra
+  getCompraById,
 };

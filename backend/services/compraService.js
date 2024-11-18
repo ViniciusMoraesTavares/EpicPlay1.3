@@ -4,8 +4,10 @@ const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const ValidationError = require('../errors/ValidationError');
 
+// Gerar chave de ativação
 const gerarChaveDeAtivacao = () => uuidv4();
 
+// Obter todas as compras
 const getAllCompras = async () => {
   try {
     return await Compra.findAll();
@@ -14,6 +16,7 @@ const getAllCompras = async () => {
   }
 };
 
+// Criar uma nova compra
 const createCompra = async (usuario_id, jogo_id) => {
   try {
     const usuarioExiste = await Usuario.findByPk(usuario_id);
@@ -36,50 +39,24 @@ const createCompra = async (usuario_id, jogo_id) => {
   }
 };
 
-const updateCompra = async (id, usuario_id, jogo_id) => {
+
+// Obter compra por ID
+const getCompraById = async (id) => {
   try {
-    const compra = await Compra.findByPk(id);
+    const compra = await Compra.findByPk(id, {
+      include: ['jogo', 'usuario'], // Incluir dados do jogo e usuário
+    });
     if (!compra) {
       throw new NotFoundError('Compra não encontrada.');
     }
-
-    const usuarioExiste = await Usuario.findByPk(usuario_id);
-    if (!usuarioExiste) {
-      throw new ValidationError('O usuário especificado não existe.');
-    }
-
-    const jogoExiste = await Jogo.findByPk(jogo_id);
-    if (!jogoExiste) {
-      throw new ValidationError('O jogo especificado não existe.');
-    }
-
-    compra.usuario_id = usuario_id;
-    compra.jogo_id = jogo_id;
-    await compra.save();
-
     return compra;
   } catch (err) {
-    throw new DatabaseError('Erro ao atualizar compra: ' + err.message);
-  }
-};
-
-const deleteCompra = async (id) => {
-  try {
-    const compra = await Compra.findByPk(id);
-    if (!compra) {
-      throw new NotFoundError('Compra não encontrada.');
-    }
-
-    await compra.destroy();
-    return { message: 'Compra deletada com sucesso.' };
-  } catch (err) {
-    throw new DatabaseError('Erro ao deletar compra: ' + err.message);
+    throw new DatabaseError('Erro ao buscar compra por ID: ' + err.message);
   }
 };
 
 module.exports = {
   getAllCompras,
   createCompra,
-  updateCompra,
-  deleteCompra
+  getCompraById,
 };

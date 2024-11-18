@@ -56,6 +56,7 @@ const deleteEmpresa = async (id) => {
     await empresa.destroy();
     return { message: 'Empresa deletada com sucesso.' };
   } catch (err) {
+    console.error("Erro ao deletar empresa:", err);
     throw new DatabaseError('Erro ao deletar empresa.');
   }
 };

@@ -1,3 +1,4 @@
+const { Usuario } = require('../models');
 const usuarioService = require('../services/usuarioService');
 const authService = require('../services/authService');
 const AuthorizationError = require('../errors/AuthorizationError');
@@ -28,7 +29,7 @@ const criarUsuario = async (req, res) => {
     const { nome, email, senha, nickname } = req.body;
     const foto = req.file ? req.file.path : null; 
 
-    console.log('Dados recebidos:', { nome, email, senha, nickname, foto }); // Log dos dados
+    console.log('Dados recebidos:', { nome, email, senha, nickname, foto }); 
 
     const emailExistente = await usuarioService.verificarEmailExistente(email);
     if (emailExistente) {
@@ -120,7 +121,7 @@ const loginUsuario = async (req, res) => {
 // Obter o perfil do usuário logado
 const getMeuPerfil = async (req, res) => {
   try {
-    const usuario = await usuarioService.buscarUsuarioPorId(req.user.id);
+    const usuario = await usuarioService.pesquisarUsuarioPorId(req.user.id);
     if (!usuario) {
       throw new NotFoundError('Usuário não encontrado.');
     }
@@ -162,47 +163,6 @@ const updateUsuario = async (req, res) => {
     }
   }
 };
-
-// Deletar um usuário existente
-const deleteUsuario = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const usuarioAutenticado = req.usuario;
-
-    if (!id) {
-      throw new ValidationError('ID do usuário é obrigatório.');
-    }
-
-    const usuarioRemovido = await usuarioService.deletarUsuario(id, usuarioAutenticado);
-
-    return res.status(200).json({
-      message: `Usuário ${usuarioRemovido.nome} foi deletado com sucesso.`,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Deletar o próprio perfil
-const deleteMeuPerfil = async (req, res) => {
-  try {
-    const usuarioId = req.user.id;
-    if (!usuarioId) {
-      throw new AuthorizationError('Usuário não autenticado.');
-    }
-
-    await usuarioService.deletarUsuario(usuarioId);
-
-    res.json({ message: 'Perfil deletado com sucesso.' });
-  } catch (error) {
-    if (error instanceof DatabaseError) {
-      res.status(500).json({ error: 'Erro ao deletar o perfil no banco de dados.' });
-    } else {
-      res.status(500).json({ error: 'Erro inesperado.' });
-    }
-  }
-};
-
 
 // Pesquisar usuários com base em critérios
 const pesquisarUsuarioPorId = async (req, res, next) => {
@@ -293,8 +253,6 @@ module.exports = {
   loginUsuario,
   getMeuPerfil,
   updateUsuario,
-  deleteUsuario,
-  deleteMeuPerfil,
   pesquisarUsuarioPorId,
   updateMeuPerfil,
   promoverUsuario,

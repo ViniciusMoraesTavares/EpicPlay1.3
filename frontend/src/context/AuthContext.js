@@ -1,14 +1,17 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { toast } from 'react-toastify';
 import api from '../services/api';
-import { Navigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
 export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [redirect, setRedirect] = useState(null); // Gerenciando o redirecionamento
 
   useEffect(() => {
     // Verificar se já existe um token no localStorage ao carregar a aplicação
@@ -37,26 +40,37 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.post('/usuarios/login', { email, senha });
       const { token } = response.data;
-      localStorage.setItem('token', token); // Salva o token
+
+      // Salva o token no localStorage
+      localStorage.setItem('token', token);
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      fetchUserData(); // Recarrega os dados do usuário após o login
-      setRedirect('/'); // Marca o redirecionamento para a página inicial
+      await fetchUserData(); // Recarrega os dados do usuário
+      toast.success('Login realizado com sucesso!');
+      return '/'; // Retorna a rota para redirecionamento
     } catch (err) {
-      setError('Erro ao realizar login com email');
+      toast.error('Erro ao realizar login. Verifique suas credenciais.');
       console.error(err);
+      throw err; // Permite ao chamador lidar com o erro
     }
   };
 
-  const handleGoogleLoginSuccess = (response) => {
-    const token = response.credential; // O token do Google
-    localStorage.setItem('token', token);
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    fetchUserData(); // Recarrega os dados do usuário após o login
-    setRedirect('/'); // Marca o redirecionamento para a página inicial
+  const handleGoogleLoginSuccess = async (response) => {
+    try {
+      const token = response.credential;
+      localStorage.setItem('token', token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      await fetchUserData();
+      toast.success('Login com Google realizado com sucesso!');
+      return '/'; // Retorna a rota para redirecionamento
+    } catch (err) {
+      toast.error('Erro ao realizar login com Google.');
+      console.error(err);
+      throw err; // Permite ao chamador lidar com o erro
+    }
   };
 
   const handleGoogleLoginFailure = (error) => {
-    setError('Falha ao realizar login com Google');
+    toast.error('Falha ao realizar login com Google.');
     console.error(error);
   };
 
@@ -64,12 +78,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     api.defaults.headers.common['Authorization'] = '';
     setUsuario(null); // Limpa os dados do usuário
-    setRedirect('/login'); // Marca o redirecionamento para a página de login
+    toast.info('Você saiu da sua conta.');
   };
-
-  if (redirect) {
-    return <Navigate to={redirect} />; // Realiza o redirecionamento
-  }
 
   return (
     <AuthContext.Provider
@@ -80,7 +90,9 @@ export const AuthProvider = ({ children }) => {
         loginWithEmail,
         handleGoogleLoginSuccess,
         handleGoogleLoginFailure,
-        logout
+        logout,
+        fetchUserData,
+        setLoading,
       }}
     >
       {children}

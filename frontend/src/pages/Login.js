@@ -1,23 +1,27 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import api from '../services/api';
-import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import './RegisterForm.css';
 
 function Login() {
-  const { usuario, loading, handleGoogleLoginSuccess, handleGoogleLoginFailure, loginWithEmail, logout } = useContext(AuthContext);
+  const {
+    usuario,
+    loading,
+    loginWithEmail,
+    logout,
+  } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: '',
-    senha: ''
+    senha: '',
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate();  // Hook para navegação
+  const navigate = useNavigate(); // Hook para navegação
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -38,51 +42,27 @@ function Login() {
     }
 
     try {
-      const response = await api.post('/usuarios/login', formData);
-
-      if (response.status === 200) {
-        const { token } = response.data;
-        localStorage.setItem('token', token); // Salva o token no localStorage
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Configura o header de autorização
-        alert('Login realizado com sucesso!');
-        navigate('/');  // Redireciona para a página home
-      } else {
-        setError('Login falhou, verifique suas credenciais.');
-      }
+      await loginWithEmail(formData.email, formData.senha); // Chama a função do contexto
+      navigate('/'); // Redireciona após login
     } catch (error) {
       console.error('Erro ao fazer o login do usuário:', error);
-      setError('Erro ao realizar o login. Tente novamente.');
+      setError('Erro ao realizar o login. Verifique suas credenciais.');
     }
   };
 
-  const handleGoogleLogin = (response) => {
-    // Chama a função que lida com o login via Google, já fornecida no contexto
-    handleGoogleLoginSuccess(response);
-    navigate('/');  // Redireciona após login com sucesso
-  };
-
-  const handleGoogleLoginError = (error) => {
-    handleGoogleLoginFailure(error);
-  };
-
+ 
   return (
     <div className="register-container">
       <h2>Login</h2>
       {usuario ? (
         <div>
-          <h3>Bem-vindo, {usuario.nome}</h3> {/* Verifique se "nome" está correto */}
+          <h3>Bem-vindo, {usuario.nome}</h3>
           <button onClick={logout}>Logout</button>
         </div>
       ) : (
         <div>
-          {/* Login com Google */}
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onFailure={handleGoogleLoginError}
-            useOneTap
-          />
-          <hr />
 
+          {/* Login com Email e Senha */}
           <form onSubmit={handleSubmit}>
             <label>Email:</label>
             <input

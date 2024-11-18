@@ -1,0 +1,22 @@
+.meu-perfil-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .perfil-detalhes p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .perfil-detalhes strong {
+    font-weight: bold;
+  }  

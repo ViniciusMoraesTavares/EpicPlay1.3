@@ -1,0 +1,91 @@
+/* Compra.css */
+.compra-container {
+    background-color: #fff;
+    color: #f803cf;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    color: #e91e63; /* Rosa da EpicPlay */
+    margin-bottom: 20px;
+  }
+  
+  .game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .game-cover {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  select {
+    padding: 10px;
+    border: 1px solid #e91e63;
+    border-radius: 5px;
+    width: 250px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  select:focus {
+    border-color: #c2185b; 
+  }
+  
+  .btn-pagar {
+    background-color: #e91e63;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-pagar:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .btn-pagar:hover:not(:disabled) {
+    background-color: #c2185b;
+  }
+  
+  @media (max-width: 768px) {
+    .game-info {
+      gap: 15px;
+    }
+  
+    .game-cover {
+      width: 250px;
+      height: 330px;
+    }
+  
+    select {
+      width: 220px;
+    }
+  
+    .btn-pagar {
+      padding: 12px 25px;
+    }
+  }
+  

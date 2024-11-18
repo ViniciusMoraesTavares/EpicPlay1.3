@@ -1,0 +1,69 @@
+/* AdicionarJogo.css */
+
+/* Estilos principais da página */
+.adicionar-jogo-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* Cor de fundo clara para a página */
+}
+
+.adicionar-jogo-container h1 {
+  font-size: 28px;
+  color: #ff4c8c; /* Cor rosa para o título */
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333; /* Cor do texto do label */
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff; /* Fundo branco para inputs */
+  color: #333; /* Cor do texto no input */
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #ff4c8c; /* Cor de fundo rosa */
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #ff2a5d; /* Cor de hover mais escura */
+}
+
+/* Estilo do input de arquivo */
+input[type="file"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.toast-container {
+  z-index: 9999;
+}

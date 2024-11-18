@@ -1,11 +1,12 @@
-// Importação das dependências 
+// Importação das dependências
+const http = require('http'); // Adicionado para criar o servidor manualmente
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const session = require('express-session'); 
-const passport = require('passport');
 const { sequelize } = require('./models');
+require('dotenv').config();
 
 // Importação das classes de erro personalizadas
 const AuthenticationError = require('./errors/AuthenticationError');
@@ -16,17 +17,21 @@ const DatabaseError = require('./errors/DatabaseError');
 const LoginError = require('./errors/LoginError');
 const PasswordValidationError = require('./errors/PasswordValidationError');
 
-require('dotenv').config();
-require('./config/passportConfig'); 
-
 const app = express();
-const port = process.env.PORT; 
+const port = process.env.PORT || 3001; // Porta padrão
+
+// Criando o servidor HTTP manualmente para ajustar `maxHeaderSize`
+const server = http.createServer({
+  maxHeaderSize: 100000000000, // Define o limite para headers (8 KB, pode ajustar conforme necessário)
+}, app);
 
 // Middlewares
 app.use(cors({
-  origin: 'http://localhost:3000', //porta do frontend
-  credentials: true 
-})); 
+  origin: 'http://localhost:3000',
+  credentials: true, // Use somente se necessário
+  allowedHeaders: ['Content-Type', 'Authorization'], // Limite os cabeçalhos permitidos
+}));
+
 app.use(bodyParser.json()); 
 
 // Configuração da sessão
@@ -36,27 +41,17 @@ app.use(session({
   saveUninitialized: true 
 }));
 
-// Inicialização do Passport.js
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Chamando as rotas do aplicativo
 const empresaRoutes = require('./routes/empresaRoutes');
 const jogoRoutes = require('./routes/jogoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const compraRoutes = require('./routes/compraRoutes');
-const amizadeRoutes = require('./routes/amizadeRoutes');
-const authRoutes = require('./routes/authRoutes');
-const carrinhoRoutes = require('./routes/carrinhoRoutes');
 
 // Usando as rotas nas respectivas URLs
 app.use('/empresas', empresaRoutes);
 app.use('/jogos', jogoRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
-app.use('/amizades', amizadeRoutes); 
-app.use('/auth', authRoutes); 
-app.use('/carrinho', carrinhoRoutes);''
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve arquivos estáticos
 
 // Middleware de tratamento de erros
@@ -94,8 +89,8 @@ app.use((err, req, res, next) => {
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Conexão com o banco de dados estabelecida com sucesso.'); 
-    app.listen(port, () => {
+    server.listen(port, () => { // Use `server.listen` ao invés de `app.listen`
       console.log(`Servidor rodando na porta http://localhost:${port}`); 
     });
   })
-  .catch(err => console.error('Erro ao sincronizar com o banco de dados:', err)); 
+  .catch(err => console.error('Erro ao sincronizar com o banco de dados:', err));
