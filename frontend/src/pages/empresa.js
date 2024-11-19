@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../services/api'; // Importe a instância da API
+import api from '../services/api';
 import './empresa.css';
 
 function CompanyPage() {
   const { id } = useParams();
-  const [companyData, setCompanyData] = useState(null);
+  const [empresaData, setempresaData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCompanyData = async () => {
+    const fetchempresaData = async () => {
       console.log("ID da empresa:", id);
       try {
-        const response = await api.get(`/empresas/${id}`); // Usando a instância 'api'
-        
+        const response = await api.get(`/empresas/${id}`);
         if (response.status === 200 && response.data) {
-          console.log("Dados recebidos da API:", response.data);
-          setCompanyData(response.data);
+          const empresa = response.data;
+
+          // Ajustando a URL da foto da empresa para usar a base da API
+          empresa.foto = `${api.defaults.baseURL}/uploads/${empresa.foto}`;
+
+          setempresaData(empresa);
         } else {
           console.error('Resposta inesperada da API:', response);
           setError('Erro ao carregar os dados da empresa.');
@@ -31,7 +34,7 @@ function CompanyPage() {
     };
 
     if (id) {
-      fetchCompanyData();
+      fetchempresaData();
     } else {
       setLoading(false);
       setError('ID da empresa não encontrado.');
@@ -40,23 +43,27 @@ function CompanyPage() {
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
-  if (!companyData) return <p>Erro ao carregar dados da empresa.</p>;
+  if (!empresaData) return <p>Erro ao carregar dados da empresa.</p>;
 
   return (
-    <div className="company-container">
-      <div className="company-header">
-        <img src={companyData.logo} alt="Logo da Empresa" className="company-logo" />
-        <div className="company-info">
-          <h1>{companyData.nome}</h1>
-          <p className="company-description">{companyData.descricao}</p>
-          <div className="social-links">
-            <a href={companyData.redes_sociais} target="_blank" rel="noopener noreferrer">Rede Social</a>
-          </div>
+    <div className="empresa-container">
+      <div className="empresa-header">
+        <img src={empresaData.foto} alt="foto da Empresa1" className="empresa-foto1" />
+        <div className="empresa-info">
+          <h1>{empresaData.nome}</h1>
+          <p className="empresa-description">{empresaData.descricao}</p>
+          {empresaData.redes_sociais && (
+            <div className="social-links">
+              <a href={empresaData.redes_sociais} target="_blank" rel="noopener noreferrer">
+                Rede Social
+              </a>
+            </div>
+          )}
         </div>
       </div>
-      <section className="company-image">
-        <h2>Sobre a Empresa</h2>
-        <img src={companyData.imagem} alt="Imagem da Empresa" />
+      <section className="empresa-image">
+        <h2>&copy; {empresaData.nome}</h2>
+        <img src={empresaData.foto} alt="foto da Empresa2" className="empresa-foto2" />
       </section>
     </div>
   );

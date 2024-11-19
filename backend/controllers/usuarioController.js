@@ -29,8 +29,6 @@ const criarUsuario = async (req, res) => {
     const { nome, email, senha, nickname } = req.body;
     const foto = req.file ? req.file.path : null; 
 
-    console.log('Dados recebidos:', { nome, email, senha, nickname, foto }); 
-
     const emailExistente = await usuarioService.verificarEmailExistente(email);
     if (emailExistente) {
       throw new ValidationError('E-mail já em uso.');
@@ -44,7 +42,7 @@ const criarUsuario = async (req, res) => {
     const novoUsuario = await usuarioService.criarUsuario({ nome, email, senha, nickname, foto });
     res.status(201).json({ message: 'Usuário criado com sucesso!', usuario: novoUsuario });
   } catch (error) {
-    console.error('Erro ao criar usuário:', error); // Log do erro
+    console.error('Erro ao criar usuário:', error);
     if (error instanceof ValidationError) {
       res.status(400).json({ error: error.message });
     } else if (error instanceof DatabaseError) {
@@ -55,12 +53,11 @@ const criarUsuario = async (req, res) => {
   }
 };
 
-
 // Criar um novo administrador
 const createAdmin = async (req, res) => {
   try {
     const { nome, email, senha, nickname } = req.body;
-    const foto = req.file ? req.file.path : null; // Caminho da foto
+    const foto = req.file ? req.file.path : null;
 
     const emailExistente = await usuarioService.verificarEmailExistente(email);
     const nicknameExistente = await usuarioService.verificarNicknameExistente(nickname);
@@ -87,31 +84,23 @@ const createAdmin = async (req, res) => {
 const loginUsuario = async (req, res) => {
   try {
     const { email, senha } = req.body;
-
-    // Buscar o usuário pelo email
     const usuario = await usuarioService.buscarUsuarioPorEmail(email);
     if (!usuario) {
       throw new LoginError('Usuário não encontrado.');
     }
-
-    // Verificar se a senha fornecida é válida
     const senhaValida = await usuarioService.verificarSenha(senha, usuario.senha);
     if (!senhaValida) {
       throw new PasswordValidationError('Senha inválida.');
     }
-
-    // Gerar o token de autenticação
     const token = authService.gerarToken(usuario);
     res.json({ token });
 
   } catch (error) {
-    // Tratamento de erro específico
     if (error instanceof LoginError || error instanceof PasswordValidationError) {
       res.status(401).json({ error: error.message });
     } else if (error instanceof DatabaseError) {
       res.status(500).json({ error: 'Erro ao buscar usuário ou verificar senha no banco de dados.' });
     } else {
-      // Logar o erro para depuração
       console.error('Erro inesperado no login:', error);
       res.status(500).json({ error: 'Erro inesperado.' });
     }
@@ -138,15 +127,22 @@ const getMeuPerfil = async (req, res) => {
   }
 };
 
-// Atualizar um usuário existente
 const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-    const usuarioAutenticado = req.user; 
-    const foto = req.file ? req.file.path : null; 
+    const decodedToken = req.user;
+    const usuarioAutenticado = req.user;
+
+    console.log('Decoded token:', decodedToken);
+    console.log('ID do usuário:', id);
+    console.log('Corpo da requisição:', req.body);
+
+    const foto = req.file ? req.file.path : null;
     const dadosAtualizados = { ...req.body, foto };
 
-    const usuarioAtualizado = await usuarioService.atualizarUsuario(id, dadosAtualizados, usuarioAutenticado);
+    console.log('Dados atualizados:', dadosAtualizados);
+
+    const usuarioAtualizado = await usuarioService.atualizarUsuario(decodedToken, id, dadosAtualizados, usuarioAutenticado);
 
     if (!usuarioAtualizado) {
       throw new NotFoundError('Usuário não encontrado.');
@@ -154,6 +150,7 @@ const updateUsuario = async (req, res) => {
 
     res.json(usuarioAtualizado);
   } catch (error) {
+    console.error('Erro no controller:', error);
     if (error instanceof NotFoundError) {
       res.status(404).json({ error: error.message });
     } else if (error instanceof DatabaseError) {
@@ -163,6 +160,7 @@ const updateUsuario = async (req, res) => {
     }
   }
 };
+
 
 // Pesquisar usuários com base em critérios
 const pesquisarUsuarioPorId = async (req, res, next) => {
@@ -189,12 +187,26 @@ const pesquisarUsuarioPorId = async (req, res, next) => {
 // Atualizar o perfil do usuário logado
 const updateMeuPerfil = async (req, res) => {
   try {
-    const usuario = await usuarioService.atualizarUsuario(req.user.id, req.body);
+    console.log('Dados do usuário autenticado:', req.user);
+    console.log('Corpo da requisição recebido:', req.body);
+    console.log('Arquivo recebido:', req.file);
+
+    const dadosAtualizados = {
+      ...req.body,
+      foto: req.file ? req.file.path : undefined, // Use o caminho do arquivo se ele existir
+    };
+
+    console.log('Dados combinados para atualização:', dadosAtualizados);
+
+    const usuario = await usuarioService.atualizarUsuario(req.user.id, dadosAtualizados);
+
     if (!usuario) {
       throw new NotFoundError('Usuário não encontrado.');
     }
+
     res.json(usuario);
   } catch (error) {
+    console.error('Erro ao atualizar perfil:', error);
     if (error instanceof NotFoundError) {
       res.status(404).json({ error: error.message });
     } else if (error instanceof DatabaseError) {
@@ -204,6 +216,8 @@ const updateMeuPerfil = async (req, res) => {
     }
   }
 };
+
+
 
 
 // Promover um usuário para administrador
@@ -228,24 +242,6 @@ const promoverUsuario = async (req, res) => {
   }
 };
 
-// Adicione esta função no seu usuarioController.js
-const adicionarFotoPerfil = async (req, res) => {
-  try {
-    const usuarioId = req.user.id;
-    const foto = req.file.path; // Ou conforme a sua lógica
-
-    const usuarioAtualizado = await usuarioService.atualizarUsuario(usuarioId, { foto });
-    res.json(usuarioAtualizado);
-  } catch (error) {
-    if (error instanceof DatabaseError) {
-      res.status(500).json({ error: 'Erro ao adicionar a foto no banco de dados.' });
-    } else {
-      res.status(500).json({ error: 'Erro inesperado.' });
-    }
-  }
-};
-
-
 module.exports = {
   getAllUsuarios,
   criarUsuario,
@@ -256,5 +252,4 @@ module.exports = {
   pesquisarUsuarioPorId,
   updateMeuPerfil,
   promoverUsuario,
-  adicionarFotoPerfil,
 };

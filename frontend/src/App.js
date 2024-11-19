@@ -10,7 +10,6 @@ import Register from './pages/Register'; // Página de registro
 import Login from './pages/Login'; // Página de login
 import GamePage from './pages/GamePage'; // Página do jogo específico
 import CompanyPage from './pages/empresa'; // Página da empresa
-import UserProfilePage from './pages/userProfilePage'; // Página do perfil do usuário
 import MeuPerfilPage from './pages/MeuPerfilPage';
 import Admin from './pages/admin'; // Página do painel de admin
 import EmpresaCrud from './pages/EmpresaCrud'; // Tela de CRUD de empresas
@@ -34,7 +33,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/jogos/:id" element={<GamePage />} />
             <Route path="/empresas/:id" element={<CompanyPage />} />
-            <Route path="/usuarios/:id" element={<UserProfilePage />} />
             <Route path="/perfil" element={<MeuPerfilPage />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/empresas" element={<EmpresaCrud />} />

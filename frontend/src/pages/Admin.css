@@ -1,0 +1,79 @@
+/* Estilo geral da página */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  /* Título principal */
+  .admin-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Contêiner dos cards */
+  .admin-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  /* Estilo dos cards */
+  .admin-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+  
+  /* Título dentro do card */
+  .admin-card h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  
+  /* Lista no card */
+  .admin-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    color: #666;
+  }
+  
+  .admin-card ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
+  /* Botão dentro do card */
+  .admin-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-button:hover {
+    background-color: #0056b3;
+  }
+  

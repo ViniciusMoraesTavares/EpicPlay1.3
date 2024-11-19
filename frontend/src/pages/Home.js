@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import api from "../services/api";
+import api, { UPLOADS_URL } from "../services/api"; // Importa a URL de Uploads
 import { ToastContainer, toast } from "react-toastify";
 import getUserRole from "../utils/getUserRole";
 import "./Home.css";
@@ -35,17 +35,12 @@ const Home = () => {
     fetchJogos();
   }, []);
 
-  // Função de navegação para a página de compra
+  // Função de navegação para a página do jogo
   const navigate = useNavigate();
-  const goToCompra = (jogoId) => {
-    navigate(`/compra/${jogoId}`, {
+  const goToGame = (jogoId) => {
+    navigate(`/jogos/${jogoId}`, {
       state: { jogoId }, // Passa o ID do jogo para a próxima página
     });
-  };
-
-  // Função de navegação para painel de administração
-  const goToAdmin = () => {
-    navigate("/admin");
   };
 
   // Função de filtro de busca
@@ -84,7 +79,7 @@ const Home = () => {
             <>
               <p>Olá, {primeiroNome}!</p>
               {userRole === "admin" && (
-                <button onClick={goToAdmin} className="nav-button">
+                <button onClick={() => navigate("/admin")} className="nav-button">
                   Painel de Administração
                 </button>
               )}
@@ -102,8 +97,8 @@ const Home = () => {
         </div>
       </header>
 
-      {/* Menu de Navegação */}
-      <nav className="navigation">
+       {/* Menu de Navegação */}
+       <nav className="navigation">
         <Link to="/jogos-exemplo" className="nav-link">
           Jogos Gratuitos
         </Link>
@@ -137,7 +132,7 @@ const Home = () => {
             jogosFiltrados.map((jogo) => (
               <div className="game-card" key={jogo.id}>
                 <img
-                  src={jogo.capa}
+                  src={`${api.defaults.baseURL}${UPLOADS_URL}${jogo.capa}`}
                   alt={jogo.nome}
                   className="game-cover"
                 />
@@ -150,9 +145,9 @@ const Home = () => {
                 <p className="price">R$ {parseFloat(jogo.preco || 0).toFixed(2)}</p>
                 <button
                   className="buy-button"
-                  onClick={() => goToCompra(jogo.id)} // Navega para a tela de compra com o ID do jogo
+                  onClick={() => goToGame(jogo.id)} // Navega para a tela de compra com o ID do jogo
                 >
-                  Comprar
+                  Ver Mais
                 </button>
               </div>
             ))

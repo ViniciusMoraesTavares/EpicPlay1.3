@@ -1,5 +1,5 @@
 // Importação das dependências
-const http = require('http'); // Adicionado para criar o servidor manualmente
+const http = require('http'); 
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -8,7 +8,7 @@ const session = require('express-session');
 const { sequelize } = require('./models');
 require('dotenv').config();
 
-// Importação das classes de erro personalizadas
+// Importação das classes de erro personalizadas 
 const AuthenticationError = require('./errors/AuthenticationError');
 const AuthorizationError = require('./errors/AuthorizationError');
 const ValidationError = require('./errors/ValidationError');
@@ -18,21 +18,21 @@ const LoginError = require('./errors/LoginError');
 const PasswordValidationError = require('./errors/PasswordValidationError');
 
 const app = express();
-const port = process.env.PORT || 3001; // Porta padrão
+const port = process.env.PORT 
 
-// Criando o servidor HTTP manualmente para ajustar `maxHeaderSize`
 const server = http.createServer({
-  maxHeaderSize: 100000000000, // Define o limite para headers (8 KB, pode ajustar conforme necessário)
+  maxHeaderSize: 100000000000, 
 }, app);
 
 // Middlewares
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true, // Use somente se necessário
-  allowedHeaders: ['Content-Type', 'Authorization'], // Limite os cabeçalhos permitidos
+  credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 
-app.use(bodyParser.json()); 
+app.use(express.json()); // Para interpretar requisições com JSON no corpo
+app.use(express.urlencoded({ extended: true })); // Para interpretar requisições form-urlencoded
 
 // Configuração da sessão
 app.use(session({

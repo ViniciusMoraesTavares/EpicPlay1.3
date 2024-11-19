@@ -106,4 +106,25 @@ body {
   .system-requirements li {
     margin: 5px 0;
   }
+
+  .game-synopsis {
+    margin: 20px 0;
+  }
+  
+  .game-synopsis p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .game-trailer {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .video-container {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
   

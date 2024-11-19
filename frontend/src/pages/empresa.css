@@ -1,51 +1,105 @@
-.company-container {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* Estrutura básica */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.empresa-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.empresa-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+/* Foto da Empresa */
+.empresa-foto1 {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e91e63;
+}
+
+/* Informações da Empresa */
+.empresa-info h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #e91e63;
+}
+
+.empresa-info p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.social-links a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #e91e63;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: #c2185b;
+}
+
+/* Seção Sobre a Empresa */
+.empresa-image {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.empresa-image h2 {
+  font-size: 1.8rem;
+  color: #e91e63;
+  margin-bottom: 20px;
+}
+
+.empresa-foto2 {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .empresa-header {
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .company-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+
+  .empresa-foto1 {
+    margin: 0 auto 20px;
   }
-  
-  .company-logo {
-    width: 100px;
-    height: auto;
-    margin-right: 20px;
+
+  .empresa-info h1 {
+    font-size: 1.8rem;
   }
-  
-  .company-info {
-    flex: 1;
-  }
-  
-  .company-info h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .company-description {
+
+  .empresa-info p {
     font-size: 1rem;
-    margin-bottom: 20px;
   }
-  
-  .social-links a {
-    margin-right: 15px;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-  }
-  
-  .social-links a:hover {
-    text-decoration: underline;
-  }
-  
-  .company-image {
-    margin-top: 30px;
-  }
-  
-  .company-image img {
-    width: 100%;
-    height: auto;
-  }
-  
+}

@@ -1,4 +1,4 @@
-const { Usuario, Compra, Jogo, Amizade} = require('../models');const bcrypt = require('bcryptjs');
+const { Usuario  } = require('../models');const bcrypt = require('bcryptjs');
 const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
@@ -35,9 +35,7 @@ const buscarUsuarioPorId = async (id) => {
 
 const verificarSenha = async (senha, senhaHash) => {
   try {
-    console.log('Verificando a senha...');  
     const isMatch = await bcrypt.compare(senha, senhaHash);
-    console.log('Senha válida:', isMatch);  
     return isMatch;
   } catch (error) {
     console.error('Erro ao verificar a senha:', error);  
@@ -48,12 +46,9 @@ const verificarSenha = async (senha, senhaHash) => {
 const buscarUsuarioPorEmail = async (email) => {
   try {
     const usuario = await Usuario.findOne({ where: { email } });
-    
     if (!usuario) {
       throw new NotFoundError('Usuário não encontrado.');
     }
-
-    console.log('Usuário encontrado:', usuario);  
     return usuario;
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);  
@@ -80,34 +75,33 @@ const verificarNicknameExistente = async (nickname) => {
   }
 };
 
-const atualizarUsuario = async (idUsuario, dadosAtualizados, usuarioAutenticado) => {
+const atualizarUsuario = async (idUsuario, dadosAtualizados) => {
+  console.log('ID do usuário:', idUsuario);
+  console.log('Dados a serem atualizados:', dadosAtualizados);
+
+  if (!idUsuario) {
+    throw new Error('ID do usuário não fornecido.');
+  }
+
+  if (!dadosAtualizados || Object.keys(dadosAtualizados).length === 0) {
+    throw new Error('Nenhum dado foi fornecido para atualização.');
+  }
+
   try {
     const usuario = await Usuario.findByPk(idUsuario);
     if (!usuario) {
       throw new NotFoundError('Usuário não encontrado.');
     }
 
-    if (usuario.role === 'admin' && usuarioAutenticado.id !== usuario.id) {
-      throw new AuthorizationError('Somente o próprio administrador pode alterar suas informações.');
-    }
-
-    if (dadosAtualizados.role && usuario.role === 'admin' && dadosAtualizados.role !== 'admin') {
-      throw new AuthorizationError('Não é permitido rebaixar um administrador.');
-    }
-
     if (dadosAtualizados.senha) {
       dadosAtualizados.senha = await bcrypt.hash(dadosAtualizados.senha, 10);
-    }
-
-    // Atualiza a foto se fornecida
-    if (dadosAtualizados.foto) {
-      dadosAtualizados.foto = dadosAtualizados.foto;
     }
 
     await usuario.update(dadosAtualizados);
     return usuario;
   } catch (error) {
-    throw new DatabaseError('Erro ao atualizar o usuário: ' + error.message);
+    console.error('Erro ao atualizar o usuário:', error);
+    throw new DatabaseError('Erro ao atualizar o usuário no banco de dados.');
   }
 };
 
@@ -146,36 +140,16 @@ const pesquisarUsuarioPorId = async (id) => {
   try {
     const usuario = await Usuario.findByPk(id, {
       attributes: ['nome', 'nickname', 'role', 'email'],
-      include: [
-        {
-          model: Compra,
-          attributes: ['jogo_id', 'data_compra'],
-          include: [
-            {
-              model: Jogo, 
-              attributes: ['nome']
-            }
-          ],
-          order: [['data_compra', 'DESC']],
-          limit: 1 // Para pegar apenas o último jogo comprado
-        },
-      ]
     });
 
     if (!usuario) {
       throw new NotFoundError('Usuário não encontrado.');
     }
-
-    // Adiciona o último jogo comprado, se existir
-    const ultimoJogo = usuario.Compras.length > 0 ? usuario.Compras[0].Jogo : null;
-
     const resultado = {
       nome: usuario.nome,
       nickname: usuario.nickname,
       role: usuario.role,
       email: usuario.email,
-      jogos: usuario.Compras.map(compra => compra.Jogo.nome), // Lista de nomes dos jogos
-      ultimoJogo: ultimoJogo ? ultimoJogo.nome : null, // Nome do último jogo
     };
 
     return resultado;
