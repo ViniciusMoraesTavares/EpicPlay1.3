@@ -47,7 +47,7 @@ function Compra() {
   if (!gameData) return <p>Erro ao carregar dados do jogo.</p>;
 
   return (
-    <div className="compra-container">
+    <div className="compra-form">
       <h1>{gameData.nome}</h1>
       <div className="game-info">
         <img src={gameData.capa} alt="Capa do Jogo" className="game-cover" />
@@ -70,3 +70,4 @@ function Compra() {
 }
 
 export default Compra;
+

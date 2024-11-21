@@ -63,6 +63,7 @@ const JogosCRUD = () => {
             <th>Descrição</th>
             <th>Preço</th>
             <th>Ações</th>
+            <th>Genero</th>
           </tr>
         </thead>
         <tbody>
@@ -76,6 +77,7 @@ const JogosCRUD = () => {
                 <td>{jogo.nome}</td>
                 <td>{jogo.descricao}</td>
                 <td>{jogo.preco}</td>
+                <td>{jogo.genero}</td>
                 <td className="actions">
                   <button onClick={() => handleEditJogo(jogo.id)} className="edit-button">
                     <FaEdit />

@@ -1,21 +1,24 @@
-/* Container principal */
+/* Estrutura principal da página */
 .home-container {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     min-height: 100vh;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
+
+/* Outros estilos existentes (mantidos do código anterior) */
 
 /* Cabeçalho */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 15px 30px; 
+    width: 100vw; /* Ajuste para 100% da largura da tela */
+    padding: 20px 30px;
     background-color: #f4a8c0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
 }
 
 .logo {
@@ -24,24 +27,24 @@
     color: #fff;
 }
 
+/* Campo de pesquisa */
 .search-container {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-  }
-  
-  .search-bar {
+}
+
+.search-bar {
     width: 300px;
     padding: 10px;
     border: 2px solid #ff0099;
     border-radius: 5px;
     outline: none;
-  }
-  
-  .search-bar:focus {
+}
+
+.search-bar:focus {
     border-color: #ff66cc;
-  }
-  
+}
 
 .nav-link {
     background: none;
@@ -49,40 +52,39 @@
     color: blue;
     text-decoration: underline;
     cursor: pointer;
-  }
-  
-  .navigation .nav-link {
+}
+
+.navigation .nav-link {
     text-decoration: none;
-    font-weight: bold; 
-    font-size: 16px; 
+    font-weight: bold;
+    font-size: 16px;
     color: #ff78cb;
     transition: color 0.3s;
-    background: none; 
-    border: none; 
-    cursor: pointer; 
-    padding: 0; 
-    display: inline-block; 
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
 }
 
 .navigation .nav-link:hover {
     color: #f4a8c0;
 }
 
-
 .settings-button {
     background: none;
     border: none;
-    font-size: 28px; 
+    font-size: 28px;
     cursor: pointer;
-    color: #ffffff; 
-    margin-left: 15px; 
-    margin-right: 20px; 
-    height: auto; 
-    width: auto; 
-    display: flex; 
-    align-items: center; 
+    color: #ffffff;
+    margin-left: 15px;
+    margin-right: 20px;
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: 5px; 
+    padding: 5px;
 }
 
 /* Navegação */
@@ -111,21 +113,21 @@
     left: 0;
     width: 200px;
     padding: 20px;
-    background-color: #f4a8c0; 
+    background-color: #f4a8c0;
     height: calc(100vh - 80px);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h3 {
-    color: #ffffff; 
+    color: #ffffff;
     margin-bottom: 10px;
 }
 
 .filter-box {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar ul {
@@ -148,21 +150,21 @@
 
 /* Barra de pesquisa de amigos */
 .friend-search {
-    flex: 1; 
+    flex: 1;
     padding: 8px;
     border: none;
     border-radius: 20px 0 0 20px;
-    background-color: #ffffff; 
+    background-color: #ffffff;
 }
 
 /* Botão de pesquisa */
 .search-button {
-    background-color: #ff78cb; 
+    background-color: #ff78cb;
     border: none;
     padding: 8px 12px;
-    border-radius: 0 20px 20px 0; 
+    border-radius: 0 20px 20px 0;
     cursor: pointer;
-    color: white; 
+    color: white;
     font-size: 16px;
 }
 
@@ -176,18 +178,24 @@
 /* Lista de jogos */
 .game-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Aumentar a largura mínima dos cards */
+    gap: 20px; /* Um pouco mais de espaço entre os cards */
     margin-top: 20px;
 }
 
 .game-card {
+    width: 300px; /* Define uma largura fixa para o card */
+    height: 500px; /* Ajusta a altura do card para deixar espaço proporcional */
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     text-align: center;
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Impede que o conteúdo ultrapasse os limites do card */
 }
 
 .game-card:hover {
@@ -196,7 +204,16 @@
 
 .game-cover {
     width: 100%;
+    height: 150px; /* Diminui a altura da capa para 150px */
+    object-fit: cover; /* Ajusta a imagem para cobrir a área */
     border-radius: 10px;
+}
+
+.game-card h2,
+.game-card p {
+    text-overflow: ellipsis; /* Trunca o texto se for longo demais */
+    overflow: hidden;
+    white-space: nowrap; /* Garante que o texto não quebre para a linha seguinte */
 }
 
 .price {
@@ -206,13 +223,14 @@
 }
 
 .buy-button {
-    padding: 10px 20px;
+    padding: 8px 20px;
     border: none;
     background-color: #ff78cb;
     color: white;
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 14px;
 }
 
 .buy-button:hover {
@@ -246,3 +264,48 @@
 .auth-button:hover {
     background-color: #3f4f9f;
 }
+
+/* Estilo para input e ícone (from Uiverse.io by alexruix) */
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 800px; /* Aumenta o comprimento da barra de pesquisa */
+    width: 200%; /* Garante que a barra ocupe todo o espaço disponível */
+}
+
+.input {
+    width: 200%; /* Faz com que o input ocupe todo o comprimento disponível */
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+.input:hover {
+    outline: none;
+    border-color: rgba(234, 226, 183, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+

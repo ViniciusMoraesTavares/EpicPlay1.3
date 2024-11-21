@@ -1,79 +1,145 @@
+body.admin {
+  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
+  background-size: cover; /* Faz com que a imagem cubra toda a tela */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+}
+
+
 /* Estilo geral da página */
-.admin-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-  }
-  
-  /* Título principal */
-  .admin-title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Contêiner dos cards */
-  .admin-cards {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
-    max-width: 900px;
-  }
-  
-  /* Estilo dos cards */
-  .admin-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-  }
-  
-  /* Título dentro do card */
-  .admin-card h2 {
-    font-size: 1.5rem;
-    color: #444;
-    margin-bottom: 15px;
-  }
-  
-  /* Lista no card */
-  .admin-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-    color: #666;
-  }
-  
-  .admin-card ul li {
-    margin: 10px 0;
-    font-size: 1rem;
-  }
-  
-  /* Botão dentro do card */
-  .admin-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .admin-button:hover {
-    background-color: #0056b3;
-  }
-  
+
+
+/* Título principal */
+.admin-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Contêiner dos cards */
+.admin-cards {
+  display: flex;
+  justify-content: center; /* Centraliza os cards horizontalmente */
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que os cards quebrem para a linha seguinte, se necessário */
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Estilo dos cards */
+.admin-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.admin-cardJogos {
+  --input-focus: black;
+  --font-color: #323232;
+  --font-color-sub: #323232;
+  --bg-color: #f7eee9;
+  --main-color: black;
+  padding: 20px;
+  background: #ffc1d5; /* Fundo do formulário */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  width: 350px;
+  min-height: 380px;
+  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
+  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+}
+
+.admin-card {
+  --input-focus: black;
+  --font-color: #323232;
+  --font-color-sub: #323232;
+  --bg-color: #f7eee9;
+  --main-color: black;
+  padding: 20px;
+  background: #ffc1d5; /* Fundo do formulário */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  width: 350px;
+  min-height: 380px;
+  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
+  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+}
+
+
+/* Título dentro do card */
+.admin-cardJogos h2,
+.admin-card h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center; /* Centraliza o texto */
+}
+
+/* Lista no card */
+.admin-cardJogos ul,
+.admin-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  color: #333;
+  text-align: center; /* Centraliza o texto */
+}
+
+.admin-cardJogos li,
+.admin-card li {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o conteúdo dentro de cada item */
+  margin: 10px 0;
+  font-size: 1.3rem;
+}
+
+.admin-cardJogos li svg,
+.admin-card li svg {
+  margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+  font-size: 25px; /* Tamanho do ícone */
+  color: var(--main-color); /* Cor do ícone */
+}
+
+/* Botão dentro do card */
+.admin-button {
+  margin: 15px auto;
+  width: 180px; /* Aumenta a largura do botão */
+  height: 50px; /* Aumenta a altura do botão */
+  border-radius: 5px;
+  border: 2px solid var(--main-color); /* Usando a borda definida */
+  background-color: var(--bg-color); /* Fundo semelhante ao do formulário */
+  box-shadow: 4px 4px var(--main-color); /* Sombra conforme o estilo de "register-button-confirm" */
+  font-size: 16px; /* Tamanho da fonte ajustado */
+  font-weight: 600;
+  color: var(--font-color); /* Cor do texto conforme o estilo */
+  cursor: pointer;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.admin-button:hover {
+  background-color: white; /* Cor ao passar o mouse, caso necessário */
+}

@@ -1,17 +1,37 @@
+
 /* Confirmacao.css */
 .confirmacao-container {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #333;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
     font-family: 'Arial', sans-serif;
     text-align: center;
-  }
+      --input-focus: black;
+      --font-color: #323232;
+      --font-color-sub: #323232;
+      --bg-color: #f7eee9;
+      --main-color: black;
+      padding: 20px;
+      background: #ffc1d5; /* Fundo do formulário */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      border-radius: 10px;
+      border: 2px solid var(--main-color);
+      box-shadow: 4px 4px var(--main-color);
+      width: 500px;
+      min-height: 380px;
+      background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
+      background-size: cover; /* Garante que a imagem cubra todo o fundo */
+    }
   
   h1 {
     font-size: 2.5rem;
-    color: #ff00b3; 
+    color: #333; 
     margin-bottom: 20px;
   }
   

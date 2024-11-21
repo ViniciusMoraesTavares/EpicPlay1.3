@@ -88,6 +88,7 @@ function GamePage() {
         <div className="game-info">
           <h1>{gameData.nome}</h1>
           <p className="game-description">{gameData.descricao}</p>
+          <p className="game-gender">{gameData.genero}</p>
           <p className="game-price">R$ {gameData.preco}</p>
           <button onClick={handleCompra} className="btn-add-to-cart">Comprar</button>
 

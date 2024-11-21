@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { AuthContext } from '../context/AuthContext'; // Ajuste o caminho para onde o AuthContext está definido.
+import { AuthContext } from '../context/AuthContext'; 
+import './Confirmacao.css' 
 
 function Confirmacao() {
   const { id } = useParams(); 

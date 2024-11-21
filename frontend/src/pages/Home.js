@@ -61,17 +61,30 @@ const Home = () => {
     <div className="home-container">
       {/* Cabeçalho */}
       <header className="header">
-        <div className="logo">EpicPlay</div> {/* Apenas o nome do site no cabeçalho */}
+        <div className="logo">EpicPlay</div>
 
-        {/* Barra de pesquisa */}
+        {/* Barra de pesquisa com ícone */}
         <div className="search-container">
-          <input
-            type="text"
-            placeholder="Pesquisar jogos..."
-            className="search-bar"
-            value={searchQuery}
-            onChange={handleSearch} // Chama a função de busca ao digitar
-          />
+          <div className="group">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="icon"
+            >
+              <g>
+                <path
+                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                ></path>
+              </g>
+            </svg>
+            <input
+              className="input"
+              type="search"
+              placeholder="Pesquisar jogos..."
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+          </div>
         </div>
 
         <div className="auth-buttons">
@@ -97,8 +110,8 @@ const Home = () => {
         </div>
       </header>
 
-       {/* Menu de Navegação */}
-       <nav className="navigation">
+      {/* Menu de Navegação */}
+      <nav className="navigation">
         <Link to="/jogos-exemplo" className="nav-link">
           Jogos Gratuitos
         </Link>
@@ -138,8 +151,8 @@ const Home = () => {
                 />
                 <h2>{jogo.nome}</h2>
                 <p>
-                  {jogo.sinopse && jogo.sinopse.length > 80
-                    ? `${jogo.sinopse.slice(0, 80)}...`
+                  {jogo.sinopse && jogo.sinopse.length > 50
+                    ? `${jogo.sinopse.slice(0, 50)}...`
                     : jogo.sinopse || "Sinopse não disponível."}
                 </p>
                 <p className="price">R$ {parseFloat(jogo.preco || 0).toFixed(2)}</p>

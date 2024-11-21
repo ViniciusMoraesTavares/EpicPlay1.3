@@ -3,7 +3,8 @@ import api from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import fotoUser  from "../assets/imgs/fotoUser.png";
+import fotoUser from "../assets/imgs/fotoUser.png";
+import { FaEnvelope, FaFacebook, FaGithub } from "react-icons/fa";
 import "./MeuPerfilPage.css";
 
 const MeuPerfilPage = () => {
@@ -18,6 +19,16 @@ const MeuPerfilPage = () => {
     foto: null, // Inicialmente vazio
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Adiciona a classe 'perfil' ao body
+    document.body.classList.add("perfil");
+
+    return () => {
+      // Remove a classe 'perfil' ao desmontar o componente
+      document.body.classList.remove("perfil");
+    };
+  }, []);
 
   useEffect(() => {
     const fetchMeuPerfil = async () => {
@@ -111,6 +122,10 @@ const MeuPerfilPage = () => {
     navigate("/");
   };
 
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -131,67 +146,78 @@ const MeuPerfilPage = () => {
   return (
     <div className="meu-perfil-container">
       <h1>{meuPerfil.nickname}</h1>
-      <div className="perfil-detalhes">
-        {editMode ? (
-          <form onSubmit={handleUpdateProfile}>
-            <div>
-              <label>Nome:</label>
-              <input
-                type="text"
-                name="nome"
-                value={formData.nome}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Email:</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Nick:</label>
-              <input
-                type="text"
-                name="nickname"
-                value={formData.nickname}
-                onChange={handleEditChange}
-                required
-              />
-            </div>
-            <div>
-              <label>Foto:</label>
-              <input type="file" accept="image/*" onChange={handleFileChange} />
-            </div>
-            <button type="submit">Salvar alterações</button>
-            <button type="button" onClick={() => setEditMode(false)}>
-              Cancelar
-            </button>
-          </form>
-        ) : (
-          <div>
+      <div className="perfil-card">
+        <div className="card">
+          <button className="mail">
+            <FaEnvelope />
+          </button>
+          <div className="profile-pic">
             <img
               src={meuPerfil.foto || fotoUser}
               alt={`${meuPerfil.nome} Foto de Perfil`}
               className="perfil-foto"
             />
-            <p><strong>Nome:</strong> {meuPerfil.nome}</p>
-            <p><strong>Email:</strong> {meuPerfil.email}</p>
-            <p><strong>Papel:</strong> {meuPerfil.role}</p>
-            <button onClick={() => setEditMode(true)}>Editar Perfil</button>
-            <button onClick={handleLogout}>Sair</button>
-            <button onClick={handleBackHome}>Voltar</button>
           </div>
-        )}
+          <div className="bottom">
+            <div className="content">
+              <span className="name">{meuPerfil.nome}</span>
+              <span className="about-me">{meuPerfil.email}</span>
+            </div>
+            <div className="bottom-bottom">
+  
+              <button className="button" onClick={handleEditClick}>Editar Perfil</button> 
+              <button className="button" onClick={handleBackHome}>Voltar</button>
+              <button className="button" onClick={handleLogout}>Sair</button>
+            </div>
+          </div>
+        </div>
       </div>
+      
+      {/* Modo de Edição de Perfil */}
+      {editMode && (
+        <form className="edit-profile-form" onSubmit={handleUpdateProfile}>
+          <label>
+            Nome:
+            <input
+              type="name"
+              name="nome"
+              value={formData.nome}
+              onChange={handleEditChange}
+            />
+          </label>
+          <label>
+            E-mail:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleEditChange}
+            />
+          </label>
+          <label>
+            Nickname:
+            <input
+              type="name"
+              name="nickname"
+              value={formData.nickname}
+              onChange={handleEditChange}
+            />
+          </label>
+          <label>
+            Foto:
+            <input
+              type="file"
+              name="foto"
+              onChange={handleFileChange}
+            />
+          </label>
+          <button type="submit">Salvar</button>
+        </form>
+      )}
       <ToastContainer />
     </div>
   );
 };
 
 export default MeuPerfilPage;
+

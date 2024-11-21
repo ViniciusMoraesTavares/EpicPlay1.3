@@ -1,91 +1,173 @@
-/* Compra.css */
+/* Contêiner principal da compra */
+
+.compra-form {
+  --bg-color: #f7eee9; /* Cor de fundo do formulário */
+  --main-color: black;
+  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
+  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  border-radius: 10px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  width: 700px; /* Largura ajustada */
+  min-height: 750px; /* Comprimento ajustado */
+  padding: 20px; /* Espaçamento interno para evitar que encoste */
+  position: relative; /* Garante o contexto de posicionamento */
+}
+
 .compra-container {
-    background-color: #fff;
-    color: #f803cf;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: #e91e63; /* Rosa da EpicPlay */
-    margin-bottom: 20px;
-  }
-  
-  .game-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .game-cover {
-    width: 300px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  p {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-  
-  select {
-    padding: 10px;
-    border: 1px solid #e91e63;
-    border-radius: 5px;
-    width: 250px;
-    font-size: 1rem;
-    color: #333;
-    background-color: #f9f9f9;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  select:focus {
-    border-color: #c2185b; 
-  }
-  
-  .btn-pagar {
-    background-color: #e91e63;
-    color: #fff;
-    font-size: 1.1rem;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn-pagar:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-  
-  .btn-pagar:hover:not(:disabled) {
-    background-color: #c2185b;
-  }
-  
-  @media (max-width: 768px) {
-    .game-info {
-      gap: 15px;
-    }
-  
-    .game-cover {
-      width: 250px;
-      height: 330px;
-    }
-  
-    select {
-      width: 220px;
-    }
-  
-    .btn-pagar {
-      padding: 12px 25px;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+/* Título do jogo */
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Container do cartão de informações do jogo */
+.game-info {
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 20px; /* Espaçamento interno */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 550px; /* Largura ajustada */
+  width: 90%;
+  text-align: center;
+  margin: auto; /* Garante a centralização dentro do form */
+  position: relative; /* Para funcionar bem dentro do contexto flex */
+ }
+
+
+/* Capa do jogo */
+.game-cover {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Informações do preço */
+p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Cor para preço */
+  margin-bottom: 20px;
+}
+
+/* Descrição do jogo */
+.game-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto 20px;
+}
+
+/* Seleção do método de pagamento */
+h3 {
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+}
+
+select {
+  width: 100%;
+  height: 40px; /* Altura consistente com o input */
+  border-radius: 5px; /* Borda arredondada */
+  border: 2px solid var(--main-color); /* Borda preta */
+  background-color: var(--bg-color); /* Fundo similar */
+  box-shadow: 4px 4px var(--main-color); /* Sombra idêntica */
+  font-size: 14px; /* Tamanho da fonte */
+  font-weight: 600; /* Fonte mais grossa */
+  color: var#333 ; /* Cor do texto */
+  padding: 8px; /* Espaçamento interno */
+  outline: none;
+  appearance: none; /* Remove o estilo padrão do navegador */
+  cursor: pointer; /* Adiciona um cursor pointer */
+}
+
+/* Placeholder do select */
+select option {
+  color: var(--font-color-sub);
+  opacity: 0.8;
+}
+
+/* Estilo no foco */
+select:focus {
+  border: 2px solid var(--input-focus); /* Cor de borda no foco */
+}
+
+/* Botão de pagamento */
+.btn-pagar {
+  margin: 50px auto 0 auto; /* Alinha o botão ao centro */
+  width: 200px; /* Define a largura do botão */
+  height: 40px; /* Define a altura do botão */
+  border-radius: 5px; /* Bordas arredondadas */
+  border: 2px solid var(--main-color); /* Borda preta */
+  background-color: var#f7eee9; /* Cor de fundo do botão */
+  box-shadow: 4px 4px var(--main-color); /* Sombra do botão */
+  font-size: 17px; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  color: var #333; /* Cor do texto */
+  cursor: pointer; /* Cursor de mão para indicar que é clicável */
+}
+
+
+/* Estado desabilitado do botão */
+.btn-pagar:disabled {
+  background-color: #f7eee9;
+  cursor: not-allowed;
+}
+
+
+/* Botão de pagamento pressionado */
+.btn-pagar:active {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mensagem de erro ou carregamento */
+.error-message,
+.loading-message {
+  font-size: 1rem;
+  color: #ff6b6b;
+  margin-top: 20px;
+}
+
+/* Estilo para a navegação */
+.navigation-links {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Links da navegação */
+.navigation-links a {
+  color: #ff6b6b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navigation-links a:hover {
+  text-decoration: underline;
+}
+
   

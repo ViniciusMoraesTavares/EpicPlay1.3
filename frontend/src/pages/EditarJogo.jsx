@@ -15,6 +15,7 @@ const EditarJogo = () => {
     sinopse: "",
     preco: "",
     trailer: "",
+    genero: "",
     capa: null,
     img_1: null,
     img_2: null,
@@ -39,6 +40,7 @@ const EditarJogo = () => {
           nome: response.data.nome,
           descricao: response.data.descricao,
           sinopse: response.data.sinopse || "",
+          genero: response.data.genero || "",
           preco: response.data.preco,
           trailer: response.data.trailer,
           capa: response.data.capa,
@@ -78,6 +80,7 @@ const EditarJogo = () => {
     formData.append("sinopse", jogo.sinopse);
     formData.append("preco", jogo.preco);
     formData.append("trailer", jogo.trailer);
+    formData.append("genero", jogo.genero);
 
     // Adiciona os arquivos ao FormData
     if (fotos.capa) formData.append("capa", fotos.capa);
@@ -151,6 +154,15 @@ const EditarJogo = () => {
             type="text"
             name="trailer"
             value={jogo.trailer}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Genero (URL):</label>
+          <input
+            type="text"
+            name="trailer"
+            value={jogo.genero}
             onChange={handleChange}
           />
         </div>

@@ -1,63 +1,129 @@
-.register-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #e5e5e5;
-    border-radius: 5px;
-    background-color: #f4a8c0;
-  }
-  
-  .register-form h2 {
-    text-align: center;
-    color: #ff78cb;
-  }
-  
-  .register-form div {
-    margin-bottom: 15px;
-  }
-  
-  .register-form label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .register-form input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  .register-form button {
-    background-color: #ff78cb;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .register-form button:hover {
-    background-color: #e067a7;
-  }
-
-  /* Estilo para o botão de login com Google */
-.auth-buttons .google-login {
-  width: 100%;
-  padding: 10px;
-  background-color: #4285F4;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
+/* Background para o body da página de registro */
+/* Aplicando o fundo somente quando a classe 'cadastro-page' estiver no body */
+body.cadastro-page {
+  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
+  background-size: cover; /* Faz com que a imagem cubra toda a tela */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
 }
 
-.auth-buttons .google-login:hover {
-  background-color: #357ae8;
+
+/* CSS para o formulário de Registro */
+.register-form {
+  --input-focus: black;
+  --font-color: #323232;
+  --font-color-sub: #323232;
+  --bg-color: #f7eee9;
+  --main-color: black;
+  padding: 20px;
+  background: #ffc1d5; /* Fundo do formulário */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  width: 350px;
+  min-height: 380px;
+  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
+  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+}
+
+.register-title {
+  color: var(--font-color);
+  font-weight: 900;
+  font-size: 30px; /* Aumenta o tamanho da fonte */
+  margin-bottom: 8px; /* Aumenta a margem inferior */
+  text-align: left;
+}
+
+.register-title span {
+  color: var(--font-color-sub);
+  font-weight: 600;
+  font-size: 30px; /* Aumenta o tamanho da fonte */
+  text-align: left;
+}
+
+.register-input {
+  width: 100%;
+  height: 40px; /* Aumenta a altura do input */
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 17px; /* Aumenta o tamanho da fonte */
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 8px; /* Aumenta o padding dentro do input */
+  outline: none;
+}
+
+.register-input::placeholder {
+  color: var(--font-color-sub);
+  opacity: 0.8;
+}
+
+.register-input:focus {
+  border: 2px solid var(--input-focus);
+}
+
+.register-login-with {
+  display: flex;
+  gap: 10px; /* Aumenta o espaço entre os ícones */
+  margin-top: 15px; /* Aumenta o espaço superior */
+}
+
+.register-button-log {
+  cursor: pointer;
+  width: 40px; /* Tamanho maior do botão */
+  height: 40px; /* Tamanho maior do botão */
+  border-radius: 50%;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  color: var(--font-color);
+  font-size: 20px; /* Aumenta o tamanho da fonte dentro do botão */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-icon {
+  width: 20px; /* Aumenta o tamanho do ícone */
+  height: 20px; /* Aumenta o tamanho do ícone */
+  fill: var(--main-color);
+}
+
+.register-button-confirm {
+  margin: 15px auto;
+  width: 180px; /* Aumenta a largura do botão */
+  height: 50px; /* Aumenta a altura do botão */
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-weight: 600;
+  color: var(--font-color);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.register-login-link {
+  text-align: center;
+  margin-top: 10px; /* Aumenta a margem superior */
+  color: var(--font-color);
+}
+
+.register-login-btn {
+  color: var(--font-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-login-btn:hover {
+  text-decoration: underline;
 }

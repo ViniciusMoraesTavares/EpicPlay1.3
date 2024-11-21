@@ -34,6 +34,16 @@ const EmpresaCRUD = () => {
   };
 
   useEffect(() => {
+    // Adiciona a classe 'crudempresa' ao body quando o componente é montado
+    document.body.classList.add("crudempresa");
+
+    // Remove a classe 'crudempresa' ao desmontar o componente
+    return () => {
+      document.body.classList.remove("crudempresa");
+    };
+  }, []); // Este efeito será executado apenas uma vez, quando o componente for montado
+
+  useEffect(() => {
     fetchEmpresas();
   }, []);
 

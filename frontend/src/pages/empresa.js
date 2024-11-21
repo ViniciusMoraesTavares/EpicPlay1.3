@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import api from '../services/api';
 import './empresa.css';
 
+
 function CompanyPage() {
   const { id } = useParams();
   const [empresaData, setempresaData] = useState(null);
@@ -61,10 +62,6 @@ function CompanyPage() {
           )}
         </div>
       </div>
-      <section className="empresa-image">
-        <h2>&copy; {empresaData.nome}</h2>
-        <img src={empresaData.foto} alt="foto da Empresa2" className="empresa-foto2" />
-      </section>
     </div>
   );
 }
