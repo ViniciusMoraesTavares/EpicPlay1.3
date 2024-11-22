@@ -18,7 +18,6 @@ function CompanyPage() {
         if (response.status === 200 && response.data) {
           const empresa = response.data;
 
-          // Ajustando a URL da foto da empresa para usar a base da API
           empresa.foto = `${api.defaults.baseURL}/uploads/${empresa.foto}`;
 
           setempresaData(empresa);

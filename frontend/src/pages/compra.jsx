@@ -4,7 +4,7 @@ import api from '../services/api';
 import './Compra.css';
 
 function Compra() {
-  const { id } = useParams(); // ID do jogo
+  const { id } = useParams(); 
   const [gameData, setGameData] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [loading, setLoading] = useState(true);

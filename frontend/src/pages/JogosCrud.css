@@ -2,9 +2,9 @@
 .jogo-crud {
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
-  border-radius: 10px; /* Bordas arredondadas para o contêiner */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
+  border-radius: 10px; 
 }
 
 .jogo-header {
@@ -51,7 +51,7 @@
   border-collapse: collapse;
   margin-bottom: 20px;
   border-radius: 10px;
-  overflow: hidden; /* Faz com que as bordas arredondadas se aplicam corretamente */
+  overflow: hidden; 
 }
 
 .jogo-table th,
@@ -63,29 +63,28 @@
 
 .jogo-table {
   width: 100%;
-  border-collapse: collapse; /* Garante que as bordas se unam */
-  margin-top: 20px; /* Adiciona um espaçamento superior */
-  border-radius: 8px; /* Bordas arredondadas para a tabela */
-  background-color: #ffffff; /* Fundo branco para a tabela */
-  color: #333; /* Cor do texto para a tabela */
+  border-collapse: collapse; 
+  margin-top: 20px; 
+  border-radius: 8px; 
+  background-color: #ffffff; 
+  color: #333; 
 }
 
 .jogo-table th {
-  background-color: #f8f9fa; /* Cor de fundo para cabeçalhos */
-  font-weight: bold; /* Deixa o texto em negrito */
-  padding: 12px; /* Adiciona preenchimento para os cabeçalhos */
-  text-align: center; /* Centraliza o texto nos cabeçalhos */
+  background-color: #f8f9fa; 
+  font-weight: bold; 
+  padding: 12px; 
+  text-align: center; 
 }
 
 .jogo-table td {
-  padding: 12px; /* Adiciona preenchimento nas células */
-  text-align: center; /* Centraliza o texto nas células */
+  padding: 12px; 
+  text-align: center; 
 }
 
 .jogo-table tr:hover {
-  background-color: #e9ecef; /* Cor de fundo ao passar o mouse */
+  background-color: #e9ecef; 
 }
-
 
 .actions {
   display: flex;
@@ -145,4 +144,3 @@
     margin-bottom: 5px;
   }
 }
-  

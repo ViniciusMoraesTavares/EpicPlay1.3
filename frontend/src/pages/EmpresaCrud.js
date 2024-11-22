@@ -10,7 +10,6 @@ const EmpresaCRUD = () => {
   const [erro, setErro] = useState(null);
   const navigate = useNavigate();
 
-  // Função para carregar as empresas
   const fetchEmpresas = async () => {
     try {
       const response = await api.get("/empresas");
@@ -21,7 +20,6 @@ const EmpresaCRUD = () => {
     }
   };
 
-  // Função para excluir uma empresa
   const deleteEmpresa = async (id) => {
     try {
       await api.delete(`/empresas/${id}`);
@@ -34,14 +32,11 @@ const EmpresaCRUD = () => {
   };
 
   useEffect(() => {
-    // Adiciona a classe 'crudempresa' ao body quando o componente é montado
     document.body.classList.add("crudempresa");
-
-    // Remove a classe 'crudempresa' ao desmontar o componente
     return () => {
       document.body.classList.remove("crudempresa");
     };
-  }, []); // Este efeito será executado apenas uma vez, quando o componente for montado
+  }, []); 
 
   useEffect(() => {
     fetchEmpresas();

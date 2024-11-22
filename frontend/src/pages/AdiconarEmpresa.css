@@ -1,0 +1,100 @@
+/* Fundo com imagem */
+body {
+  background: url('./uploads/fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilo principal para o container */
+.empresa-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3); /* Transparência */
+  border: 2px solid #000; /* Borda preta */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  backdrop-filter: blur(5px); /* Desfoque */
+  font-family: Arial, sans-serif;
+}
+
+/* Título */
+.empresa-container h1 {
+  text-align: center;
+  color: #000;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra no texto */
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Grupo de formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.form-group label {
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Inputs e textarea */
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  outline: none;
+  color: #000;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff5722;
+}
+
+/* Botão */
+.btn-save {
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+  background-color: #ff5722;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .empresa-container {
+    padding: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 12px;
+  }
+
+  .btn-save {
+    font-size: 14px;
+  }
+}

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
-import { ToastContainer, toast } from "react-toastify"; // Importa Toastify
+import { ToastContainer, toast } from "react-toastify"; 
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css"; // Importa os estilos do Toastify
+import "react-toastify/dist/ReactToastify.css"; 
 import "./JogosCrud.css";
 
 const JogosCRUD = () => {
   const [jogos, setJogos] = useState([]);
   const [erro, setErro] = useState(null);
   const navigate = useNavigate();
-
-  // Função para carregar os jogos
   const fetchJogos = async () => {
     try {
       const response = await api.get("/jogos");
@@ -19,18 +17,17 @@ const JogosCRUD = () => {
     } catch (error) {
       setErro("Não foi possível carregar os jogos. Tente novamente mais tarde.");
       console.error(error);
-      toast.error("Erro ao carregar os jogos."); // Notificação de erro
+      toast.error("Erro ao carregar os jogos."); 
     }
   };
 
-  // Função para excluir um jogo
   const deleteJogo = async (id) => {
     try {
       await api.delete(`/jogos/${id}`);
-      toast.success("Jogo excluído com sucesso!"); // Notificação de sucesso
-      fetchJogos(); // Atualiza a lista de jogos
+      toast.success("Jogo excluído com sucesso!"); 
+      fetchJogos(); 
     } catch (error) {
-      toast.error("Erro ao excluir o jogo."); // Notificação de erro
+      toast.error("Erro ao excluir o jogo."); 
       console.error(error);
     }
   };
@@ -62,8 +59,8 @@ const JogosCRUD = () => {
             <th>Nome</th>
             <th>Descrição</th>
             <th>Preço</th>
-            <th>Ações</th>
             <th>Genero</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -92,7 +89,7 @@ const JogosCRUD = () => {
         </tbody>
       </table>
 
-      <ToastContainer /> {/* Componente para exibir as notificações */}
+      <ToastContainer /> 
     </div>
   );
 };

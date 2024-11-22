@@ -13,7 +13,7 @@ EpicPlay é uma plataforma de e-commerce para a compra e gerenciamento de jogos 
 ## Funcionalidades Principais
 
 - **Catálogo de Jogos**: Visualize e pesquise jogos disponíveis na plataforma.
-- **Carrinho de Compras**: Adicione jogos ao carrinho e simule a compra.
+- **Simulação de Compras**: Escolha os jogos e simule a compra.
 - **Processo de Checkout**: Gere um código de ativação fictício ao finalizar a compra.
 - **Administração**: Área para cadastrar, editar e excluir jogos.
 
@@ -34,69 +34,73 @@ O projeto é dividido em duas partes principais:
 
 ### Pré-requisitos
 
-1. **Docker**: Certifique-se de ter o Docker instalado na sua máquina.
+Certifique-se de ter os seguintes programas instalados na sua máquina:
 
-### Executando com Docker
+- **Node.js** (versão LTS recomendada)
+- **MySQL** (com usuário e senha configurados)
+- **NPM** ou **Yarn**
 
-Este projeto pode ser executado facilmente utilizando Docker, sem a necessidade de instalação manual de dependências e configuração do ambiente.
+### Configuração do Banco de Dados
 
-1. **Clone o repositório**:
+1. Crie um banco de dados MySQL com o nome `epicplay`.
+2. Configure as variáveis de ambiente no arquivo `.env` do backend, seguindo o exemplo abaixo:
 
-   ```bash
-   git clone https://github.com/seu-usuario/epicplay1.3.git
-   cd epicplay
+   ```env
+   PORT=3001
+   DB_HOST=localhost
+   DB_USER=seu_usuario
+   DB_PASSWORD=sua_senha
+   DB_NAME=epicplay
+   JWT_SECRET=seuSegredoJWT
    ```
 
-2. **Suba os contêineres com Docker Compose**:
+3. Rode as migrações ou scripts para criar as tabelas necessárias.
 
-   Dentro da pasta do projeto, você pode usar o Docker Compose para iniciar tanto o backend quanto o banco de dados:
+### Executando o Backend
 
-   ```bash
-   docker-compose up -d
-   ```
-
-   Isso irá criar e iniciar os seguintes contêineres:
-
-   - **backend**: O servidor Node.js que gerencia a lógica de negócios e APIs.
-   - **mysql**: O banco de dados MySQL com o nome `epicplay`.
-
-   O **backend** estará acessível na porta `3001`, e o banco de dados MySQL estará rodando na porta `3306`.
-
-3. **Configuração do Banco de Dados**:
-
-   Se for a primeira vez que está executando, o banco de dados será inicializado automaticamente com as tabelas e dados necessários. Caso contrário, certifique-se de que o banco de dados está corretamente configurado no Docker e no arquivo `.env` do backend.
-
-4. **Verificar Logs**:
-
-   Você pode verificar os logs do backend para garantir que tudo está funcionando corretamente com o seguinte comando:
+1. Acesse a pasta do backend:
 
    ```bash
-   docker logs -f epicplay_backend
+   cd backend
    ```
 
-5. **Frontend**: Se você também deseja rodar o frontend localmente, siga estas etapas:
+2. Instale as dependências:
 
-   - Acesse a pasta do frontend:
+   ```bash
+   npm install
+   ```
 
-     ```bash
-     cd frontend
-     ```
+3. Inicie o servidor:
 
-   - Instale as dependências do frontend:
+   ```bash
+   npm start
+   ```
 
-     ```bash
-     npm install
-     ```
+   O backend estará disponível em `http://localhost:3001`.
 
-   - Inicie a aplicação:
+### Executando o Frontend
 
-     ```bash
-     npm start
-     ```
+1. Acesse a pasta do frontend:
 
-   O frontend estará acessível na porta `3000` do seu navegador.
+   ```bash
+   cd frontend
+   ```
 
-### Como Acessar
+2. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+3. Inicie a aplicação:
+
+   ```bash
+   npm start
+   ```
+
+   O frontend estará acessível em `http://localhost:3000`.
+
+## Como Acessar
 
 - **Backend**: A API estará disponível em `http://localhost:3001`.
 - **Frontend**: A interface do usuário estará disponível em `http://localhost:3000`.

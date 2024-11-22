@@ -5,12 +5,8 @@ import './Admin.css';
 
 const Admin = () => {
   const navigate = useNavigate();
-
-  // Adicionando a classe 'admin' ao body quando o componente for montado
   useEffect(() => {
     document.body.classList.add('admin');
-
-    // Removendo a classe 'admin' do body quando o componente for desmontado
     return () => {
       document.body.classList.remove('admin');
     };
@@ -20,7 +16,6 @@ const Admin = () => {
     <div className="admin-container">
       <h1 className="admin-title">Painel Administrativo</h1>
       <div className="admin-cards">
-        {/* Card de Jogos */}
         <div className="admin-cardJogos">
           <h2>Área de Administração de Jogos</h2>
           <ul>
@@ -32,8 +27,6 @@ const Admin = () => {
             Gerenciar Jogos
           </button>
         </div>
-
-        {/* Card de Empresas */}
         <div className="admin-card">
           <h2>Área de Administração de Empresas</h2>
           <ul>

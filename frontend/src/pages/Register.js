@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../services/api';
-import { useNavigate, Link } from 'react-router-dom'; // Importando o Link
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';  
 import './RegisterForm.css';
 
 function Register() {
@@ -13,6 +14,7 @@ function Register() {
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { loginWithEmail, setLoading, toggle, setToggle } = useContext(AuthContext); //toglle dando erro no castrasto (só dar f5 que funciona)
 
   const handleChange = (e) => {
     setFormData({
@@ -30,7 +32,11 @@ function Register() {
 
       if (response.status === 201) {
         alert('Cadastro realizado com sucesso!');
-        navigate('/');
+
+        const { email, senha } = formData;
+        const redirectTo = await loginWithEmail(email, senha); 
+
+        navigate(redirectTo);
       }
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
@@ -51,10 +57,8 @@ function Register() {
   };
 
   useEffect(() => {
-    // Adiciona a classe 'cadastro-page' no body
     document.body.classList.add('cadastro-page');
 
-    // Remove a classe quando o componente for desmontado
     return () => {
       document.body.classList.remove('cadastro-page');
     };
@@ -66,30 +70,24 @@ function Register() {
         <div className="register-title">
           Bem-vindo!<br /><span>Faça seu cadastro!</span>
         </div>
-
-        {/* Campo Nome */}
         <input 
           className="register-input" 
           name="nome" 
           placeholder="Nome" 
-          type="nome" 
+          type="text" 
           value={formData.nome} 
           onChange={handleChange} 
           required 
         />
-
-        {/* Campo Nickname */}
         <input 
           className="register-input" 
           name="nickname" 
           placeholder="Nickname" 
-          type="nickname" 
+          type="text" 
           value={formData.nickname} 
           onChange={handleChange} 
           required 
         />
-
-        {/* Campo Email */}
         <input 
           className="register-input" 
           name="email" 
@@ -99,8 +97,6 @@ function Register() {
           onChange={handleChange} 
           required 
         />
-
-        {/* Campo Senha */}
         <input 
           className="register-input" 
           name="senha" 
@@ -110,8 +106,6 @@ function Register() {
           onChange={handleChange} 
           required 
         />
-
-        {/* Ícones e Botões */}
         <div className="register-login-with">
           <div className="register-button-log"><b>t</b></div>
           <div className="register-button-log">
@@ -126,14 +120,8 @@ function Register() {
             </svg>
           </div>
         </div>
-
-        {/* Botão de Cadastro */}
         <button className="register-button-confirm">Cadastro→</button>
-
-        {/* Exibe erro, se houver */}
         {error && <p className="register-error-message">{error}</p>}
-
-        {/* Link para Login */}
         <div className="register-login-link">
           <span>Já tem uma conta? </span>
           <a href="/login" className="register-login-btn">Login</a>
@@ -144,6 +132,3 @@ function Register() {
 }
 
 export default Register;
-
-
-

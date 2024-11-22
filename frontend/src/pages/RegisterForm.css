@@ -1,15 +1,11 @@
-/* Background para o body da página de registro */
-/* Aplicando o fundo somente quando a classe 'cadastro-page' estiver no body */
 body.cadastro-page {
-  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
-  background-size: cover; /* Faz com que a imagem cubra toda a tela */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Impede a repetição da imagem */
-  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+  background-image: url('./uploads/fundo\ 2.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  min-height: 100vh; 
 }
 
-
-/* CSS para o formulário de Registro */
 .register-form {
   --input-focus: black;
   --font-color: #323232;
@@ -17,7 +13,7 @@ body.cadastro-page {
   --bg-color: #f7eee9;
   --main-color: black;
   padding: 20px;
-  background: #ffc1d5; /* Fundo do formulário */
+  background: #ffc1d5; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,36 +24,36 @@ body.cadastro-page {
   box-shadow: 4px 4px var(--main-color);
   width: 350px;
   min-height: 380px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
 }
 
 .register-title {
   color: var(--font-color);
   font-weight: 900;
-  font-size: 30px; /* Aumenta o tamanho da fonte */
-  margin-bottom: 8px; /* Aumenta a margem inferior */
+  font-size: 30px; 
+  margin-bottom: 8px; 
   text-align: left;
 }
 
 .register-title span {
   color: var(--font-color-sub);
   font-weight: 600;
-  font-size: 30px; /* Aumenta o tamanho da fonte */
+  font-size: 30px; 
   text-align: left;
 }
 
 .register-input {
   width: 100%;
-  height: 40px; /* Aumenta a altura do input */
+  height: 40px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 17px; /* Aumenta o tamanho da fonte */
+  font-size: 17px;
   font-weight: 600;
   color: var(--font-color);
-  padding: 8px; /* Aumenta o padding dentro do input */
+  padding: 8px; 
   outline: none;
 }
 
@@ -72,40 +68,40 @@ body.cadastro-page {
 
 .register-login-with {
   display: flex;
-  gap: 10px; /* Aumenta o espaço entre os ícones */
-  margin-top: 15px; /* Aumenta o espaço superior */
+  gap: 10px; 
+  margin-top: 15px; 
 }
 
 .register-button-log {
   cursor: pointer;
-  width: 40px; /* Tamanho maior do botão */
-  height: 40px; /* Tamanho maior do botão */
+  width: 40px; 
+  height: 40px; 
   border-radius: 50%;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
   color: var(--font-color);
-  font-size: 20px; /* Aumenta o tamanho da fonte dentro do botão */
+  font-size: 20px; 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .register-icon {
-  width: 20px; /* Aumenta o tamanho do ícone */
-  height: 20px; /* Aumenta o tamanho do ícone */
+  width: 20px;
+  height: 20px; 
   fill: var(--main-color);
 }
 
 .register-button-confirm {
   margin: 15px auto;
-  width: 180px; /* Aumenta a largura do botão */
-  height: 50px; /* Aumenta a altura do botão */
+  width: 180px; 
+  height: 50px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-size: 16px;
   font-weight: 600;
   color: var(--font-color);
   cursor: pointer;
@@ -114,7 +110,7 @@ body.cadastro-page {
 
 .register-login-link {
   text-align: center;
-  margin-top: 10px; /* Aumenta a margem superior */
+  margin-top: 10px; 
   color: var(--font-color);
 }
 

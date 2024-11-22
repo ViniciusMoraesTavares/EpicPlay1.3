@@ -20,11 +20,11 @@ import EditarJogo from './pages/EditarJogo'; // tela editar jogo
 import AdicionarJogo from './pages/AdicionarJogo'; // Tela adiconar novo jogo
 import Compra from './pages/compra'; // Tela de compra
 import Confirmacao from './pages/confimacao' // Tela chave de ativação
-import JogosCarrossel from './pages/JogosCarrossel';
+import JogosCarrossel from './pages/JogosCarrossel';// Tela exemplo (copia home)
+import SobreNos from './pages/SobreNos';
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <Router>
         <AuthProvider>
           <Routes>
@@ -44,11 +44,11 @@ function App() {
             <Route path="/compra/:id" element={<Compra />} />
             <Route path="/confimacao/:id" element={<Confirmacao />} />
             <Route path="/jogos-exemplo" element={<JogosCarrossel />} />
+            <Route path="/sobre-nos" element={<SobreNos />} />
           </Routes>
         </AuthProvider>
         <ToastContainer />
       </Router>
-    </GoogleOAuthProvider> 
   );
 }
 

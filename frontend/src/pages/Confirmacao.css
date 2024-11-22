@@ -25,8 +25,8 @@
       box-shadow: 4px 4px var(--main-color);
       width: 500px;
       min-height: 380px;
-      background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-      background-size: cover; /* Garante que a imagem cubra todo o fundo */
+      background: url('./uploads/fundo.jpg') no-repeat center center; 
+      background-size: cover; 
     }
   
   h1 {

@@ -1,45 +1,48 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../context/AuthContext"; 
-import api from "../services/api";
-import { ToastContainer, toast } from 'react-toastify'; 
-import getUserRole from '../utils/getUserRole';
-import "./Home.css";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import api, { UPLOADS_URL } from "../services/api"; 
+import { ToastContainer, toast } from "react-toastify";
+import getUserRole from "../utils/getUserRole";
+import "../styles/Home.css";
 
 const JogosPage = () => {
   const [jogos, setJogos] = useState([]);
+  const [jogosFiltrados, setJogosFiltrados] = useState([]);
   const [erro, setErro] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const userRole = getUserRole();
   const { usuario, loading } = useContext(AuthContext);
   const primeiroNome = usuario?.nome.split(" ")[0];
-  const userRole = getUserRole();
-
-  // Função para buscar os jogos do backend
   const fetchJogos = async () => {
     try {
-      const response = await api.get(`/jogos`, { withCredentials: true });
+      const response = await api.get("/jogos", { withCredentials: true });
       setJogos(response.data);
+      setJogosFiltrados(response.data); 
     } catch (error) {
       console.error("Erro ao carregar jogos:", error);
       setErro("Não foi possível carregar os jogos. Tente novamente mais tarde.");
     }
   };
 
-  // Atualiza os jogos quando o componente carrega
   useEffect(() => {
     fetchJogos();
   }, []);
 
-  // Função de navegação para a página de compra
   const navigate = useNavigate();
-  const goToCompra = (jogoId) => {
-    navigate(`/compra/${jogoId}`, {
-      state: { jogoId }, // Passa o ID do jogo para a próxima página
+  const goToGame = (jogoId) => {
+    navigate(`/jogos/${jogoId}`, {
+      state: { jogoId }, 
     });
   };
 
-  // Função de navegação para painel de administração
-  const goToAdmin = () => {
-    navigate('/admin');
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filteredJogos = jogos.filter((jogo) =>
+      jogo.nome.toLowerCase().includes(query)
+    );
+    setJogosFiltrados(filteredJogos);
   };
 
   if (loading) {
@@ -48,63 +51,68 @@ const JogosPage = () => {
 
   return (
     <div className="home-container">
-      {/* Cabeçalho */}
       <header className="header">
-        <div className="logo">🎮 EpicPlay</div>
-        <div className="auth-buttons">
-          {usuario ? (
-            <>
-              <p>Olá, {primeiroNome}!</p>
-              {userRole === 'admin' && (
-                <button onClick={goToAdmin} className="nav-button">
-                  Painel de Administração
-                </button>
-              )}
-            </>
-          ) : (
-            <>
-              <button className="auth-button" onClick={() => navigate('/login')}>Login</button>
-              <button className="auth-button" onClick={() => navigate('/cadastro')}>Cadastro</button>
-            </>
-          )}
-        </div>
+        <div className="logo">Jogos em destaques</div>
       </header>
-
-      {/* Conteúdo Principal */}
+      <nav className="navigation">
+      <button
+          className="nav-link"
+          onClick={() => navigate("/jogos-exemplo")}
+        >
+          Jogos Gratuitos
+        </button>
+        <button
+          className="nav-link"
+          onClick={() => navigate("/jogos-destaques")}
+        >
+          Jogos Destaques
+        </button>
+        <button
+          className="nav-link"
+          onClick={() => {
+            if (usuario) {
+              navigate("/perfil");
+            } else {
+              toast.error("Você precisa estar logado para acessar o perfil.");
+              navigate("/login");
+            }
+          }}
+        >
+          Perfil
+        </button>
+      </nav>
       <div className="main-content">
-        {/* Lista de Jogos */}
         <div className="game-list">
           {erro ? (
             <p>{erro}</p>
-          ) : jogos.length === 0 ? (
-            <p>Nenhum jogo encontrado.</p>
+          ) : jogosFiltrados.length === 0 ? (
+            <p>Nenhum jogo encontrado para a pesquisa: "{searchQuery}".</p>
           ) : (
-            jogos.map((jogo) => (
+            jogosFiltrados.map((jogo) => (
               <div className="game-card" key={jogo.id}>
                 <img
-                  src={jogo.capa || "/images/placeholder.png"}
+                  src={`${api.defaults.baseURL}${UPLOADS_URL}${jogo.capa}`}
                   alt={jogo.nome}
                   className="game-cover"
                 />
                 <h2>{jogo.nome}</h2>
                 <p>
-                  {jogo.sinopse && jogo.sinopse.length > 80
-                    ? `${jogo.sinopse.slice(0, 80)}...`
+                  {jogo.sinopse && jogo.sinopse.length > 50
+                    ? `${jogo.sinopse.slice(0, 50)}...`
                     : jogo.sinopse || "Sinopse não disponível."}
                 </p>
                 <p className="price">R$ {parseFloat(jogo.preco || 0).toFixed(2)}</p>
                 <button
                   className="buy-button"
-                  onClick={() => goToCompra(jogo.id)} // Navega para a tela de compra com o ID do jogo
+                  onClick={() => goToGame(jogo.id)} 
                 >
-                  Comprar
+                  Ver Mais
                 </button>
               </div>
             ))
           )}
         </div>
       </div>
-
       <ToastContainer />
     </div>
   );

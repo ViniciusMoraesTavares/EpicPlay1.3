@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; 
+import './AdiconarEmpresa.css';
 
 const AdicionarEmpresa = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const AdicionarEmpresa = () => {
     descricao: "",
     redes_sociais: "",
   });
-  const [foto, setFoto] = useState(null); // Para armazenar o arquivo selecionado
+  const [foto, setFoto] = useState(null); 
 
   // Manipula mudanças nos inputs
   const handleChange = (e) => {
@@ -44,18 +45,18 @@ const AdicionarEmpresa = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Empresa adicionada com sucesso!"); // Mensagem de sucesso
+      toast.success("Empresa adicionada com sucesso!"); 
       setTimeout(() => {
-        navigate("/admin/empresas"); // Redireciona após um curto intervalo
-      }, 3000); // Aguarda 3 segundos antes de redirecionar
+        navigate("/admin/empresas"); 
+      }, 3000); // Aguarda antes de redirecionar
     } catch (error) {
       console.error("Erro ao adicionar empresa:", error);
-      toast.error("Erro ao adicionar a empresa. Verifique os dados e tente novamente."); // Mensagem de erro
+      toast.error("Erro ao adicionar a empresa. Verifique os dados e tente novamente."); 
     }
   };
 
   return (
-    <div className="adicionar-empresa-container">
+    <div className="empresa-container">
       <h1>Adicionar Nova Empresa</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="form-group">

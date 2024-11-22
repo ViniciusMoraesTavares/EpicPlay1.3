@@ -1,0 +1,266 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100vw;
+    padding: 20px 50px;
+    background-color: #f4a8c0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+}
+
+.header .logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+    margin-left: 20px; 
+}
+
+.header .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+header .admin-button {
+    background-color: #ffffff !important;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-right: 15px;
+    background-color: #ffffff !important;
+    color: #ff80ce;
+    cursor: pointer;
+    border-radius: 500px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;  
+    border-radius: 20px;  
+    transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+    background-color: #ff80ce;  
+}
+
+.greeting {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.navigation .nav-link {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ff78cb;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+}
+
+.navigation .nav-link:hover {
+    color: #f4a8c0;
+}
+
+.settings-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #ffffff;
+    margin-left: 15px;
+    margin-right: 20px;
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.navigation a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #ff78cb;
+    transition: color 0.3s;
+}
+
+.navigation a:hover {
+    color: #f4a8c0;
+}
+
+.main-content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: calc(100vh - 80px); 
+}
+
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+.game-card {
+    width: 300px; 
+    height: 500px; 
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
+.game-cover {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.game-card h2,
+.game-card p {
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    white-space: normal; 
+    word-wrap: break-word;
+    font-weight: 300;
+}
+
+.game-card p {
+    max-height: 120px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; 
+}
+
+.price {
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ff78cb;
+}
+
+.buy-button {
+    padding: 8px 20px;
+    border: none;
+    background-color: #ff78cb;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.buy-button:hover {
+    background-color: #f4a8c0;
+}
+
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 800px; 
+    width: 200%; 
+}
+
+.input {
+    width: 200%; 
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+.input:hover {
+    outline: none;
+    border-color: rgba(234, 226, 183, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+}
+
+footer {
+    width: 100%; 
+    background-color: #f4a8c0; 
+    padding: 20px 0; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.footer-bar p {
+    margin: 0; 
+    font-size: 16px; 
+    color: #fff; 
+    font-weight: bold; 
+}

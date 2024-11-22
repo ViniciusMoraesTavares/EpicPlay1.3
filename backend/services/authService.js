@@ -19,7 +19,7 @@ const loginUsuario = async (email, senha) => {
         return token;
     } catch (error) {
         console.error("Erro ao realizar login:", error);
-        throw error; // Repassa o erro para o chamador
+        throw error; 
     }
 };
 
@@ -28,10 +28,10 @@ function gerarToken(usuario) {
         id: usuario.id,
         nome: usuario.nome,
         email: usuario.email,
-        role: usuario.role, // Adiciona a role do usuário no payload
+        role: usuario.role, 
     };
 
-    const secret = process.env.JWT_SECRET; // Chave secreta definida no .env
+    const secret = process.env.JWT_SECRET; 
     const options = { expiresIn: '1h' }; // Tempo de expiração de 1 hora
 
     try {

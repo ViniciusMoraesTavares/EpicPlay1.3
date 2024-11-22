@@ -20,8 +20,6 @@ function GamePage() {
         const gameResponse = await api.get(`/jogos/${id}`);
         if (gameResponse.status === 200 && gameResponse.data) {
           const game = gameResponse.data;
-
-          // Ajustando URLs das imagens para usar a base da API
           game.capa = `${api.defaults.baseURL}/${game.capa}`;
           game.img_1 = game.img_1 ? `${api.defaults.baseURL}/${game.img_1}` : null;
           game.img_2 = game.img_2 ? `${api.defaults.baseURL}/${game.img_2}` : null;
@@ -76,7 +74,6 @@ function GamePage() {
     return null;
   };
   
-
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
   if (!gameData) return <p>Erro ao carregar dados do jogo.</p>;

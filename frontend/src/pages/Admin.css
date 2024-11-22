@@ -1,14 +1,10 @@
 body.admin {
-  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
-  background-size: cover; /* Faz com que a imagem cubra toda a tela */
-  background-position: center; /* Centraliza a imagem */
+  background-image: url('./uploads/fundo\ 2.jpg'); 
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat; /* Impede a repetição da imagem */
-  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+  min-height: 100vh; 
 }
-
-
-/* Estilo geral da página */
-
 
 /* Título principal */
 .admin-title {
@@ -23,7 +19,7 @@ body.admin {
   display: flex;
   justify-content: center; /* Centraliza os cards horizontalmente */
   gap: 20px;
-  flex-wrap: wrap; /* Permite que os cards quebrem para a linha seguinte, se necessário */
+  flex-wrap: wrap; /* Permite que os cards quebrem para a linha seguinte*/
   width: 100%;
   max-width: 900px;
 }
@@ -61,8 +57,8 @@ body.admin {
   box-shadow: 4px 4px var(--main-color);
   width: 350px;
   min-height: 380px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center;
+  background-size: cover; 
 }
 
 .admin-card {
@@ -83,10 +79,9 @@ body.admin {
   box-shadow: 4px 4px var(--main-color);
   width: 350px;
   min-height: 380px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
 }
-
 
 /* Título dentro do card */
 .admin-cardJogos h2,
@@ -94,7 +89,7 @@ body.admin {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 15px;
-  text-align: center; /* Centraliza o texto */
+  text-align: center; 
 }
 
 /* Lista no card */
@@ -104,7 +99,7 @@ body.admin {
   padding: 0;
   margin: 0 0 20px 0;
   color: #333;
-  text-align: center; /* Centraliza o texto */
+  text-align: center;
 }
 
 .admin-cardJogos li,
@@ -126,8 +121,8 @@ body.admin {
 /* Botão dentro do card */
 .admin-button {
   margin: 15px auto;
-  width: 180px; /* Aumenta a largura do botão */
-  height: 50px; /* Aumenta a altura do botão */
+  width: 180px; /* largura do botão */
+  height: 50px; /*  altura do botão */
   border-radius: 5px;
   border: 2px solid var(--main-color); /* Usando a borda definida */
   background-color: var(--bg-color); /* Fundo semelhante ao do formulário */
@@ -141,5 +136,5 @@ body.admin {
 }
 
 .admin-button:hover {
-  background-color: white; /* Cor ao passar o mouse, caso necessário */
+  background-color: white; /* Cor ao passar o mouse */
 }

@@ -30,7 +30,7 @@ body {
   --bg-color: #f7eee9;
   --main-color: black;
   padding: 20px;
-  background: #ffc1d5; /* Fundo do formulário */
+  background: #ffc1d5; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,11 +41,10 @@ body {
   box-shadow: 4px 4px var(--main-color);
   width: 600px;
   min-height: 380px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
 }
-  
-/* Foto da Empresa */
+
 .empresa-foto1 {
   width: 150px;
   height: 150px;
@@ -54,7 +53,6 @@ body {
   border: 3px solid #ffc1d5d8;
 }
 
-/* Informações da Empresa */
 .empresa-info h1 {
   font-size: 2rem;
   margin: 0;
@@ -70,13 +68,13 @@ body {
 
 .social-links a {
   margin: 15px auto;
-  width: 100px; /* Aumenta a largura do botão */
-  height: 30px; /* Aumenta a altura do botão */
+  width: 100px;
+  height: 30px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-size: 16px; 
   font-weight: 600;
   color: var(--font-color);
   cursor: pointer;
@@ -88,7 +86,6 @@ body {
   background-color: #f8f8f8;
 }
 
-/* Seção Sobre a Empresa */
 .empresa-image {
   text-align: center;
   margin-top: 30px;

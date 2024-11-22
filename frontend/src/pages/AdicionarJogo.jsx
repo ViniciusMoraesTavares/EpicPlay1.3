@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./AdicionarJogo.css";
+import "./EditarJogo.css";
 
 const AdicionarJogo = () => {
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const AdicionarJogo = () => {
       });
 
       toast.success("Jogo adicionado com sucesso!");
-      navigate("/admin/jogos"); // Redireciona para a página de listagem de jogos
+      navigate("/admin/jogos"); 
     } catch (error) {
       console.error("Erro ao adicionar jogo:", error.response?.data || error.message);
       toast.error("Erro ao adicionar o jogo. Tente novamente.");
@@ -90,6 +90,7 @@ const AdicionarJogo = () => {
             value={jogo.nome}
             onChange={handleChange}
             required
+            placeholder="Digite o nome do jogo"
           />
         </div>
         <div className="form-group">
@@ -99,6 +100,7 @@ const AdicionarJogo = () => {
             value={jogo.descricao}
             onChange={handleChange}
             required
+            placeholder="Digite a descrição do jogo"
           />
         </div>
         <div className="form-group">
@@ -108,6 +110,7 @@ const AdicionarJogo = () => {
             value={jogo.sinopse}
             onChange={handleChange}
             required
+            placeholder="Digite a sinopse do jogo"
           />
         </div>
         <div className="form-group">
@@ -118,6 +121,18 @@ const AdicionarJogo = () => {
             value={jogo.preco}
             onChange={handleChange}
             required
+            placeholder="infomre o preço do jogo"
+          />
+        </div>
+        <div className="form-group">
+          <label>Gênero</label>
+          <input
+            type="text"
+            name="genero"
+            value={jogo.genero}
+            onChange={handleChange}
+            required
+            placeholder="Digite o gênero do jogo"
           />
         </div>
         <div className="form-group">

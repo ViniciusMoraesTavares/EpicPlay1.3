@@ -3,7 +3,7 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 const { authenticate } = require('../middlewares/authMiddleware');
 const isAdmin = require('../middlewares/isAdmin');
-const upload = require('../middlewares/upload'); // Importa a configuração do upload
+const upload = require('../middlewares/upload'); 
 
 // Rotas públicas
 router.post('/cadastro', usuarioController.criarUsuario); // Cadastro de usuários

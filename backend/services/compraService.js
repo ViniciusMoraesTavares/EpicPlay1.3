@@ -7,7 +7,6 @@ const ValidationError = require('../errors/ValidationError');
 // Gerar chave de ativação
 const gerarChaveDeAtivacao = () => uuidv4();
 
-// Obter todas as compras
 const getAllCompras = async () => {
   try {
     return await Compra.findAll();
@@ -39,12 +38,11 @@ const createCompra = async (usuario_id, jogo_id) => {
   }
 };
 
-
 // Obter compra por ID
 const getCompraById = async (id) => {
   try {
     const compra = await Compra.findByPk(id, {
-      include: ['jogo', 'usuario'], // Incluir dados do jogo e usuário
+      include: ['jogo', 'usuario'], 
     });
     if (!compra) {
       throw new NotFoundError('Compra não encontrada.');

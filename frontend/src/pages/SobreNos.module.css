@@ -1,0 +1,99 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4a8c0;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+}
+
+.about-us {
+    padding: 40px;
+    text-align: center;
+}
+
+.intro {
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+h2{
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.team {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    text-align: center;
+    max-width: 200px;
+    flex-basis: 200px;
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 60%;
+    border: 2px solid #ff0000;
+    margin-bottom: 10px;
+}
+
+.team-member h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap; 
+    overflow: hidden; 
+}
+
+.team-member a {
+    color: #333 !important; 
+    background: transparent !important; 
+    text-decoration: none;
+    font-size: 24px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.team-member a:hover {
+    color: #f50551 !important; 
+}
+
+.footer {
+    background-color: #f4a8c0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-bar p {
+    font-size: 16px;
+    color: white;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .team {
+        flex-direction: column;
+        align-items: center;
+    }
+}

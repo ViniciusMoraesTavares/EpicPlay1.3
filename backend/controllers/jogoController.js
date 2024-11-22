@@ -38,36 +38,26 @@ const getJogoById = async (req, res) => {
 // Criar um novo jogo
 const createJogo = async (req, res) => {
   try {
-    // Exibe os dados recebidos na requisição antes de chamar o serviço
     console.log("Requisição recebida no controller", req.body);
     console.log("Arquivos recebidos:", req.files);
 
-
-    // Chama o serviço para criar o jogo
     const jogo = await jogoService.createJogo(req.body);
-
-    // Retorna o jogo criado
     res.status(201).json(jogo);
   } catch (err) {
-    // Trata erros de validação e de banco de dados
     if (err instanceof ValidationError) {
       res.status(400).json({ error: err.message });
     } else if (err instanceof DatabaseError) {
       res.status(500).json({ error: err.message });
     } else {
-      // Erro genérico do servidor
       res.status(500).json({ error: 'Erro interno do servidor.' });
     }
   }
 };
 
-
 // Atualizar um jogo existente
 const updateJogo = async (req, res) => {
   const { id } = req.params;
   const jogoData = req.body;
-
-  // Adiciona a lógica de upload de imagens
   const imagePaths = {
     capa: req.files['capa'] ? req.files['capa'][0].path : undefined,
     img_1: req.files['img_1'] ? req.files['img_1'][0].path : undefined,
@@ -79,7 +69,7 @@ const updateJogo = async (req, res) => {
     const result = await jogoService.updateJogo(id, { ...jogoData, ...imagePaths });
     res.json(result);
   } catch (err) {
-    console.error(err); // Log para verificar o erro
+    console.error(err); 
     if (err instanceof ValidationError) {
       res.status(400).json({ error: err.message });
     } else if (err instanceof NotFoundError) {
@@ -91,7 +81,6 @@ const updateJogo = async (req, res) => {
     }
   }
 };
-
 
 // Deletar um jogo
 const deleteJogo = async (req, res) => {

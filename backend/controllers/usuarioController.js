@@ -8,7 +8,6 @@ const DatabaseError = require('../errors/DatabaseError');
 const NotFoundError = require('../errors/NotFoundError');
 const ValidationError = require('../errors/ValidationError');
 
-
 // Buscar todos os usuários
 const getAllUsuarios = async (req, res) => {
   try {
@@ -161,7 +160,6 @@ const updateUsuario = async (req, res) => {
   }
 };
 
-
 // Pesquisar usuários com base em critérios
 const pesquisarUsuarioPorId = async (req, res, next) => {
   try {
@@ -183,7 +181,6 @@ const pesquisarUsuarioPorId = async (req, res, next) => {
   }
 };
 
-
 // Atualizar o perfil do usuário logado
 const updateMeuPerfil = async (req, res) => {
   try {
@@ -193,7 +190,7 @@ const updateMeuPerfil = async (req, res) => {
 
     const dadosAtualizados = {
       ...req.body,
-      foto: req.file ? req.file.path : undefined, // Use o caminho do arquivo se ele existir
+      foto: req.file ? req.file.path : undefined, 
     };
 
     console.log('Dados combinados para atualização:', dadosAtualizados);
@@ -216,9 +213,6 @@ const updateMeuPerfil = async (req, res) => {
     }
   }
 };
-
-
-
 
 // Promover um usuário para administrador
 const promoverUsuario = async (req, res) => {

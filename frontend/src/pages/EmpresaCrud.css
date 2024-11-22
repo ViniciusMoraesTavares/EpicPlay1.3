@@ -1,52 +1,64 @@
-/* Estilo global para o body */
-body.crudempresa {
-  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
-  background-size: cover; /* Faz com que a imagem cubra toda a tela */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Impede a repetição da imagem */
-  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
-}
-
 /* Estilos principais da página */
 .empresa-crud {
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
-  border-radius: 10px; /* Bordas arredondadas para o contêiner */
-  color: #333; /* Cor padrão para o texto */
+  background: url('./uploads/fundo.jpg') no-repeat center center;
+  background-size: cover;
+  border: none; 
+  color: #fa0505; 
+  box-shadow: none; 
 }
+
 
 .empresa-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 20px; 
+  background: none; 
+  padding: 0; 
+  border: none;
+  box-shadow: none;
 }
 
+/* Estilo do título */
 .empresa-header h1 {
   font-size: 24px;
   color: #333;
   font-weight: bold;
-  text-align: center;
-  
-  
+  text-align: left; 
+  margin: 0; 
+  background: none; 
+  margin-right: 20px; 
 }
 
 .add-button {
   background-color: #e25fac;
   color: white;
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 10px 15px; 
+  font-size: 24px; 
   border: none;
-  border-radius: 5px;
+  border-radius: 50%; 
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 40px; 
+  height: 40px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none; 
+  margin-top: 0; 
 }
 
-.add-button:hover {
-  background-color: #000000;
+@media screen and (min-width: 768px) {
+  .empresa-header {
+    flex-direction: row; 
+    align-items: center; 
+  }
+
+  .add-button {
+    margin-top: 0;
+  }
 }
 
 .error-message {
@@ -59,88 +71,34 @@ body.crudempresa {
   border-radius: 5px;
 }
 
+/* Tabela */
 .empresa-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  border-radius: 8px; /* Bordas arredondadas para a tabela */
-  background-color: #ffffff; /* Fundo branco para a tabela */
-  color: #333; /* Cor do texto para a tabela */
+  border-radius: 8px; 
+  background-color: transparent; 
+  color: #333; 
+  border: 1px solid #000000;
 }
 
+/* Cabeçalhos da tabela */
 .empresa-table th {
-  background-color: #f8f9fa; /* Cor de fundo para cabeçalhos */
-  font-weight: bold; /* Deixa o texto em negrito */
-  padding: 12px; /* Adiciona preenchimento para os cabeçalhos */
-  text-align: center; /* Centraliza o texto nos cabeçalhos */
+  background-color: #ff30e3; 
+  font-weight: bold; 
+  padding: 12px; 
+  text-align: center; 
+  border-bottom: 2px solid #000000; 
 }
 
+/* Células da tabela */
 .empresa-table td {
-  padding: 12px; /* Adiciona preenchimento nas células */
-  text-align: center; /* Centraliza o texto nas células */
+  padding: 12px; 
+  text-align: center;
+  border-bottom: 1px solid #000000; 
 }
 
+/* Linha de foco/hover */
 .empresa-table tr:hover {
-  background-color: #e9ecef; /* Cor de fundo ao passar o mouse */
+  background-color: rgba(231, 0, 0, 0.1); 
 }
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.edit-button,
-.delete-button {
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.edit-button {
-  color: #007bff;
-}
-
-.edit-button:hover {
-  color: #000000;
-  text-decoration: underline;
-}
-
-.delete-button {
-  color: #dc3545;
-}
-
-.delete-button:hover {
-  color: #000000;
-  text-decoration: underline;
-}
-
-/* Responsividade */
-@media screen and (max-width: 768px) {
-  .empresa-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .add-button {
-    margin-top: 10px;
-  }
-
-  .empresa-table th,
-  .empresa-table td {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .actions button {
-    margin-bottom: 5px;
-  }
-}
-
-  

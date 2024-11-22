@@ -1,11 +1,10 @@
-/* CSS para o formulário de Login */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background-color: #f0f0f0; /* Cor de fundo da página */
+  background-color: #f0f0f0; 
 }
 
 .login-form {
@@ -15,7 +14,7 @@ body {
   --bg-color: #f7eee9;
   --main-color: black;
   padding: 20px;
-  background: #ffc1d5; /* Fundo do formulário */
+  background: #ffc1d5; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,14 +25,14 @@ body {
   box-shadow: 4px 4px var(--main-color);
   width: 350px;
   min-height: 380px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
 }
 
 .login-title {
   color: var(--font-color);
   font-weight: 900;
-  font-size: 30px; /* Aumenta o tamanho da fonte */
+  font-size: 30px; 
   margin-bottom: 8px;
   text-align: left;
 }
@@ -41,18 +40,18 @@ body {
 .login-title span {
   color: var(--font-color-sub);
   font-weight: 600;
-  font-size: 30px; /* Aumenta o tamanho da fonte */
+  font-size: 30px; 
   text-align: left;
 }
 
 .login-input {
   width: 100%;
-  height: 40px; /* Aumenta a altura do input */
+  height: 40px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-size: 16px; 
   font-weight: 600;
   color: var(--font-color);
   padding: 8px;
@@ -70,14 +69,14 @@ body {
 
 .login-with {
   display: flex;
-  gap: 20px; /* Aumenta o espaço entre os ícones */
+  gap: 20px; 
   margin-top: 15px;
 }
 
 .login-button-log {
   cursor: pointer;
-  width: 50px; /* Tamanho maior do botão */
-  height: 50px; /* Tamanho maior do botão */
+  width: 50px; 
+  height: 50px; 
   border-radius: 50%;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
@@ -89,20 +88,20 @@ body {
 }
 
 .login-button-log svg {
-  width: 30px; /* Tamanho maior do ícone */
-  height: 30px; /* Tamanho maior do ícone */
+  width: 30px; 
+  height: 30px; 
   fill: var(--main-color);
 }
 
 .login-button-confirm {
   margin: 15px auto;
-  width: 180px; /* Aumenta a largura do botão */
-  height: 50px; /* Aumenta a altura do botão */
+  width: 180px; 
+  height: 50px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-size: 16px; 
   font-weight: 600;
   color: var(--font-color);
   cursor: pointer;
@@ -124,4 +123,3 @@ body {
 .login-login-btn:hover {
   text-decoration: underline;
 }
-

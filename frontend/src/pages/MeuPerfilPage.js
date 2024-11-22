@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import fotoUser from "../assets/imgs/fotoUser.png";
-import { FaEnvelope, FaFacebook, FaGithub } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaGithub } from "react-icons/fa"; //exemplo
 import "./MeuPerfilPage.css";
 
 const MeuPerfilPage = () => {
@@ -16,16 +16,14 @@ const MeuPerfilPage = () => {
     nome: "",
     email: "",
     nickname: "",
-    foto: null, // Inicialmente vazio
+    foto: null, 
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Adiciona a classe 'perfil' ao body
     document.body.classList.add("perfil");
 
     return () => {
-      // Remove a classe 'perfil' ao desmontar o componente
       document.body.classList.remove("perfil");
     };
   }, []);
@@ -42,8 +40,6 @@ const MeuPerfilPage = () => {
       try {
         const response = await api.get("/usuarios/me", { withCredentials: true });
         const perfil = response.data;
-
-        // Construindo a URL da foto se existir
         const fotoUrl = perfil.foto ? `${api.defaults.baseURL}/${perfil.foto}` : null;
 
         setMeuPerfil({ ...perfil, foto: fotoUrl });
@@ -91,8 +87,6 @@ const MeuPerfilPage = () => {
         withCredentials: true,
       });
       const perfilAtualizado = response.data;
-
-      // Construindo a nova URL da foto
       const fotoUrl = perfilAtualizado.foto
         ? `${api.defaults.baseURL}/${perfilAtualizado.foto}`
         : null;
@@ -164,7 +158,6 @@ const MeuPerfilPage = () => {
               <span className="about-me">{meuPerfil.email}</span>
             </div>
             <div className="bottom-bottom">
-  
               <button className="button" onClick={handleEditClick}>Editar Perfil</button> 
               <button className="button" onClick={handleBackHome}>Voltar</button>
               <button className="button" onClick={handleLogout}>Sair</button>
@@ -172,8 +165,6 @@ const MeuPerfilPage = () => {
           </div>
         </div>
       </div>
-      
-      {/* Modo de Edição de Perfil */}
       {editMode && (
         <form className="edit-profile-form" onSubmit={handleUpdateProfile}>
           <label>
@@ -220,4 +211,3 @@ const MeuPerfilPage = () => {
 };
 
 export default MeuPerfilPage;
-

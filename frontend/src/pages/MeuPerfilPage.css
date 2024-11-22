@@ -1,10 +1,10 @@
 /* From Uiverse.io by Centered101 */
 body.perfil {
-  background-image: url('./uploads/fundo\ 2.jpg'); /* Caminho para sua imagem */
-  background-size: cover; /* Faz com que a imagem cubra toda a tela */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Impede a repetição da imagem */
-  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+  background-image: url('./uploads/fundo\ 2.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  min-height: 100vh; 
 }
 
 .card {
@@ -92,20 +92,19 @@ body.perfil {
   bottom: 0;
   left: 1.5rem;
   right: 1.5rem;
-  height: 220px; /* Aumentando a altura */
+  height: 220px; 
 }
-
 
 .card .bottom .content .name {
   display: block;
-  font-size: 2.0rem; /* Aumentando o tamanho do nome */
+  font-size: 2.0rem; 
   color: #333;
   font-weight: bold;
 }
 
 .card .bottom .content .about-me {
   display: block;
-  font-size: 1.8rem; /* Aumentando o tamanho do email */
+  font-size: 1.8rem; 
   color: #333;
   margin-top: 1rem;
 }
@@ -124,9 +123,9 @@ body.perfil {
   background: white;
   color: #333;
   border: none;
-  border-radius: 25px; /* Tornando o botão mais arredondado */
-  font-size: 1rem; /* Aumentando o tamanho da fonte do botão */
-  padding: 0.8rem 1.2rem; /* Aumentando o padding */
+  border-radius: 25px; 
+  font-size: 1rem; 
+  padding: 0.8rem 1.2rem; 
   box-shadow: rgba(165, 132, 130, 0.1333333333) 0px 5px 5px 0px;
   font-weight: bold;
 }
@@ -188,7 +187,7 @@ body.perfil {
   --bg-color: #f7eee9;
   --main-color: black;
   padding: 20px;
-  background: #ffc1d5; /* Fundo do formulário */
+  background: #ffc1d5; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,8 +198,8 @@ body.perfil {
   box-shadow: 4px 4px var(--main-color);
   width: 1000px;
   min-height: 400px;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center;
+  background-size: cover; 
 }
 
 h1 {
@@ -225,8 +224,7 @@ h1 {
   --bg-color: #fdfbfa;
   --main-color: black;
   padding: 20px;
-  background: transparent; /* Fundo do formulário */
-  display: flex;
+  background: transparent; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -234,16 +232,16 @@ h1 {
 }
 
 .edit-profile-form input {
-  width: 100%; /* Garante que os campos tenham o mesmo tamanho */
-  height: 40px; /* Define uma altura uniforme para todos os campos */
+  width: 100%; 
+  height: 40px; 
   border-radius: 5px;
-  border: 2px solid black; /* Borda preta */
+  border: 2px solid black; 
   background-color: var(--bg-color);
-  font-size: 17px; /* Tamanho da fonte */
-  padding: 8px; /* Padding dentro do campo */
+  font-size: 17px; 
+  padding: 8px; 
   color: var(--font-color);
-  outline: none; /* Remove o contorno padrão */
-  transition: border-color 0.3s; /* Transição para a borda */
+  outline: none;
+  transition: border-color 0.3s;
   box-shadow: 4px 4px var(--main-color);
   
 }
@@ -273,16 +271,16 @@ h1 {
   color: white;
   box-shadow: 4px 4px #333;
 }
-/* Estilo para o botão Salvar */
+
 .edit-profile-form button[type="submit"] {
   margin: 15px auto;
-  width: 180px; /* Aumenta a largura do botão */
-  height: 50px; /* Aumenta a altura do botão */
+  width: 180px; 
+  height: 50px; 
   border-radius: 5px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 4px 4px var(--main-color);
-  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-size: 16px; 
   font-weight: 600;
   color: var(--font-color);
   cursor: pointer;
@@ -291,7 +289,6 @@ h1 {
   transition: all 0.3s ease-in-out;
 }
 
-/* Efeito hover para o botão */
 .edit-profile-form button[type="submit"]:hover {
   background-color: var(--main-color);
   color: white;

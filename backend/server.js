@@ -21,7 +21,7 @@ const app = express();
 const port = process.env.PORT 
 
 const server = http.createServer({
-  maxHeaderSize: 100000000000, 
+  maxHeaderSize: 100000000000, //teste
 }, app);
 
 // Middlewares
@@ -31,8 +31,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 
-app.use(express.json()); // Para interpretar requisições com JSON no corpo
-app.use(express.urlencoded({ extended: true })); // Para interpretar requisições form-urlencoded
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); // Para requisições form-urlencoded
 
 // Configuração da sessão
 app.use(session({
@@ -52,7 +52,7 @@ app.use('/empresas', empresaRoutes);
 app.use('/jogos', jogoRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/compras', compraRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve arquivos estáticos
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
 
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
@@ -89,7 +89,7 @@ app.use((err, req, res, next) => {
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Conexão com o banco de dados estabelecida com sucesso.'); 
-    server.listen(port, () => { // Use `server.listen` ao invés de `app.listen`
+    server.listen(port, () => { 
       console.log(`Servidor rodando na porta http://localhost:${port}`); 
     });
   })

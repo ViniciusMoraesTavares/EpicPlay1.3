@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./EditarJogo.css";
 
 const EditarJogo = () => {
-  const { id } = useParams(); // Obtém o ID do jogo a ser editado
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [jogo, setJogo] = useState({
@@ -31,7 +31,6 @@ const EditarJogo = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // Carrega os dados do jogo ao abrir a página
   useEffect(() => {
     const fetchJogo = async () => {
       try {
@@ -47,6 +46,7 @@ const EditarJogo = () => {
           img_1: response.data.img_1,
           img_2: response.data.img_2,
           img_3: response.data.img_3,
+          //faltando infos do jogo (mas vai ficar assim)
         });
         setLoading(false);
       } catch (error) {
@@ -58,19 +58,16 @@ const EditarJogo = () => {
     fetchJogo();
   }, [id]);
 
-  // Manipula as mudanças nos inputs de texto
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJogo({ ...jogo, [name]: value });
   };
 
-  // Manipula a seleção de arquivos
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     setFotos({ ...fotos, [name]: files[0] });
   };
 
-  // Envia os dados atualizados
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,8 +78,6 @@ const EditarJogo = () => {
     formData.append("preco", jogo.preco);
     formData.append("trailer", jogo.trailer);
     formData.append("genero", jogo.genero);
-
-    // Adiciona os arquivos ao FormData
     if (fotos.capa) formData.append("capa", fotos.capa);
     if (fotos.img_1) formData.append("img_1", fotos.img_1);
     if (fotos.img_2) formData.append("img_2", fotos.img_2);
@@ -95,7 +90,7 @@ const EditarJogo = () => {
         },
       });
       toast.success("Jogo atualizado com sucesso!");
-      navigate("/admin/jogos"); // Redireciona para a página de listagem de jogos
+      navigate("/admin/jogos"); 
     } catch (error) {
       console.error("Erro ao atualizar jogo:", error);
       toast.error("Erro ao atualizar os dados do jogo.");
@@ -118,6 +113,7 @@ const EditarJogo = () => {
             value={jogo.nome}
             onChange={handleChange}
             required
+            placeholder="Digite o nome do jogo"
           />
         </div>
         <div className="form-group">
@@ -127,6 +123,7 @@ const EditarJogo = () => {
             value={jogo.descricao}
             onChange={handleChange}
             required
+            placeholder="Digite a descrição do jogo"
           />
         </div>
         <div className="form-group">
@@ -136,6 +133,7 @@ const EditarJogo = () => {
             value={jogo.sinopse}
             onChange={handleChange}
             required
+            placeholder="Digite a sinopse do jogo"
           />
         </div>
         <div className="form-group">
@@ -146,6 +144,7 @@ const EditarJogo = () => {
             value={jogo.preco}
             onChange={handleChange}
             required
+            placeholder="Informe o preço do jogo"
           />
         </div>
         <div className="form-group">

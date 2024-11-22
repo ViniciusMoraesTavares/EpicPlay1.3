@@ -3,8 +3,8 @@
 .compra-form {
   --bg-color: #f7eee9; /* Cor de fundo do formulário */
   --main-color: black;
-  background: url('./uploads/fundo.jpg') no-repeat center center; /* Imagem de fundo */
-  background-size: cover; /* Garante que a imagem cubra todo o fundo */
+  background: url('./uploads/fundo.jpg') no-repeat center center; 
+  background-size: cover; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +12,8 @@
   border-radius: 10px;
   border: 2px solid var(--main-color);
   box-shadow: 4px 4px var(--main-color);
-  width: 700px; /* Largura ajustada */
-  min-height: 750px; /* Comprimento ajustado */
+  width: 700px; 
+  min-height: 750px; 
   padding: 20px; /* Espaçamento interno para evitar que encoste */
   position: relative; /* Garante o contexto de posicionamento */
 }
@@ -47,7 +47,7 @@ h1 {
   width: 90%;
   text-align: center;
   margin: auto; /* Garante a centralização dentro do form */
-  position: relative; /* Para funcionar bem dentro do contexto flex */
+  position: relative; /* Para funcionar bem dentro do contexto flex (ou não) */
  }
 
 
@@ -65,7 +65,7 @@ h1 {
 p {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333; /* Cor para preço */
+  color: #333; 
   margin-bottom: 20px;
 }
 
@@ -118,19 +118,18 @@ select:focus {
 
 /* Botão de pagamento */
 .btn-pagar {
-  margin: 50px auto 0 auto; /* Alinha o botão ao centro */
-  width: 200px; /* Define a largura do botão */
-  height: 40px; /* Define a altura do botão */
+  margin: 50px auto 0 auto; 
+  width: 200px; 
+  height: 40px; 
   border-radius: 5px; /* Bordas arredondadas */
   border: 2px solid var(--main-color); /* Borda preta */
   background-color: var#f7eee9; /* Cor de fundo do botão */
   box-shadow: 4px 4px var(--main-color); /* Sombra do botão */
-  font-size: 17px; /* Tamanho da fonte */
-  font-weight: 600; /* Peso da fonte */
-  color: var #333; /* Cor do texto */
-  cursor: pointer; /* Cursor de mão para indicar que é clicável */
+  font-size: 17px; 
+  font-weight: 600; 
+  color: var #333;
+  cursor: pointer; 
 }
-
 
 /* Estado desabilitado do botão */
 .btn-pagar:disabled {
@@ -169,5 +168,3 @@ select:focus {
 .navigation-links a:hover {
   text-decoration: underline;
 }
-
-  

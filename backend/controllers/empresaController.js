@@ -38,11 +38,11 @@ const getEmpresaById = async (req, res) => {
 const createEmpresa = async (req, res) => {
   try {
     // Pega a foto do arquivo enviado
-    const foto = req.file ? req.file.filename : null; // Se houver foto, obtém o nome do arquivo
+    const foto = req.file ? req.file.filename : null; 
 
     const empresaData = {
       ...req.body,
-      foto // Adiciona a foto ao objeto de dados da empresa
+      foto 
     };
 
     const empresa = await empresaService.createEmpresa(empresaData);
@@ -62,11 +62,11 @@ const createEmpresa = async (req, res) => {
 const updateEmpresa = async (req, res) => {
   try {
     const { id } = req.params;
-    const foto = req.file ? req.file.filename : null; // Pega a nova foto, se houver
+    const foto = req.file ? req.file.filename : null; 
 
     const empresaData = {
       ...req.body,
-      ...(foto && { foto }) // Atualiza a foto se houver uma nova
+      ...(foto && { foto }) 
     };
 
     const empresa = await empresaService.updateEmpresa(id, empresaData);
