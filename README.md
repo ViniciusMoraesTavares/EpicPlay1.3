@@ -108,7 +108,7 @@ Certifique-se de ter os seguintes programas instalados na sua máquina:
 ## Contribuidores
 
 - **Letícia Lunardi**: Líder do projeto
-- **Jonathans Bortoluzzo**: Analista de mercado
+- **Jonathan Bortoluzzo**: Analista de mercado
 - **Vinícius Moraes**: Analista de requisitos
 - **Thiago Tomazella e Pablo R. Gonçalves**: Professores
 
